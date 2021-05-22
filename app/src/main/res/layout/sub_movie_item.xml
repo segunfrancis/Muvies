@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="popularListViewModel"
+            type="com.czech.muvies.models.Movies.MoviesResult" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/sub_card_view"
+            android:layout_width="129dp"
+            android:layout_height="193.5dp"
+            app:cardBackgroundColor="@color/colorAccentLight"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/sub_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/backgrounds/scenic" />
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/sub_title_text"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="6dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/capriola"
+            android:gravity="center"
+            android:maxLines="2"
+            android:textColor="@color/colorAccentLight"
+            app:layout_constraintEnd_toEndOf="@+id/sub_card_view"
+            app:layout_constraintStart_toStartOf="@+id/sub_card_view"
+            app:layout_constraintTop_toBottomOf="@+id/sub_card_view"
+            tools:text="Guardians of the galaxy" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

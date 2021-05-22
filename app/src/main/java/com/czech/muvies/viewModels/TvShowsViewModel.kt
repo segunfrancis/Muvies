@@ -8,15 +8,31 @@ import com.czech.muvies.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import java.lang.Exception
 
-class TvShowsViewModel(private val apiService: MoviesApiService) : ViewModel() {
+class TvShowsViewModel(
+    private val apiService: MoviesApiService
+) : ViewModel() {
+
 
     fun getAiringToday() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
 
         try {
-            emit(Resource.success(data = apiService.getAiringTodayTVAsync(BuildConfig.API_KEY, LANGUAGE, 1)))
+            emit(
+                Resource.success(
+                    data = apiService.getAiringTodayTVAsync(
+                        BuildConfig.API_KEY,
+                        LANGUAGE,
+                        1
+                    )
+                )
+            )
         } catch (e: Exception) {
-            emit(Resource.error(data = null, message = e.message?: "Error getting Airing Today Tv Shows"))
+            emit(
+                Resource.error(
+                    data = null,
+                    message = e.message ?: "Error getting Airing Today Tv Shows"
+                )
+            )
         }
     }
 
@@ -24,9 +40,22 @@ class TvShowsViewModel(private val apiService: MoviesApiService) : ViewModel() {
         emit(Resource.loading(data = null))
 
         try {
-            emit(Resource.success(data = apiService.getOnAirTvAsync(BuildConfig.API_KEY, LANGUAGE, 1)))
+            emit(
+                Resource.success(
+                    data = apiService.getOnAirTvAsync(
+                        BuildConfig.API_KEY,
+                        LANGUAGE,
+                        1
+                    )
+                )
+            )
         } catch (e: Exception) {
-            emit(Resource.error(data = null, message = e.message?: "Error getting On Air Tv Shows"))
+            emit(
+                Resource.error(
+                    data = null,
+                    message = e.message ?: "Error getting On Air Tv Shows"
+                )
+            )
         }
     }
 
@@ -34,9 +63,22 @@ class TvShowsViewModel(private val apiService: MoviesApiService) : ViewModel() {
         emit(Resource.loading(data = null))
 
         try {
-            emit(Resource.success(data = apiService.getPopularTVAsync(BuildConfig.API_KEY, LANGUAGE, 1)))
+            emit(
+                Resource.success(
+                    data = apiService.getPopularTVAsync(
+                        BuildConfig.API_KEY,
+                        LANGUAGE,
+                        1
+                    )
+                )
+            )
         } catch (e: Exception) {
-            emit(Resource.error(data = null, message = e.message?: "Error getting Popular Tv Shows"))
+            emit(
+                Resource.error(
+                    data = null,
+                    message = e.message ?: "Error getting Popular Tv Shows"
+                )
+            )
         }
     }
 
@@ -44,9 +86,22 @@ class TvShowsViewModel(private val apiService: MoviesApiService) : ViewModel() {
         emit(Resource.loading(data = null))
 
         try {
-            emit(Resource.success(data = apiService.getTopRatedTVAsync(BuildConfig.API_KEY, LANGUAGE, 1)))
+            emit(
+                Resource.success(
+                    data = apiService.getTopRatedTVAsync(
+                        BuildConfig.API_KEY,
+                        LANGUAGE,
+                        1
+                    )
+                )
+            )
         } catch (e: Exception) {
-            emit(Resource.error(data = null, message = e.message?: "Error getting Top Rated Tv Shows"))
+            emit(
+                Resource.error(
+                    data = null,
+                    message = e.message ?: "Error getting Top Rated Tv Shows"
+                )
+            )
         }
     }
 
@@ -56,14 +111,22 @@ class TvShowsViewModel(private val apiService: MoviesApiService) : ViewModel() {
         try {
             emit(Resource.success(data = apiService.getTrendingTVAsync(BuildConfig.API_KEY)))
         } catch (e: Exception) {
-            emit(Resource.error(data = null, message = e.message?: "Error getting Trending Tv Shows"))
+            emit(
+                Resource.error(
+                    data = null,
+                    message = e.message ?: "Error getting Trending Tv Shows"
+                )
+            )
         }
     }
 }
 
-class TvShowsViewModelFactory(private val apiService: MoviesApiService): ViewModelProvider.Factory {
+class TvShowsViewModelFactory(
+    private val apiService: MoviesApiService
+) :
+    ViewModelProvider.Factory {
 
-    override fun <T: ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TvShowsViewModel::class.java)) {
             return TvShowsViewModel(apiService) as T
         }

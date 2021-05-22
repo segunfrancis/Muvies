@@ -1,6 +1,6 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorBackground</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -9,6 +9,7 @@
 
     <style name="TextAppearance.AppCompat.ListTitle" parent="TextAppearance.AppCompat">
         <item name="textAllCaps">true</item>
+        <item name="android:textAllCaps">true</item>
         <item name="android:textSize">22sp</item>
         <item name="fontFamily">@font/baloo_da</item>
         <item name="android:textColor">@color/colorAccentDark</item>
@@ -17,6 +18,7 @@
 
     <style name="TextAppearance.AppCompat.SeeAll" parent="TextAppearance.AppCompat">
         <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">true</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:fontFamily">sans-serif-black</item>
         <item name="android:textStyle">bold</item>

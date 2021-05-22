@@ -1,71 +1,84 @@
 package com.czech.muvies.viewModels
 
 import androidx.lifecycle.*
-import com.czech.muvies.BuildConfig
-import com.czech.muvies.LANGUAGE
+import com.czech.muvies.models.Movies
 import com.czech.muvies.network.MoviesApiService
+import com.czech.muvies.repository.MovieRepository
 import com.czech.muvies.utils.Resource
 import kotlinx.coroutines.Dispatchers
-import java.lang.Exception
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
-class MoviesViewModel(private val apiService: MoviesApiService) : ViewModel() {
+private const val TAG: String = "MoviesViewModel"
 
-    fun getInTheater() = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
+@ExperimentalCoroutinesApi
+class MoviesViewModel(
+    private val apiService: MoviesApiService,
+    private val repository: MovieRepository
+) : ViewModel() {
 
-        try {
-            emit(Resource.success(data = apiService.getInTheatersMoviesAsync(BuildConfig.API_KEY, LANGUAGE, 1)))
-        } catch (e:Exception) {
-            emit(Resource.error(data = null, message = e.message?: "Error getting In Theater movies"))
-        }
+    private val _movieResponse = MutableLiveData<Resource<List<Movies.MoviesResult>>>()
+    val movieResponse: LiveData<Resource<List<Movies.MoviesResult>>> get() = _movieResponse
+
+    init {
+        getAllMovies()
     }
 
-    fun getUpcoming() = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
-
-        try {
-            emit(Resource.success(data = apiService.getUpcomingMoviesAsync(BuildConfig.API_KEY, LANGUAGE, 1)))
-        } catch (e:Exception) {
-            emit(Resource.error(data = null, message = e.message?: "Error getting Upcoming movies"))
-        }
-    }
-
-    fun getPopular() = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
-
-        try {
-            emit(Resource.success(data = apiService.getPopularMoviesAsync(BuildConfig.API_KEY, LANGUAGE, 1)))
-        } catch (e:Exception) {
-            emit(Resource.error(data = null, message = e.message?: "Error getting Popular movies"))
-        }
-    }
-
-    fun getTopRated() = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
-
-        try {
-            emit(Resource.success(data = apiService.getTopRatedMoviesAsync(BuildConfig.API_KEY, LANGUAGE, 1)))
-        } catch (e:Exception) {
-            emit(Resource.error(data = null, message = e.message?: "Error getting Top Rated movies"))
-        }
-    }
-
-    fun getTrending() = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
-
-        try {
-            emit(Resource.success(data = apiService.getTrendingMoviesAsync(BuildConfig.API_KEY)))
-        } catch (e:Exception) {
-            emit(Resource.error(data = null, message = e.message?: "Error getting Trending movies"))
-        }
+    private fun getAllMovies() = viewModelScope.launch {
+        val inTheaterResponse = repository.getInTheaterMovies()
+        val topRatedResponse = repository.getTopRatedMovies()
+        val popularResponse = repository.getPopularMovies()
+        val trendingResponse = repository.getTrendingMovies()
+        val upComingResponse = repository.getUpComingMovies()
+        combine(
+            inTheaterResponse,
+            topRatedResponse,
+            popularResponse,
+            trendingResponse,
+            upComingResponse
+        ) { inTheater, topRated, popular, trending, upComing ->
+            inTheater.results.map {
+                it.movieCategory = Movies.MoviesResult.MovieCategory.IN_THEATER
+            }
+            topRated.results.map {
+                it.movieCategory = Movies.MoviesResult.MovieCategory.TOP_RATED
+            }
+            popular.results.map {
+                it.movieCategory = Movies.MoviesResult.MovieCategory.POPULAR
+            }
+            trending.results.map {
+                it.movieCategory = Movies.MoviesResult.MovieCategory.TRENDING
+            }
+            upComing.results.map {
+                it.movieCategory = Movies.MoviesResult.MovieCategory.UPCOMING
+            }
+            listOf(
+                inTheater.results,
+                topRated.results,
+                popular.results,
+                trending.results,
+                upComing.results
+            ).flatten()
+        }.onStart { _movieResponse.postValue(Resource.loading(emptyList())) }
+            .catch { _movieResponse.postValue(Resource.error(emptyList(), "Something went wrong")) }
+            .flowOn(Dispatchers.IO)
+            .collect {
+                _movieResponse.postValue(Resource.success(it))
+            }
     }
 }
 
-class MovieViewModelFactory(private val apiService: MoviesApiService): ViewModelProvider.Factory {
+@Suppress("UNCHECKED_CAST")
+@ExperimentalCoroutinesApi
+class MovieViewModelFactory(
+    private val apiService: MoviesApiService,
+    private val repository: MovieRepository
+) : ViewModelProvider.Factory {
 
-    override fun <T: ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MoviesViewModel::class.java)) {
-            return MoviesViewModel(apiService) as T
+            return MoviesViewModel(apiService, repository) as T
         }
         throw IllegalArgumentException("Unknown class name")
     }

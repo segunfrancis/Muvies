@@ -1,5 +1,7 @@
 package com.czech.muvies.network
 
+import com.czech.muvies.BuildConfig
+import com.czech.muvies.LANGUAGE
 import com.czech.muvies.models.Movies
 import com.czech.muvies.models.*
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -29,9 +31,9 @@ interface MoviesApiService {
 
     @GET("movie/upcoming")
     suspend fun getUpcomingMoviesAsync(
-        @Query("api_key") apiKey: String,
-        @Query("language") language: String,
-        @Query("page") page: Int,
+        @Query("api_key") apiKey: String = BuildConfig.API_KEY,
+        @Query("language") language: String = LANGUAGE,
+        @Query("page") page: Int = 1,
     ): Movies
 
     @GET("movie/upcoming")
@@ -43,9 +45,9 @@ interface MoviesApiService {
 
     @GET("movie/popular")
     suspend fun getPopularMoviesAsync(
-        @Query("api_key") apiKey: String,
-        @Query("language") language: String,
-        @Query("page") page: Int
+        @Query("api_key") apiKey: String = BuildConfig.API_KEY,
+        @Query("language") language: String = LANGUAGE,
+        @Query("page") page: Int = 1
     ): Movies
 
     @GET("movie/popular")
@@ -57,9 +59,9 @@ interface MoviesApiService {
 
     @GET("movie/top_rated")
     suspend fun getTopRatedMoviesAsync(
-        @Query("api_key") apiKey: String,
-        @Query("language") language: String,
-        @Query("page") page: Int
+        @Query("api_key") apiKey: String = BuildConfig.API_KEY,
+        @Query("language") language: String = LANGUAGE,
+        @Query("page") page: Int = 1
     ): Movies
 
     @GET("movie/top_rated")
@@ -71,9 +73,9 @@ interface MoviesApiService {
 
     @GET("movie/now_playing")
     suspend fun getInTheatersMoviesAsync(
-        @Query("api_key") apiKey: String,
-        @Query("language") language: String,
-        @Query("page") page: Int
+        @Query("api_key") apiKey: String = BuildConfig.API_KEY,
+        @Query("language") language: String = LANGUAGE,
+        @Query("page") page: Int = 1
     ): Movies
 
     @GET("movie/now_playing")
@@ -141,7 +143,7 @@ interface MoviesApiService {
 
     @GET("trending/movie/day")
     suspend fun getTrendingMoviesAsync(
-        @Query("api_key") apiKey: String
+        @Query("api_key") apiKey: String = BuildConfig.API_KEY
     ): Movies
 
     @GET("trending/movie/day")
