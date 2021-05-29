@@ -14,6 +14,7 @@ import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.TvShowsFragmentBinding
 import com.czech.muvies.models.*
 import com.czech.muvies.network.MoviesApiService
+import com.czech.muvies.repository.MovieRepository
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.TvShowsViewModel
 import com.czech.muvies.viewModels.TvShowsViewModelFactory
