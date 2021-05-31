@@ -3,9 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/cast_list.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/genre_list.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/in_theatres_mini_list.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/main_movie_header_item.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/main_movie_item.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/movie_details_fragment.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/movie_item.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/movies_fragment.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/popular_list.xml" value="0.2578125" />
