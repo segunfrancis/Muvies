@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.czech.muvies.MainActivity
 import com.czech.muvies.R
 import com.czech.muvies.databinding.OnAirFragmentBinding
 import com.czech.muvies.models.TvShows
@@ -26,10 +25,10 @@ class OnAirFragment : Fragment() {
     private val onAirClickListener by lazy {
         object : onAirItemClickListener {
             override fun invoke(it: TvShows.TvShowsResult) {
-                val args = OnAirFragmentDirections.actionOnAirFragmentToTvShowsDetailsFragment(
+                /*val args = OnAirFragmentDirections.actionOnAirFragmentToTvShowsDetailsFragment(
                     null, null, it, null, null, null,
                     null, null, null, null, null, null)
-                findNavController().navigate(args)
+                findNavController().navigate(args)*/
             }
 
         }
@@ -62,15 +61,4 @@ class OnAirFragment : Fragment() {
             onAirAdapter.submitList(it)
         })
     }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as MainActivity).hideBottomNavigation()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        (activity as MainActivity).showBottomNavigation()
-    }
-
 }

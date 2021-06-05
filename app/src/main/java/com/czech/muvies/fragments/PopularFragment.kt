@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.czech.muvies.MainActivity
 import com.czech.muvies.databinding.PopularFragmentBinding
 import com.czech.muvies.models.Movies
 import com.czech.muvies.pagedAdapters.PopularMainAdapter
@@ -62,15 +61,4 @@ class PopularFragment : Fragment() {
             popularAdapter.submitList(it)
         })
     }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as MainActivity).hideBottomNavigation()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        (activity as MainActivity).showBottomNavigation()
-    }
-
 }

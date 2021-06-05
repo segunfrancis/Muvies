@@ -6,9 +6,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.room.movies.MoviesEntity
+import com.czech.muvies.utils.AppConstants.BASE_IMAGE_PATH
 import com.czech.muvies.utils.Converter
 import kotlinx.android.synthetic.main.favorites_list.view.*
 

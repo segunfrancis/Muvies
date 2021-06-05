@@ -1,4 +1,4 @@
-package com.czech.muvies.fragments
+package com.czech.muvies.features.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.MoviesFragmentBinding
-import com.czech.muvies.features.home.MainMovieHolder
-import com.czech.muvies.features.home.MovieHeaderHolder
-import com.czech.muvies.features.home.SubMovieHolder
+import com.czech.muvies.features.home.epoxy.MainMovieHolder
+import com.czech.muvies.features.home.epoxy.MovieHeaderHolder
+import com.czech.muvies.features.home.epoxy.SubMovieHolder
 import com.czech.muvies.models.*
 import com.czech.muvies.models.Movies.MoviesResult.*
 import com.czech.muvies.network.MoviesApiService
@@ -21,6 +21,7 @@ import com.czech.muvies.utils.epoxy.carouselNoSnap
 import com.czech.muvies.viewModels.MovieViewModelFactory
 import com.czech.muvies.viewModels.MoviesViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import timber.log.Timber
 
 @ExperimentalCoroutinesApi
 class MoviesFragment : Fragment() {
@@ -35,8 +36,6 @@ class MoviesFragment : Fragment() {
     ): View {
 
         binding = MoviesFragmentBinding.inflate(inflater)
-        binding.lifecycleOwner = this
-        binding.moviesViewModel = viewModel
         binding.movieEpoxyRecyclerView.adapter = controller.adapter
 
         return binding.root
@@ -51,6 +50,7 @@ class MoviesFragment : Fragment() {
                 is Result.Error -> {
                     requireView().showErrorMessage(result.error.localizedMessage)
                     binding.lottieProgress.makeGone()
+                    Timber.e(result.error)
                 }
                 is Result.Success -> {
                     binding.lottieProgress.makeGone()

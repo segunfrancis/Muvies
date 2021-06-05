@@ -24,27 +24,13 @@ class TvShowsFragment : Fragment() {
     private lateinit var viewModel: TvShowsViewModel
     private lateinit var binding: TvShowsFragmentBinding
 
-    private val airingTodayClickListener by lazy {
-        object : airingTodaySItemClickListener {
-            override fun invoke(it: TvShows.TvShowsResult) {
-                val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
-                    null, it, null, null, null, null,
-                    null, null, null, null, null, null)
-                findNavController().navigate(args)
-            }
-
-        }
-    }
-    private var airingTodayAdapter =
-        AiringTodayListAdapter(arrayListOf(), airingTodayClickListener)
-
     private val onAirClickListener by lazy {
         object : onAirSItemClickListener {
             override fun invoke(it: TvShows.TvShowsResult) {
-                val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
+                /*val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, it, null, null,
                     null, null, null, null, null, null)
-                findNavController().navigate(args)
+                findNavController().navigate(args)*/
             }
 
         }
@@ -55,10 +41,10 @@ class TvShowsFragment : Fragment() {
     private val popularTvClickListener by lazy {
         object : popularTvSItemClickListener {
             override fun invoke(it: TvShows.TvShowsResult) {
-                val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
+                /*val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, null, null, it,
                     null, null, null, null, null, null)
-                findNavController().navigate(args)
+                findNavController().navigate(args)*/
             }
 
         }
@@ -69,10 +55,10 @@ class TvShowsFragment : Fragment() {
     private val topRatedTvClickListener by lazy { 
         object : topRatedTvSItemClickListener {
             override fun invoke(it: TvShows.TvShowsResult) {
-                val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
+               /* val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, null, null, null,
                     null, it, null, null, null, null)
-                findNavController().navigate(args)
+                findNavController().navigate(args)*/
             }
 
         }
@@ -83,10 +69,10 @@ class TvShowsFragment : Fragment() {
     private val trendingClickListener by lazy {
         object : trendingTvSItemClickListener {
             override fun invoke(it: TvShows.TvShowsResult) {
-                val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
+                /*val args = TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, null, null, null,
                     null, null, null, it, null, null)
-                findNavController().navigate(args)
+                findNavController().navigate(args)*/
             }
 
         }
@@ -108,7 +94,7 @@ class TvShowsFragment : Fragment() {
         binding.apply {
             airingTodayListRecycler.apply {
                 layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
-                adapter = airingTodayAdapter
+               // adapter = airingTodayAdapter
             }
             onAirListRecycler.apply {
                 layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
@@ -138,7 +124,7 @@ class TvShowsFragment : Fragment() {
                             resource.data.let { credits ->
                                 if (credits != null) {
 
-                                    airingTodayAdapter.updateAiringTodayList(credits.results as MutableList<TvShows.TvShowsResult>)
+                                    //airingTodayAdapter.updateAiringTodayList(credits.results as MutableList<TvShows.TvShowsResult>)
                                 }
                             }
                         }

@@ -1,15 +1,17 @@
-package com.czech.muvies
+package com.czech.muvies.features
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
-import kotlinx.android.synthetic.main.activity_main.*
+import com.czech.muvies.R
+import com.czech.muvies.databinding.ActivityMainBinding
+import com.czech.muvies.utils.makeGone
+import com.czech.muvies.utils.makeVisible
+import com.czech.muvies.utils.showMessage
 import kotlinx.coroutines.*
 
 @Deprecated("use constants from AppConstants class")
@@ -21,13 +23,15 @@ const val LANGUAGE = "en-US"
 class MainActivity : AppCompatActivity() {
 
     private var backPressedOnce = false
+    private lateinit var binding: ActivityMainBinding
+    private val navController by lazy { findNavController(R.id.nav_host_fragment) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val navController = findNavController(R.id.nav_host_fragment)
-        bottom_nav.setupWithNavController(navController)
+        binding.bottomNav.setupWithNavController(navController)
         val appBarConfig = AppBarConfiguration(
             topLevelDestinationIds = setOf(
                 R.id.moviesFragment,
@@ -37,6 +41,14 @@ class MainActivity : AppCompatActivity() {
         )
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfig)
 
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when(destination.id) {
+                R.id.moviesFragment,
+                R.id.tvShowsFragment,
+                R.id.favoritesFragment -> showBottomNavigation()
+                else -> hideBottomNavigation()
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -44,26 +56,22 @@ class MainActivity : AppCompatActivity() {
         return super.onSupportNavigateUp()
     }
 
-    fun showBottomNavigation() {
-        bottom_nav.visibility = View.VISIBLE
+    private fun showBottomNavigation() {
+        binding.bottomNav.makeVisible()
     }
 
-    fun hideBottomNavigation() {
-        bottom_nav.visibility = View.GONE
+    private fun hideBottomNavigation() {
+        binding.bottomNav.makeGone()
     }
 
     override fun onBackPressed() {
-        val navController = findNavController(R.id.nav_host_fragment)
-
-
         if (navController.graph.startDestination == navController.currentDestination?.id) {
             if (backPressedOnce) {
                 super.onBackPressed()
                 return
             }
             backPressedOnce = true
-            Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show()
-
+            binding.root.showMessage("Press BACK again to exit")
             lifecycleScope.launch {
                 delay(2000)
                 backPressedOnce = false

@@ -7,10 +7,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.databinding.TrendingTvListBinding
 import com.czech.muvies.models.TvShows
+import com.czech.muvies.utils.AppConstants.BASE_IMAGE_PATH
 import kotlinx.android.synthetic.main.trending_tv_list.view.*
 
 typealias trendingTvSItemClickListener = (TvShows.TvShowsResult) -> Unit

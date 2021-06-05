@@ -1,4 +1,4 @@
-package com.czech.muvies.features.home
+package com.czech.muvies.features.home.epoxy
 
 import android.view.ViewParent
 import android.widget.ImageView

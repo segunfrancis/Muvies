@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.czech.muvies.MainActivity
 import com.czech.muvies.databinding.TopRatedShowsFragmentBinding
 import com.czech.muvies.models.TvShows
 import com.czech.muvies.pagedAdapters.TopRatedShowsMainAdapter
@@ -25,10 +24,10 @@ class TopRatedShowsFragment : Fragment() {
     private val topRatedClickListener by lazy {
         object : topRatedTvItemClickListener {
             override fun invoke(it: TvShows.TvShowsResult) {
-                val args = TopRatedShowsFragmentDirections.actionTopRatedShowsFragmentToTvShowsDetailsFragment(
+                /*val args = TopRatedShowsFragmentDirections.actionTopRatedShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, null, null, null,
                     it, null, null, null, null, null)
-                findNavController().navigate(args)
+                findNavController().navigate(args)*/
             }
 
         }
@@ -60,16 +59,6 @@ class TopRatedShowsFragment : Fragment() {
 
             topRatedAdapter.submitList(it)
         })
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as MainActivity).hideBottomNavigation()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        (activity as MainActivity).showBottomNavigation()
     }
 
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import com.czech.muvies.BuildConfig
-import com.czech.muvies.LANGUAGE
+import com.czech.muvies.utils.AppConstants.LANGUAGE
 import com.czech.muvies.models.TvShows
 import com.czech.muvies.network.MoviesApiService
 import kotlinx.coroutines.CoroutineScope

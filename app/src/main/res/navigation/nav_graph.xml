@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.czech.muvies.fragments.MoviesFragment"
+        android:name="com.czech.muvies.features.home.MoviesFragment"
         android:label="Movies"
         tools:layout="@layout/movies_fragment" >
         <action

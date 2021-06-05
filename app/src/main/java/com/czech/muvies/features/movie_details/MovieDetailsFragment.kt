@@ -1,6 +1,5 @@
 package com.czech.muvies.features.movie_details
 
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,15 +11,16 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
-import com.czech.muvies.MainActivity
 import com.czech.muvies.databinding.MovieDetailsFragmentBinding
 import com.czech.muvies.features.movie_details.epoxy.*
+import com.czech.muvies.features.movie_details.model.MovieDetailsResponse
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.utils.*
 import com.czech.muvies.utils.epoxy.BaseEpoxyController
 import com.czech.muvies.utils.epoxy.carouselNoSnap
 import com.czech.muvies.utils.epoxy.gridCarouselNoSnap
 import kotlinx.android.parcel.Parcelize
+import timber.log.Timber
 
 @Suppress("UNCHECKED_CAST")
 class MovieDetailsFragment : Fragment() {
@@ -74,6 +74,7 @@ class MovieDetailsFragment : Fragment() {
                 is Result.Error -> {
                     binding.lottieProgress.makeGone()
                     requireView().showErrorMessage(result.error.localizedMessage)
+                    Timber.e(result.error)
                 }
             }
         }
@@ -82,17 +83,6 @@ class MovieDetailsFragment : Fragment() {
     companion object {
         @Deprecated("Use constants from AppConstants class")
         const val EXTRA_REPLY = "com.example.android.favmovieslistsql.REPLY"
-    }
-
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as MainActivity).hideBottomNavigation()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        (activity as MainActivity).showBottomNavigation()
     }
 
     inner class MovieDetailsController : BaseEpoxyController<MovieDetailsResponse>() {

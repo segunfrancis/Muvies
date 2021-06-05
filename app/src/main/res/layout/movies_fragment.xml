@@ -1,41 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".fragments.MoviesFragment">
+    android:id="@+id/constraintLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:context=".features.home.MoviesFragment">
 
-    <data>
-
-        <variable
-            name="moviesViewModel"
-            type="com.czech.muvies.viewModels.MoviesViewModel" />
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+    <com.airbnb.epoxy.EpoxyRecyclerView
+        android:id="@+id/movie_epoxy_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBackground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        tools:listitem="@layout/main_movie_item" />
 
-        <com.airbnb.epoxy.EpoxyRecyclerView
-            android:id="@+id/movie_epoxy_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/main_movie_item"/>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie_progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="loader_movie.json"
+        app:lottie_loop="true"
+        app:lottie_repeatMode="reverse" />
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottie_progress"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="loader_movie.json"
-            app:lottie_loop="true"
-            app:lottie_repeatMode="reverse" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</layout>
+</androidx.constraintlayout.widget.ConstraintLayout>
