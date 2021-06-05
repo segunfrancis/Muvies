@@ -40,11 +40,6 @@ import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.TvShowDetailsViewModel
 import com.czech.muvies.viewModels.TvShowDetailsViewModelFactory
 import kotlinx.android.synthetic.main.movie_details_fragment.*
-import kotlinx.android.synthetic.main.movie_details_fragment.backdrop
-import kotlinx.android.synthetic.main.movie_details_fragment.lang_text
-import kotlinx.android.synthetic.main.movie_details_fragment.rating_bar
-import kotlinx.android.synthetic.main.movie_details_fragment.rating_fraction
-import kotlinx.android.synthetic.main.movie_details_fragment.release_year
 import kotlinx.android.synthetic.main.tv_show_details_fragment.*
 import kotlinx.android.synthetic.main.tv_show_details_fragment.details
 import kotlinx.android.synthetic.main.tv_show_details_fragment.homepage
@@ -60,26 +55,26 @@ class TvShowDetailsFragment() : Fragment() {
 
     private var genreAdapter = ShowsGenreAdapter(arrayListOf())
 
-    private val showCastListener by lazy {
-        object : showCastItemClickListener {
+  /*  private val showCastListener by lazy {
+       object : showCastItemClickListener {
             override fun invoke(it: TvShowCredits.Cast) {
                 val args = TvShowDetailsFragmentDirections.actionTvShowsDetailsFragmentToCastDetailsFragment(it, null)
                 findNavController().navigate(args)
             }
 
         }
-    }
-    private var castAdapter = ShowCastAdapter(arrayListOf(), showCastListener)
+    }*/
+    private var castAdapter = ShowCastAdapter(arrayListOf(), null)
 
     private var seasonsAdapter = SeasonsAdapter(arrayListOf())
 
     private val similarTvClickListener by lazy {
         object : similarTvItemClickListener {
             override fun invoke(it: SimilarTvShows.SimilarTvShowsResult) {
-                val args = TvShowDetailsFragmentDirections.actionTvShowsDetailsFragmentSelf(
+                /*val args = TvShowDetailsFragmentDirections.actionTvShowsDetailsFragmentSelf(
                     null, null, null, null, null, null,
                     null, null, null, null, it, null)
-                findNavController().navigate(args)
+                findNavController().navigate(args)*/
             }
 
         }
@@ -132,7 +127,7 @@ class TvShowDetailsFragment() : Fragment() {
 
         navController = Navigation.findNavController(view)
 
-        val airingTodaySArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).airingTodaySArgs
+     /*   val airingTodaySArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).airingTodaySArgs
         val airingTodayArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).airingTodayArgs
         val onAirSArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).onAirSArgs
         val onAirArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).onAirArgs
@@ -143,9 +138,9 @@ class TvShowDetailsFragment() : Fragment() {
         val trendingTvSArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).trendingTvSArgs
         val trendingTvArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).trendingTvArgs
         val similarTvArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).similarTvArgs
-        val castShowArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).castShowArgs
+        val castShowArgs = TvShowDetailsFragmentArgs.fromBundle(requireArguments()).castShowArgs*/
 
-        if (airingTodaySArgs != null) {
+    /*    if (airingTodaySArgs != null) {
 
             Glide.with(this)
                 .load("$BASE_IMAGE_PATH${airingTodaySArgs.backdropPath}")
@@ -405,7 +400,7 @@ class TvShowDetailsFragment() : Fragment() {
             lang_text.text = similarTvArgs.originalLanguage
 
             similarTvArgs.id?.let { getDetails(it) }
-        }
+        }*/
 
 
 

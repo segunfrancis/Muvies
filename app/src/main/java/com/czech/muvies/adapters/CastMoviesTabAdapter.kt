@@ -11,7 +11,7 @@ import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.models.MovieCredits
 import com.czech.muvies.models.PersonMovies
-import kotlinx.android.synthetic.main.cast_list.view.*
+import kotlinx.android.synthetic.main.cast_item.view.*
 import kotlinx.android.synthetic.main.cast_other.view.*
 import kotlinx.android.synthetic.main.in_theatres_mini_list.view.*
 import kotlinx.android.synthetic.main.paged_list.view.*

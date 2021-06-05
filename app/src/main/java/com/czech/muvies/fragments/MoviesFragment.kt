@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.MoviesFragmentBinding
+import com.czech.muvies.features.home.MainMovieHolder
+import com.czech.muvies.features.home.MovieHeaderHolder
+import com.czech.muvies.features.home.SubMovieHolder
 import com.czech.muvies.models.*
 import com.czech.muvies.models.Movies.MoviesResult.*
 import com.czech.muvies.network.MoviesApiService
@@ -47,11 +49,7 @@ class MoviesFragment : Fragment() {
             when (result) {
                 is Result.Loading -> binding.lottieProgress.makeVisible()
                 is Result.Error -> {
-                    Toast.makeText(
-                        requireContext(),
-                        result.error.localizedMessage,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    requireView().showErrorMessage(result.error.localizedMessage)
                     binding.lottieProgress.makeGone()
                 }
                 is Result.Success -> {
@@ -71,7 +69,7 @@ class MoviesFragment : Fragment() {
 
                 carouselNoSnap {
                     MovieHeaderHolder { title ->
-                        Toast.makeText(requireContext(), title, Toast.LENGTH_SHORT).show()
+                        requireView().showMessage(title)
                     }.apply {
                         title = "In theater"
                         id("in_theater_header")
@@ -101,7 +99,7 @@ class MoviesFragment : Fragment() {
 
                 carouselNoSnap {
                     MovieHeaderHolder { title ->
-                        Toast.makeText(requireContext(), title, Toast.LENGTH_SHORT).show()
+                        requireView().showMessage(title)
                     }.apply {
                         title = "Trending"
                         id("trending_header")
@@ -131,7 +129,7 @@ class MoviesFragment : Fragment() {
 
                 carouselNoSnap {
                     MovieHeaderHolder { title ->
-                        Toast.makeText(requireContext(), title, Toast.LENGTH_SHORT).show()
+                        requireView().showMessage(title)
                     }.apply {
                         title = "Popular"
                         id("popular_header")
@@ -161,7 +159,7 @@ class MoviesFragment : Fragment() {
 
                 carouselNoSnap {
                     MovieHeaderHolder { title ->
-                        Toast.makeText(requireContext(), title, Toast.LENGTH_SHORT).show()
+                        requireView().showMessage(title)
                     }.apply {
                         title = "Top rated"
                         id("top_rated_header")
@@ -191,7 +189,7 @@ class MoviesFragment : Fragment() {
 
                 carouselNoSnap {
                     MovieHeaderHolder { title ->
-                        Toast.makeText(requireContext(), title, Toast.LENGTH_SHORT).show()
+                        requireView().showMessage(title)
                     }.apply {
                         title = "Upcoming"
                         id("upcoming_header")

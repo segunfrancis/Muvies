@@ -2,6 +2,7 @@ package com.czech.muvies.utils
 
 import android.view.View
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
@@ -40,13 +41,20 @@ fun Fragment.launchFragment(destination: Int) {
     findNavController().navigate(destination)
 }
 
-suspend fun <T> Flow<T>.doAsync(block: (data: Result<T>) -> Unit) {
-    this.onStart { block(Result.Loading) }
+fun <T> Flow<T>.doAsync(block: (data: Result<T>) -> Unit): Flow<T> {
+    return onStart { block(Result.Loading) }
         .catch { block(Result.Error(it)) }
         .flowOn(Dispatchers.IO)
-        .collect { block(Result.Success(it)) }
 }
 
 fun View.showMessage(message: String?) {
     message?.let { Snackbar.make(this, it, Snackbar.LENGTH_LONG).show() }
+}
+
+fun View.showErrorMessage(message: String?) {
+    message?.let {
+        val snackbar = Snackbar.make(this, it, Snackbar.LENGTH_LONG)
+        snackbar.setBackgroundTint(ContextCompat.getColor(context, R.color.design_default_color_error))
+        snackbar.show()
+    }
 }

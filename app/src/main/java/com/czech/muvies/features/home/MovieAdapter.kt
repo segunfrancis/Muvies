@@ -1,4 +1,4 @@
-package com.czech.muvies.adapters
+package com.czech.muvies.features.home
 
 import android.view.ViewParent
 import android.widget.ImageView

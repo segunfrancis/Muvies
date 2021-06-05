@@ -131,7 +131,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.czech.muvies.fragments.MovieDetailsFragment"
+        android:name="com.czech.muvies.features.movie_details.MovieDetailsFragment"
         android:label=""
         tools:layout="@layout/movie_details_fragment">
         <argument
