@@ -9,17 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
-import com.czech.muvies.models.MovieCredits
 import com.czech.muvies.models.TvShowCredits
-import kotlinx.android.synthetic.main.cast_list.view.*
+import kotlinx.android.synthetic.main.cast_item.view.*
 
 typealias showCastItemClickListener = (TvShowCredits.Cast) -> Unit
 
-class ShowCastAdapter(private var list: List<TvShowCredits.Cast>, private val clickListener: showCastItemClickListener):
+class ShowCastAdapter(private var list: List<TvShowCredits.Cast>, private val clickListener: showCastItemClickListener?):
     RecyclerView.Adapter<ShowCastAdapter.ShowCastViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShowCastViewHolder {
-        return ShowCastViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.cast_list, parent, false))
+        return ShowCastViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.cast_item, parent, false))
     }
 
     override fun getItemCount(): Int = list.size
@@ -37,9 +36,9 @@ class ShowCastAdapter(private var list: List<TvShowCredits.Cast>, private val cl
 
     inner class ShowCastViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
 
-        private var castImage: ImageView = itemView.cast_poster
-        private var character: TextView = itemView.character
-        private var name: TextView = itemView.name
+        private var castImage: ImageView = itemView.m_cast_poster
+        private var character: TextView = itemView.m_character
+        private var name: TextView = itemView.m_name
 
         fun bind(cast: TvShowCredits.Cast) {
             Glide.with(itemView)
@@ -58,7 +57,7 @@ class ShowCastAdapter(private var list: List<TvShowCredits.Cast>, private val cl
 
         override fun onClick(v: View?) {
             val cast = list[adapterPosition]
-            clickListener.invoke(cast)
+            clickListener?.invoke(cast)
         }
     }
 }

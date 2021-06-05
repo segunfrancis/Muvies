@@ -1,4 +1,4 @@
-package com.czech.muvies.adapters
+package com.czech.muvies.features.home
 
 import android.view.ViewParent
 import android.widget.ImageView
@@ -10,13 +10,16 @@ import com.czech.muvies.utils.loadMoviePoster
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.textview.MaterialTextView
 
-open class MainMovieHolder : EpoxyModelWithHolder<MovieHolder>() {
+open class MainMovieHolder(private val onClick: (movieId: Int) -> Unit) : EpoxyModelWithHolder<MovieHolder>() {
 
     @EpoxyAttribute
     lateinit var title: String
 
     @EpoxyAttribute
     lateinit var imageUrl: String
+
+    @EpoxyAttribute
+    var movieId: Int = 0
 
     override fun getDefaultLayout(): Int {
         return R.layout.main_movie_item
@@ -29,7 +32,7 @@ open class MainMovieHolder : EpoxyModelWithHolder<MovieHolder>() {
     override fun bind(holder: MovieHolder) {
         holder.title.text = title
         holder.image.loadMoviePoster(imageUrl)
-        holder.card.setOnClickListener { }
+        holder.card.setOnClickListener { onClick(movieId) }
     }
 }
 
@@ -53,13 +56,16 @@ open class MovieHeaderHolder(val onClick: (category: String) -> Unit) :
     }
 }
 
-open class SubMovieHolder : EpoxyModelWithHolder<SubHolder>() {
+open class SubMovieHolder(private val onClick: (movieId: Int) -> Unit) : EpoxyModelWithHolder<SubHolder>() {
 
     @EpoxyAttribute
     lateinit var title: String
 
     @EpoxyAttribute
     lateinit var imageUrl: String
+
+    @EpoxyAttribute
+    var movieId: Int = 0
 
     override fun getDefaultLayout(): Int {
         return R.layout.sub_movie_item
@@ -72,7 +78,7 @@ open class SubMovieHolder : EpoxyModelWithHolder<SubHolder>() {
     override fun bind(holder: SubHolder) {
         holder.title.text = title
         holder.image.loadMoviePoster(imageUrl)
-        holder.card.setOnClickListener { }
+        holder.card.setOnClickListener { onClick(movieId) }
     }
 
 }

@@ -34,7 +34,7 @@ class CastDetailsFragment : Fragment() {
 
     private lateinit var tabAdapter: TabAdapter
 
-    private val castMoviesListener by lazy {
+    /*private val castMoviesListener by lazy {
         object : castMoviesClickListener {
             override fun invoke(it: PersonMovies.Cast) {
                 val args = CastDetailsFragmentDirections.actionCastDetailsFragmentToDetailsFragment(null, null,
@@ -209,6 +209,6 @@ class CastDetailsFragment : Fragment() {
                 }
             }
         })
-    }
+    }*/
 
 }

@@ -2,41 +2,38 @@ package com.czech.muvies.viewModels
 
 import androidx.lifecycle.*
 import com.czech.muvies.models.Movies
-import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.repository.MovieRepository
-import com.czech.muvies.utils.Resource
+import com.czech.muvies.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 private const val TAG: String = "MoviesViewModel"
 
 @ExperimentalCoroutinesApi
 class MoviesViewModel(
-    private val apiService: MoviesApiService,
     private val repository: MovieRepository
 ) : ViewModel() {
 
-    private val _movieResponse = MutableLiveData<Resource<List<Movies.MoviesResult>>>()
-    val movieResponse: LiveData<Resource<List<Movies.MoviesResult>>> get() = _movieResponse
+    private val _movieResponse = MutableLiveData<Result<List<Movies.MoviesResult>>>()
+    val movieResponse: LiveData<Result<List<Movies.MoviesResult>>> get() = _movieResponse
 
     init {
         getAllMovies()
     }
 
     private fun getAllMovies() = viewModelScope.launch {
-        val inTheaterResponse = repository.getInTheaterMovies()
-        val topRatedResponse = repository.getTopRatedMovies()
-        val popularResponse = repository.getPopularMovies()
-        val trendingResponse = repository.getTrendingMovies()
-        val upComingResponse = repository.getUpComingMovies()
         combine(
-            inTheaterResponse,
-            topRatedResponse,
-            popularResponse,
-            trendingResponse,
-            upComingResponse
+            repository.getInTheaterMovies(),
+            repository.getTopRatedMovies(),
+            repository.getPopularMovies(),
+            repository.getTrendingMovies(),
+            repository.getUpComingMovies()
         ) { inTheater, topRated, popular, trending, upComing ->
             inTheater.results.map {
                 it.movieCategory = Movies.MoviesResult.MovieCategory.IN_THEATER
@@ -60,11 +57,11 @@ class MoviesViewModel(
                 trending.results,
                 upComing.results
             ).flatten()
-        }.onStart { _movieResponse.postValue(Resource.loading(emptyList())) }
-            .catch { _movieResponse.postValue(Resource.error(emptyList(), "Something went wrong")) }
+        }.onStart { _movieResponse.postValue(Result.Loading) }
+            .catch { _movieResponse.postValue(Result.Error(it)) }
             .flowOn(Dispatchers.IO)
             .collect {
-                _movieResponse.postValue(Resource.success(it))
+                _movieResponse.postValue(Result.Success(it))
             }
     }
 }
@@ -72,13 +69,12 @@ class MoviesViewModel(
 @Suppress("UNCHECKED_CAST")
 @ExperimentalCoroutinesApi
 class MovieViewModelFactory(
-    private val apiService: MoviesApiService,
     private val repository: MovieRepository
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MoviesViewModel::class.java)) {
-            return MoviesViewModel(apiService, repository) as T
+            return MoviesViewModel(repository) as T
         }
         throw IllegalArgumentException("Unknown class name")
     }

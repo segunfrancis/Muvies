@@ -25,10 +25,10 @@ class TopRatedMoviesFragment : Fragment() {
     private val topRatedClickListener by lazy {
         object : topRatedItemClickListener {
             override fun invoke(it: Movies.MoviesResult) {
-                val args = TopRatedMoviesFragmentDirections.actionTopRatedMoviesFragmentToDetailsFragment(
+                /*val args = TopRatedMoviesFragmentDirections.actionTopRatedMoviesFragmentToDetailsFragment(
                     null, null, null, null, null, null,
                     it, null, null, null, null, null)
-                findNavController().navigate(args)
+                findNavController().navigate(args)*/
             }
 
         }

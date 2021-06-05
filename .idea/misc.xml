@@ -3,13 +3,30 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/toggle_button_bg.xml" value="0.27395833333333336" />
+        <entry key="app/src/main/res/layout/about_item.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/cast_details_fragment.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/cast_item.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/cast_list.xml" value="0.45" />
+        <entry key="app/src/main/res/layout/genre_item.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/genre_list.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/image_item.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/in_theatres_mini_list.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/main_movie_header_item.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/main_movie_item.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/movie_detail_image_item.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/movie_details_fragment.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/movie_genre_item.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/movie_header_item.xml" value="0.1328125" />
+        <entry key="app/src/main/res/layout/movie_info_item.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/movie_item.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/movies_fragment.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/popular_list.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/section_header_item.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/sub_movie_item.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/tv_show_details_fragment.xml" value="0.25" />
         <entry key="app/src/main/res/layout/upcoming_list.xml" value="0.2578125" />
       </map>
     </option>

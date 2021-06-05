@@ -2,18 +2,20 @@ package com.czech.muvies
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.widget.Toast
-import androidx.core.os.postDelayed
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.*
 
+@Deprecated("use constants from AppConstants class")
 const val BASE_IMAGE_PATH = "https://image.tmdb.org/t/p/w780"
+
+@Deprecated("use constants from AppConstants class")
 const val LANGUAGE = "en-US"
 
 class MainActivity : AppCompatActivity() {
@@ -62,7 +64,8 @@ class MainActivity : AppCompatActivity() {
             backPressedOnce = true
             Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show()
 
-            Handler().postDelayed(2000) {
+            lifecycleScope.launch {
+                delay(2000)
                 backPressedOnce = false
             }
         } else {

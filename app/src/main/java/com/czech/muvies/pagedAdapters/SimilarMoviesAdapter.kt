@@ -1,29 +1,21 @@
 package com.czech.muvies.pagedAdapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
-import com.czech.muvies.adapters.SeasonsAdapter
+import com.czech.muvies.databinding.SimilarListBinding
 import com.czech.muvies.models.SimilarMovies
-import com.czech.muvies.models.TvShowDetails
-import com.czech.muvies.models.TvShows
-import kotlinx.android.synthetic.main.paged_list.view.*
-import kotlinx.android.synthetic.main.similar_list.view.*
+import com.czech.muvies.utils.loadMoviePoster
 
-typealias similarItemClickListener = (SimilarMovies.SimilarMoviesResult) -> Unit
-
-class SimilarMoviesAdapter(private val clickListener: similarItemClickListener):
-        PagedListAdapter<SimilarMovies.SimilarMoviesResult, SimilarMoviesAdapter.SimilarMoviesViewHolder>(diffUtil) {
+class SimilarMoviesAdapter(private val onClick:(movieId: Int) -> Unit):
+        ListAdapter<SimilarMovies.SimilarMoviesResult, SimilarMoviesAdapter.SimilarMoviesViewHolder>(diffUtil) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SimilarMoviesViewHolder {
-        return SimilarMoviesViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.similar_list, parent, false))
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.similar_list, parent, false)
+        return SimilarMoviesViewHolder(SimilarListBinding.bind(view), onClick)
     }
 
     override fun onBindViewHolder(holder: SimilarMoviesViewHolder, position: Int) {
@@ -45,25 +37,11 @@ class SimilarMoviesAdapter(private val clickListener: similarItemClickListener):
         }
     }
 
-    inner class SimilarMoviesViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
-
-        private var poster: ImageView = itemView.poster
+    class SimilarMoviesViewHolder(private val binding: SimilarListBinding, private val onClick:(movieId: Int) -> Unit): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(movie: SimilarMovies.SimilarMoviesResult) {
-            Glide.with(itemView)
-                .load("$BASE_IMAGE_PATH${movie.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .error(R.drawable.poster_error)
-                .into(poster)
-        }
-
-        init {
-            itemView.setOnClickListener(this)
-        }
-
-        override fun onClick(v: View?) {
-            val movie = getItem(adapterPosition)
-            movie?.let { clickListener.invoke(it) }
+            binding.poster.loadMoviePoster(movie.posterPath)
+            binding.root.setOnClickListener { movie.id?.let { id -> onClick(id) } }
         }
     }
 }

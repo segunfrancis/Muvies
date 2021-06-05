@@ -5,9 +5,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.czech.muvies.R
-import com.czech.muvies.models.MovieDetails
 import com.czech.muvies.models.TvShowDetails
-import kotlinx.android.synthetic.main.genre_list.view.*
+import kotlinx.android.synthetic.main.genre_item.view.*
 
 class ShowsGenreAdapter(private var list: List<TvShowDetails.Genre>):
     RecyclerView.Adapter<ShowsGenreAdapter.ShowsGenreViewHolder>() {
@@ -32,9 +31,9 @@ class ShowsGenreAdapter(private var list: List<TvShowDetails.Genre>):
     }
 
     inner class ShowsGenreViewHolder(inflater: LayoutInflater, parent: ViewGroup):
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.genre_list, parent, false)) {
+        RecyclerView.ViewHolder(inflater.inflate(R.layout.genre_item, parent, false)) {
 
-        private var genre: TextView = itemView.genre
+        private var genre: TextView = itemView.genre_text
 
         fun bind(genreList: TvShowDetails.Genre) {
             genre.text = genreList.name
