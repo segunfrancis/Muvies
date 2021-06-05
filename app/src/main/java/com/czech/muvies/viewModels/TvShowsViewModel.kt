@@ -2,7 +2,7 @@ package com.czech.muvies.viewModels
 
 import androidx.lifecycle.*
 import com.czech.muvies.BuildConfig
-import com.czech.muvies.LANGUAGE
+import com.czech.muvies.features.LANGUAGE
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.utils.Resource
 import kotlinx.coroutines.Dispatchers

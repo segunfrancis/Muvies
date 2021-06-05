@@ -21,14 +21,13 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.czech.muvies.BASE_IMAGE_PATH
-import com.czech.muvies.MainActivity
 import com.czech.muvies.R
 import com.czech.muvies.adapters.SeasonsAdapter
 import com.czech.muvies.adapters.ShowCastAdapter
 import com.czech.muvies.adapters.ShowsGenreAdapter
 import com.czech.muvies.adapters.showCastItemClickListener
 import com.czech.muvies.databinding.TvShowDetailsFragmentBinding
+import com.czech.muvies.features.BASE_IMAGE_PATH
 import com.czech.muvies.models.SimilarTvShows
 import com.czech.muvies.models.TvShowCredits
 import com.czech.muvies.models.TvShowDetails
@@ -518,15 +517,5 @@ class TvShowDetailsFragment() : Fragment() {
                 }
             }
         })
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as MainActivity).hideBottomNavigation()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        (activity as MainActivity).showBottomNavigation()
     }
 }

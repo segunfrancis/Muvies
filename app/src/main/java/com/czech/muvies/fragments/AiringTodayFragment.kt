@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.czech.muvies.MainActivity
 import com.czech.muvies.databinding.AiringTodayFragmentBinding
 import com.czech.muvies.models.TvShows
 import com.czech.muvies.pagedAdapters.AiringTodayMainAdapter
@@ -25,10 +24,10 @@ class AiringTodayFragment : Fragment() {
     private val airingTodayClickListener by lazy {
         object : airingTodayItemClickListener {
             override fun invoke(it: TvShows.TvShowsResult) {
-                val args = AiringTodayFragmentDirections.actionAiringTodayFragmentToTvShowsDetailsFragment(
+                /*val args = AiringTodayFragmentDirections.actionAiringTodayFragmentToTvShowsDetailsFragment(
                     it, null, null, null, null, null,
                     null, null, null, null, null, null)
-                findNavController().navigate(args)
+                findNavController().navigate(args)*/
             }
 
         }
@@ -62,15 +61,4 @@ class AiringTodayFragment : Fragment() {
             airingTodayAdapter.submitList(it)
         })
     }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as MainActivity).hideBottomNavigation()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        (activity as MainActivity).showBottomNavigation()
-    }
-
 }

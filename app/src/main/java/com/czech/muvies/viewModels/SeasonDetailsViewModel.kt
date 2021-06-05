@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
 import com.czech.muvies.BuildConfig
-import com.czech.muvies.LANGUAGE
 import com.czech.muvies.network.MoviesApiService
+import com.czech.muvies.utils.AppConstants.LANGUAGE
 import com.czech.muvies.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import java.lang.Exception

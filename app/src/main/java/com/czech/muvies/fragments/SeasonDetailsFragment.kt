@@ -13,7 +13,6 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
-import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.adapters.EpisodeAdapter
 import com.czech.muvies.databinding.SeasonDetailsFragmentBinding
@@ -55,9 +54,9 @@ class SeasonDetailsFragment : Fragment() {
         val showId = SeasonDetailsFragmentArgs.fromBundle(requireArguments()).showId
         val showName = SeasonDetailsFragmentArgs.fromBundle(requireArguments()).showName
         val backdrop = SeasonDetailsFragmentArgs.fromBundle(requireArguments()).backdrop
-        val seasonArgs = SeasonDetailsFragmentArgs.fromBundle(requireArguments()).seasonArgs
+        //val seasonArgs = SeasonDetailsFragmentArgs.fromBundle(requireArguments()).seasonArgs
 
-        if (seasonArgs != null) {
+       /* if (seasonArgs != null) {
             Glide.with(this)
                 .load("$BASE_IMAGE_PATH${seasonArgs.posterPath}")
                 .placeholder(R.drawable.poster_placeholder)
@@ -81,7 +80,7 @@ class SeasonDetailsFragment : Fragment() {
             episode_number.text = "${seasonArgs.episodeCount} episodes"
 
             getDetails(showId, seasonArgs.seasonNumber!!)
-        }
+        }*/
 
         episodes_list.apply {
             adapter = episodeAdapter

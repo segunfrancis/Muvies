@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.czech.muvies.MainActivity
 import com.czech.muvies.databinding.TrendingMoviesFragmentBinding
 import com.czech.muvies.models.Movies
 import com.czech.muvies.pagedAdapters.TrendingMoviesMainAdapter
@@ -61,15 +60,4 @@ class TrendingMoviesFragment : Fragment() {
             trendingAdapter.submitList(it)
         })
     }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as MainActivity).hideBottomNavigation()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        (activity as MainActivity).showBottomNavigation()
-    }
-
 }

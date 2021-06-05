@@ -6,12 +6,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".MuviesApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Muvies"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme">
-        <activity android:name="com.czech.muvies.MainActivity">
+        <activity android:name="com.czech.muvies.features.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

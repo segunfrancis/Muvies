@@ -7,12 +7,12 @@ import androidx.lifecycle.liveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.czech.muvies.BuildConfig
-import com.czech.muvies.LANGUAGE
 import com.czech.muvies.dataSources.SimilarMoviesDataSourceFactory
 import com.czech.muvies.dataSources.SimilarTvShowsDataSourceFactory
 import com.czech.muvies.models.SimilarMovies
 import com.czech.muvies.models.SimilarTvShows
 import com.czech.muvies.network.MoviesApiService
+import com.czech.muvies.utils.AppConstants.LANGUAGE
 import com.czech.muvies.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import java.lang.Exception

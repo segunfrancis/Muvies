@@ -1,10 +1,9 @@
 package com.czech.muvies.network
 
 import com.czech.muvies.BuildConfig
-import com.czech.muvies.LANGUAGE
+import com.czech.muvies.utils.AppConstants.LANGUAGE
 import com.czech.muvies.models.Movies
 import com.czech.muvies.models.*
-import com.czech.muvies.utils.AppConstants
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import retrofit2.Response
 import retrofit2.Retrofit

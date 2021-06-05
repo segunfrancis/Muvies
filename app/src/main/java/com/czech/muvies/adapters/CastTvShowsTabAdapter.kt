@@ -7,8 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.czech.muvies.BASE_IMAGE_PATH
 import com.czech.muvies.R
+import com.czech.muvies.features.BASE_IMAGE_PATH
 import com.czech.muvies.models.PersonMovies
 import com.czech.muvies.models.PersonTvShows
 import kotlinx.android.synthetic.main.cast_other.view.*

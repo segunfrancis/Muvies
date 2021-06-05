@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.czech.muvies.MainActivity
 import com.czech.muvies.databinding.PopularShowsFragmentBinding
 import com.czech.muvies.models.TvShows
 import com.czech.muvies.pagedAdapters.PopularShowsMainAdapter
@@ -25,12 +24,11 @@ class PopularShowsFragment : Fragment() {
     private val popularClickListener by lazy {
         object : popularTvItemClickListener {
             override fun invoke(it: TvShows.TvShowsResult) {
-                val args = PopularShowsFragmentDirections.actionPopularShowsFragmentToTvShowsDetailsFragment(
+                /*val args = PopularShowsFragmentDirections.actionPopularShowsFragmentToTvShowsDetailsFragment(
                     null, null, null, null, it, null,
                     null, null, null, null, null, null)
-                findNavController().navigate(args)
+                findNavController().navigate(args)*/
             }
-
         }
     }
     private val popularShowsAdapter = PopularShowsMainAdapter(popularClickListener)
@@ -60,16 +58,6 @@ class PopularShowsFragment : Fragment() {
 
             popularShowsAdapter.submitList(it)
         })
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as MainActivity).hideBottomNavigation()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        (activity as MainActivity).showBottomNavigation()
     }
 
 }

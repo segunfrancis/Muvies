@@ -126,4 +126,7 @@ dependencies {
 
     // Lottie
     implementation "com.airbnb.android:lottie:3.7.0"
+
+    // Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
 }

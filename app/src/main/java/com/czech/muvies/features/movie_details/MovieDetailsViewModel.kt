@@ -5,9 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModelProvider
-import com.czech.muvies.models.MovieCredits
-import com.czech.muvies.models.MovieDetails
-import com.czech.muvies.models.SimilarMovies
+import com.czech.muvies.features.movie_details.model.MovieDetailsResponse
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.repository.MovieDetailsRepository
 import com.czech.muvies.utils.Result
@@ -47,9 +45,3 @@ class MovieDetailsViewModelFactory(private val apiService: MoviesApiService) :
         throw IllegalArgumentException("Unknown class name")
     }
 }
-
-data class MovieDetailsResponse(
-    val details: MovieDetails?,
-    val credits: MovieCredits?,
-    val similarMovies: SimilarMovies?
-)
