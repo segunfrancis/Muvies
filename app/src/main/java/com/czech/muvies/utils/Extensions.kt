@@ -4,14 +4,21 @@ import android.view.View
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.czech.muvies.R
 import com.czech.muvies.utils.AppConstants.BASE_IMAGE_PATH
+import com.czech.muvies.utils.AppConstants.SOURCE_DATE_PATTERN
+import com.czech.muvies.utils.AppConstants.TARGET_DATE_PATTERN
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import timber.log.Timber
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 fun ImageView.loadMoviePoster(posterPath: String?) {
     Glide.with(this)
@@ -21,12 +28,23 @@ fun ImageView.loadMoviePoster(posterPath: String?) {
         .into(this)
 }
 
+fun ImageView.loadRoundCastImage(path: String?) {
+    Glide.with(this)
+        .load(BASE_IMAGE_PATH.plus(path))
+        .placeholder(R.drawable.person_placeholder)
+        .error(R.drawable.person_placeholder)
+        .circleCrop()
+        .into(this)
+}
+
 fun View.makeVisible() {
-    visibility = View.VISIBLE
+    if (visibility == View.INVISIBLE || visibility == View.GONE)
+        visibility = View.VISIBLE
 }
 
 fun View.makeGone() {
-    visibility = View.GONE
+    if (visibility == View.VISIBLE)
+        visibility = View.GONE
 }
 
 fun View.makeInvisible() {
@@ -54,7 +72,42 @@ fun View.showMessage(message: String?) {
 fun View.showErrorMessage(message: String?) {
     message?.let {
         val snackbar = Snackbar.make(this, it, Snackbar.LENGTH_LONG)
-        snackbar.setBackgroundTint(ContextCompat.getColor(context, R.color.design_default_color_error))
+        snackbar.setBackgroundTint(
+            ContextCompat.getColor(
+                context,
+                R.color.design_default_color_error
+            )
+        )
         snackbar.show()
+    }
+}
+
+fun <T> MutableLiveData<T>.toLiveData(): LiveData<T> {
+    return this
+}
+
+enum class GENDER { FEMALE, MALE }
+
+fun Int.toGender(): GENDER {
+    return when {
+        this == 1 -> {
+            GENDER.FEMALE
+        }
+        this == 2 -> {
+            GENDER.MALE
+        }
+        else -> {
+            throw IllegalArgumentException("Unknown gender")
+        }
+    }
+}
+
+fun String.convertDate(): String {
+    val localDate = LocalDate.parse(this, DateTimeFormatter.ofPattern(SOURCE_DATE_PATTERN))
+    return try {
+        localDate.format(DateTimeFormatter.ofPattern(TARGET_DATE_PATTERN))
+    } catch (e: Exception) {
+        Timber.e(e)
+        ""
     }
 }

@@ -1,4 +1,4 @@
-package com.czech.muvies.viewModels
+package com.czech.muvies.features.home
 
 import androidx.lifecycle.*
 import com.czech.muvies.models.Movies
@@ -12,8 +12,6 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-
-private const val TAG: String = "MoviesViewModel"
 
 @ExperimentalCoroutinesApi
 class MoviesViewModel(
