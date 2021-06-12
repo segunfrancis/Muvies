@@ -271,20 +271,14 @@
     </fragment>
     <fragment
         android:id="@+id/castDetailsFragment"
-        android:name="com.czech.muvies.fragments.CastDetailsFragment"
-        android:label="cast_details_fragment"
+        android:name="com.czech.muvies.features.cast.CastDetailsFragment"
         tools:layout="@layout/cast_details_fragment" >
-        <argument
-            android:name="showPersonArgs"
-            app:argType="com.czech.muvies.models.TvShowCredits$Cast"
-            app:nullable="true" />
-        <argument
-            android:name="moviePersonArgs"
-            app:argType="com.czech.muvies.models.MovieCredits$Cast"
-            app:nullable="true" />
         <action
             android:id="@+id/action_castDetailsFragment_to_tvShowsDetailsFragment"
             app:destination="@id/tvShowsDetailsFragment" />
+        <argument
+            android:name="castId"
+            app:argType="integer" />
         <action
             android:id="@+id/action_castDetailsFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />

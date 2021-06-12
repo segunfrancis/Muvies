@@ -18,8 +18,6 @@ import com.czech.muvies.repository.MovieRepository
 import com.czech.muvies.utils.*
 import com.czech.muvies.utils.epoxy.BaseEpoxyController
 import com.czech.muvies.utils.epoxy.carouselNoSnap
-import com.czech.muvies.viewModels.MovieViewModelFactory
-import com.czech.muvies.viewModels.MoviesViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 

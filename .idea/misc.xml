@@ -4,12 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/border.xml" value="0.27395833333333336" />
         <entry key="app/src/main/res/drawable/toggle_button_bg.xml" value="0.27395833333333336" />
         <entry key="app/src/main/res/layout/about_item.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/cast_details_fragment.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/cast_item.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/cast_list.xml" value="0.45" />
+        <entry key="app/src/main/res/layout/cast_other.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/genre_item.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/genre_list.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/image_item.xml" value="0.2578125" />

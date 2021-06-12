@@ -1,13 +1,12 @@
 package com.czech.muvies.utils
 
-import android.content.ContentValues
-import android.util.Log
+import timber.log.Timber
 import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.TimeUnit
 
+@Deprecated("Extension functions are created for this")
 object Converter {
 
     fun convertDateToYear(sourceDate: String?): String? {
@@ -19,7 +18,7 @@ object Converter {
             date = sourceFormat.parse(sourceDate)
         } catch (e: ParseException) {
             e.printStackTrace()
-            Log.e(ContentValues.TAG, "Error formatting the date")
+            Timber.e("Error formatting the date")
         }
         return targetFormat.format(date)
     }
@@ -33,7 +32,7 @@ object Converter {
             sourceFormat.parse(sourceDate)
         } catch (e: ParseException) {
             e.printStackTrace()
-            Log.e(ContentValues.TAG, "Error formatting the date")
+            Timber.e("Error formatting the date")
             return null
         }
         return targetFormat.format(date)

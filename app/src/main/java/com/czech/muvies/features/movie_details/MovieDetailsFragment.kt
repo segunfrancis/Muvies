@@ -138,12 +138,12 @@ class MovieDetailsFragment : Fragment() {
                     id("cast_carousel")
                     casts?.cast?.mapIndexed { index, cast ->
                         CastAdapter {
-                            requireView().showMessage("Cast ID: ${cast?.id}")
+                            launchFragment(MovieDetailsFragmentDirections.actionDetailsFragmentToCastDetailsFragment(it))
                         }.apply {
                             imageUrl = cast?.profilePath ?: ""
                             castRealName = cast?.name ?: "-"
                             castPlayName = cast?.character ?: "-"
-                            castId = cast?.castId ?: 0
+                            castId = cast?.id ?: 0
                             id(index)
                         }
                     }?.let { models(it) }
