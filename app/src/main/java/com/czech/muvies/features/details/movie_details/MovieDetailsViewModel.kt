@@ -1,11 +1,11 @@
-package com.czech.muvies.features.movie_details
+package com.czech.muvies.features.details.movie_details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.ViewModelProvider
-import com.czech.muvies.features.movie_details.model.MovieDetailsResponse
+import com.czech.muvies.features.details.model.MovieDetailsResponse
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.repository.MovieDetailsRepository
 import com.czech.muvies.utils.Result

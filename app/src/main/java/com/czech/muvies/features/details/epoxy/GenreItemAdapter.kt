@@ -1,4 +1,4 @@
-package com.czech.muvies.features.movie_details.epoxy
+package com.czech.muvies.features.details.epoxy
 
 import android.view.ViewParent
 import com.airbnb.epoxy.EpoxyAttribute
