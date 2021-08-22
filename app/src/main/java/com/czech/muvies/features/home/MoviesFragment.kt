@@ -18,10 +18,8 @@ import com.czech.muvies.repository.MovieRepository
 import com.czech.muvies.utils.*
 import com.czech.muvies.utils.epoxy.BaseEpoxyController
 import com.czech.muvies.utils.epoxy.carouselNoSnap
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import timber.log.Timber
 
-@ExperimentalCoroutinesApi
 class MoviesFragment : Fragment() {
 
     private lateinit var binding: MoviesFragmentBinding
@@ -65,154 +63,56 @@ class MoviesFragment : Fragment() {
 
             data?.let { movies ->
 
-                carouselNoSnap {
-                    MovieHeaderHolder { title ->
-                        requireView().showMessage(title)
-                    }.apply {
-                        title = "In theater"
-                        id("in_theater_header")
-                        addTo(this@MovieAdapterController)
-                    }
-
-                    id("in_theater_carousel")
-                    models(movies.filter { movie ->
-                        movie?.movieCategory == MovieCategory.IN_THEATER
-                    }.mapIndexed { index, moviesResult ->
-                        MainMovieHolder {
-                            launchFragment(
-                                MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
-                                    it
-                                )
-                            )
-                        }.apply {
-                            moviesResult?.let {
-                                title = it.title
-                                imageUrl = it.posterPath
-                                movieId = it.id
-                            }
-                            id(index)
-                        }
-                    })
+                val movieMap = movies.groupBy {
+                    it?.movieCategory
                 }
-
-                carouselNoSnap {
-                    MovieHeaderHolder { title ->
-                        requireView().showMessage(title)
-                    }.apply {
-                        title = "Trending"
-                        id("trending_header")
-                        addTo(this@MovieAdapterController)
-                    }
-
-                    id("trending_carousel")
-                    models(movies.filter { movie ->
-                        movie?.movieCategory == MovieCategory.TRENDING
-                    }.mapIndexed { index, moviesResult ->
-                        SubMovieHolder {
-                            launchFragment(
-                                MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
-                                    it
-                                )
-                            )
+                movieMap.keys.forEachIndexed { index, movieCategory ->
+                    carouselNoSnap {
+                        MovieHeaderHolder { title ->
+                            requireView().showMessage(title)
                         }.apply {
-                            moviesResult?.let {
-                                title = it.title
-                                imageUrl = it.posterPath
-                                movieId = it.id
-                            }
-                            id(index)
+                            title = movieCategory!!.value
+                            id(movieCategory.name.plus(index))
+                            addTo(this@MovieAdapterController)
                         }
-                    })
-                }
 
-                carouselNoSnap {
-                    MovieHeaderHolder { title ->
-                        requireView().showMessage(title)
-                    }.apply {
-                        title = "Popular"
-                        id("popular_header")
-                        addTo(this@MovieAdapterController)
+                        id(movieCategory?.name.plus(" carousel"))
+                        models(movies.filter { movie ->
+                            movie?.movieCategory == movieCategory
+                        }.mapIndexed { index, moviesResult ->
+                            if (moviesResult?.movieCategory == MovieCategory.IN_THEATER) {
+                                MainMovieHolder {
+                                    launchFragment(
+                                        MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
+                                            it
+                                        )
+                                    )
+                                }.apply {
+                                    moviesResult.let {
+                                        title = it.title
+                                        imageUrl = it.posterPath
+                                        movieId = it.id
+                                    }
+                                    id(index)
+                                }
+                            } else {
+                                SubMovieHolder {
+                                    launchFragment(
+                                        MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
+                                            it
+                                        )
+                                    )
+                                }.apply {
+                                    moviesResult?.let {
+                                        title = it.title
+                                        imageUrl = it.posterPath
+                                        movieId = it.id
+                                    }
+                                    id(index)
+                                }
+                            }
+                        })
                     }
-
-                    id("popular_carousel")
-                    models(movies.filter { movie ->
-                        movie?.movieCategory == MovieCategory.POPULAR
-                    }.mapIndexed { index, moviesResult ->
-                        SubMovieHolder {
-                            launchFragment(
-                                MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
-                                    it
-                                )
-                            )
-                        }.apply {
-                            moviesResult?.let {
-                                title = it.title
-                                imageUrl = it.posterPath
-                                movieId = it.id
-                            }
-                            id(index)
-                        }
-                    })
-                }
-
-                carouselNoSnap {
-                    MovieHeaderHolder { title ->
-                        requireView().showMessage(title)
-                    }.apply {
-                        title = "Top rated"
-                        id("top_rated_header")
-                        addTo(this@MovieAdapterController)
-                    }
-
-                    id("top_rated_carousel")
-                    models(movies.filter { movie ->
-                        movie?.movieCategory == MovieCategory.TOP_RATED
-                    }.mapIndexed { index, moviesResult ->
-                        SubMovieHolder {
-                            launchFragment(
-                                MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
-                                    it
-                                )
-                            )
-                        }.apply {
-                            moviesResult?.let {
-                                title = it.title
-                                imageUrl = it.posterPath
-                                movieId = it.id
-                            }
-                            id(index)
-                        }
-                    })
-                }
-
-                carouselNoSnap {
-                    MovieHeaderHolder { title ->
-                        requireView().showMessage(title)
-                    }.apply {
-                        title = "Upcoming"
-                        id("upcoming_header")
-                        addTo(this@MovieAdapterController)
-                    }
-
-                    id("upcoming_carousel")
-                    models(movies.filter { movie ->
-                        movie?.movieCategory == MovieCategory.UPCOMING
-                    }.mapIndexed { index, moviesResult ->
-                        SubMovieHolder {
-                            launchFragment(
-                                MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
-                                    it
-                                )
-                            )
-                        }.apply {
-                            moviesResult?.let {
-                                title = it.title
-                                imageUrl = it.posterPath
-                                movieId = it.id
-                            }
-                            id(index)
-                        }
-                    })
                 }
             }
         }

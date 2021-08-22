@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/tvShowsFragment"
-        android:name="com.czech.muvies.fragments.TvShowsFragment"
+        android:name="com.czech.muvies.features.tv_shows.TvShowsFragment"
         android:label="Tv Shows"
         tools:layout="@layout/tv_shows_fragment" >
         <action
@@ -38,6 +38,9 @@
         <action
             android:id="@+id/action_tvShowsFragment_to_tvShowsDetailsFragment"
             app:destination="@id/tvShowsDetailsFragment" />
+        <action
+            android:id="@+id/action_tvShowsFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/inTheatersFragment"
@@ -131,7 +134,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.czech.muvies.features.movie_details.MovieDetailsFragment"
+        android:name="com.czech.muvies.features.details.movie_details.MovieDetailsFragment"
         android:label=""
         tools:layout="@layout/movie_details_fragment">
         <argument
@@ -151,66 +154,21 @@
         tools:layout="@layout/favorites_fragment" />
     <fragment
         android:id="@+id/tvShowsDetailsFragment"
-        android:name="com.czech.muvies.fragments.TvShowDetailsFragment"
+        android:name="com.czech.muvies.features.details.tv_show_details.TvShowDetailsFragment"
         android:label=""
         tools:layout="@layout/tv_show_details_fragment" >
-        <argument
-            android:name="airingTodayArgs"
-            app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
-            app:nullable="true" />
-        <argument
-            android:name="airingTodaySArgs"
-            app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
-            app:nullable="true" />
-        <argument
-            android:name="onAirArgs"
-            app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
-            app:nullable="true" />
-        <argument
-            android:name="onAirSArgs"
-            app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
-            app:nullable="true" />
-        <argument
-            android:name="popularTvArgs"
-            app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
-            app:nullable="true" />
-        <argument
-            android:name="popularTvSArgs"
-            app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
-            app:nullable="true" />
-        <argument
-            android:name="topRatedTvArgs"
-            app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
-            app:nullable="true" />
-        <argument
-            android:name="topRatedTvSArgs"
-            app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
-            app:nullable="true" />
-        <argument
-            android:name="trendingTvArgs"
-            app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
-            app:nullable="true" />
-        <argument
-            android:name="trendingTvSArgs"
-            app:argType="com.czech.muvies.models.TvShows$TvShowsResult"
-            app:nullable="true" />
         <action
             android:id="@+id/action_tvShowsDetailsFragment_to_seasonDetailsFragment"
             app:destination="@id/seasonDetailsFragment" />
         <action
             android:id="@+id/action_tvShowsDetailsFragment_self"
             app:destination="@id/tvShowsDetailsFragment" />
-        <argument
-            android:name="similarTvArgs"
-            app:argType="com.czech.muvies.models.SimilarTvShows$SimilarTvShowsResult"
-            app:nullable="true" />
         <action
             android:id="@+id/action_tvShowsDetailsFragment_to_castDetailsFragment"
             app:destination="@id/castDetailsFragment" />
         <argument
-            android:name="castShowArgs"
-            app:argType="com.czech.muvies.models.PersonTvShows$Cast"
-            app:nullable="true" />
+            android:name="tvShowId"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/seasonDetailsFragment"

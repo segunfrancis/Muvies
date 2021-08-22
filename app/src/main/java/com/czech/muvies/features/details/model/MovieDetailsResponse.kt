@@ -1,4 +1,4 @@
-package com.czech.muvies.features.movie_details.model
+package com.czech.muvies.features.details.model
 
 import com.czech.muvies.models.MovieCredits
 import com.czech.muvies.models.MovieDetails

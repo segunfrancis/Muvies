@@ -1,11 +1,14 @@
 package com.czech.muvies.features.home
 
-import androidx.lifecycle.*
+import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModelProvider
 import com.czech.muvies.models.Movies
 import com.czech.muvies.repository.MovieRepository
 import com.czech.muvies.utils.Result
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.onStart
@@ -13,7 +16,6 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-@ExperimentalCoroutinesApi
 class MoviesViewModel(
     private val repository: MovieRepository
 ) : ViewModel() {
@@ -65,7 +67,6 @@ class MoviesViewModel(
 }
 
 @Suppress("UNCHECKED_CAST")
-@ExperimentalCoroutinesApi
 class MovieViewModelFactory(
     private val repository: MovieRepository
 ) : ViewModelProvider.Factory {

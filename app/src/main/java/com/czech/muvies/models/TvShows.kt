@@ -13,7 +13,7 @@ data class TvShows(
     val totalPages: Int = 0,
     @SerializedName("total_results")
     val totalResults: Int = 0
-): Parcelable {
+) : Parcelable {
 
     @Parcelize
     data class TvShowsResult(
@@ -34,10 +34,20 @@ data class TvShows(
         val overview: String = "",
         val popularity: Double = 0.0,
         @SerializedName("poster_path")
-        val posterPath: String = "",
+        val posterPath: String? = "",
         @SerializedName("vote_average")
         val voteAverage: Double = 0.0,
         @SerializedName("vote_count")
-        val voteCount: Int = 0
-    ): Parcelable
+        val voteCount: Int = 0,
+        var category: TvShowsCategory = TvShowsCategory.UNSUPPORTED
+    ) : Parcelable
+
+    enum class TvShowsCategory(val value: String) {
+        AIRING_TODAY("airing today"),
+        ON_AIR("on air"),
+        POPULAR("popular shows"),
+        TOP_RATED("top rated shows"),
+        TRENDING("trending shows"),
+        UNSUPPORTED("unsupported category")
+    }
 }

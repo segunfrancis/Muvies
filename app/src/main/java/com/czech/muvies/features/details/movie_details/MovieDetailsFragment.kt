@@ -1,4 +1,4 @@
-package com.czech.muvies.features.movie_details
+package com.czech.muvies.features.details.movie_details
 
 import android.content.Intent
 import android.net.Uri
@@ -12,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.czech.muvies.databinding.MovieDetailsFragmentBinding
-import com.czech.muvies.features.movie_details.epoxy.*
-import com.czech.muvies.features.movie_details.model.MovieDetailsResponse
+import com.czech.muvies.features.details.epoxy.*
+import com.czech.muvies.features.details.model.MovieDetailsResponse
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.utils.*
 import com.czech.muvies.utils.epoxy.BaseEpoxyController
@@ -138,7 +138,11 @@ class MovieDetailsFragment : Fragment() {
                     id("cast_carousel")
                     casts?.cast?.mapIndexed { index, cast ->
                         CastAdapter {
-                            launchFragment(MovieDetailsFragmentDirections.actionDetailsFragmentToCastDetailsFragment(it))
+                            launchFragment(
+                                MovieDetailsFragmentDirections.actionDetailsFragmentToCastDetailsFragment(
+                                    it
+                                )
+                            )
                         }.apply {
                             imageUrl = cast?.profilePath ?: ""
                             castRealName = cast?.name ?: "-"

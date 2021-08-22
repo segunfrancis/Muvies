@@ -4,13 +4,17 @@ import com.czech.muvies.BuildConfig
 import com.czech.muvies.utils.AppConstants.LANGUAGE
 import com.czech.muvies.models.Movies
 import com.czech.muvies.models.*
+import com.czech.muvies.utils.AppConstants.NETWORK_TIMEOUT
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import java.util.concurrent.TimeUnit
 
 @Deprecated("use constants from AppConstants class")
 const val BASE_URL = "https://api.themoviedb.org/3/"
@@ -19,12 +23,21 @@ interface MoviesApiService {
 
     companion object {
         fun getService(): MoviesApiService {
+            val loggingInterceptor = HttpLoggingInterceptor()
+            loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+            val client = OkHttpClient().newBuilder().addInterceptor(loggingInterceptor)
+                .callTimeout(NETWORK_TIMEOUT, TimeUnit.SECONDS)
+                .connectTimeout(NETWORK_TIMEOUT, TimeUnit.SECONDS)
+                .build()
+
             val retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .client(client)
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-            return  retrofit.create(MoviesApiService::class.java)
+            return retrofit.create(MoviesApiService::class.java)
         }
     }
 
@@ -88,7 +101,7 @@ interface MoviesApiService {
     suspend fun getAiringTodayTVAsync(
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
         @Query("language") language: String = LANGUAGE,
-        @Query("page") page: Int
+        @Query("page") page: Int = 1
     ): TvShows
 
     @GET("tv/airing_today")
@@ -102,7 +115,7 @@ interface MoviesApiService {
     suspend fun getOnAirTvAsync(
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
         @Query("language") language: String = LANGUAGE,
-        @Query("page") page: Int
+        @Query("page") page: Int = 1
     ): TvShows
 
     @GET("tv/on_the_air")
@@ -116,7 +129,7 @@ interface MoviesApiService {
     suspend fun getPopularTVAsync(
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
         @Query("language") language: String = LANGUAGE,
-        @Query("page") page: Int
+        @Query("page") page: Int = 1
     ): TvShows
 
     @GET("tv/popular")
@@ -130,7 +143,7 @@ interface MoviesApiService {
     suspend fun getTopRatedTVAsync(
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
         @Query("language") language: String = LANGUAGE,
-        @Query("page") page: Int
+        @Query("page") page: Int = 1
     ): TvShows
 
     @GET("tv/top_rated")
@@ -199,12 +212,20 @@ interface MoviesApiService {
     ): SimilarMovies
 
     @GET("tv/{id}/similar")
+    suspend fun getSimilarTvShowsResponse(
+        @Path("id") movieId: Int,
+        @Query("api_key") apiKey: String = BuildConfig.API_KEY,
+        @Query("language") language: String = LANGUAGE,
+        @Query("page") page: Int = 1
+    ): Response<SimilarTvShows>
+
+    @GET("tv/{id}/similar")
     suspend fun getSimilarTvShows(
         @Path("id") movieId: Int,
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
         @Query("language") language: String = LANGUAGE,
-        @Query("page") page: Int
-    ): Response<SimilarTvShows>
+        @Query("page") page: Int = 1
+    ): SimilarTvShows
 
     @GET("movie/{id}/credits")
     suspend fun getMovieCredits(

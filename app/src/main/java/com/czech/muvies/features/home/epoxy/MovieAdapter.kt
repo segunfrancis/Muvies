@@ -16,7 +16,7 @@ open class MainMovieHolder(private val onClick: (movieId: Int) -> Unit) : EpoxyM
     lateinit var title: String
 
     @EpoxyAttribute
-    lateinit var imageUrl: String
+    var imageUrl: String? = ""
 
     @EpoxyAttribute
     var movieId: Int = 0
@@ -62,7 +62,7 @@ open class SubMovieHolder(private val onClick: (movieId: Int) -> Unit) : EpoxyMo
     lateinit var title: String
 
     @EpoxyAttribute
-    lateinit var imageUrl: String
+    var imageUrl: String? = ""
 
     @EpoxyAttribute
     var movieId: Int = 0

@@ -11,8 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.adapters.FavMoviesAdapter
 import com.czech.muvies.databinding.FragmentFavMoviesTabBinding
-import com.czech.muvies.features.movie_details.MovieDetailsFragment
-import com.czech.muvies.features.movie_details.ToFavorites
+import com.czech.muvies.features.details.movie_details.MovieDetailsFragment
+import com.czech.muvies.features.details.movie_details.ToFavorites
 import com.czech.muvies.room.movies.MoviesDatabase
 import com.czech.muvies.room.movies.MoviesEntity
 import com.czech.muvies.room.movies.MoviesRepository

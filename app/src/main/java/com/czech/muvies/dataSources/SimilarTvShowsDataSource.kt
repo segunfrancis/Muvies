@@ -25,7 +25,7 @@ class SimilarTvShowsDataSource(private var apiService: MoviesApiService, corouti
         callback: LoadInitialCallback<Int, SimilarTvShows.SimilarTvShowsResult>) {
         scope.launch {
             try {
-                val response = apiService.getSimilarTvShows(id, BuildConfig.API_KEY, LANGUAGE, 1)
+                val response = apiService.getSimilarTvShowsResponse(id, BuildConfig.API_KEY, LANGUAGE, 1)
                 when {
                     response.isSuccessful -> {
                         response.body()!!.results?.let {
@@ -43,7 +43,7 @@ class SimilarTvShowsDataSource(private var apiService: MoviesApiService, corouti
         callback: LoadCallback<Int, SimilarTvShows.SimilarTvShowsResult>) {
         scope.launch {
             try {
-                val response = apiService.getSimilarTvShows(id, BuildConfig.API_KEY, LANGUAGE, params.key)
+                val response = apiService.getSimilarTvShowsResponse(id, BuildConfig.API_KEY, LANGUAGE, params.key)
                 when {
                     response.isSuccessful -> {
                         response.body()!!.results?.let {
