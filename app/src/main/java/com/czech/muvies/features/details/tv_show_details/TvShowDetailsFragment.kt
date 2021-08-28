@@ -41,11 +41,16 @@ class TvShowDetailsFragment : Fragment(R.layout.tv_show_details_fragment) {
     private val args: TvShowDetailsFragmentArgs by navArgs()
     private val controller: TvShowsDetailsController by lazy { TvShowsDetailsController() }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel.getTvShowsDetails(args.tvShowId)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = TvShowDetailsFragmentBinding.bind(view)
-        viewModel.getTvShowsDetails(args.tvShowId)
         binding.tvShowsDetailsEpoxyRecyclerView.adapter = controller.adapter
         setupObservers()
     }

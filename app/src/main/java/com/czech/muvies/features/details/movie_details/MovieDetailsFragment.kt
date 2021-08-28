@@ -25,7 +25,11 @@ import timber.log.Timber
 @Suppress("UNCHECKED_CAST")
 class MovieDetailsFragment : Fragment() {
     private lateinit var binding: MovieDetailsFragmentBinding
-    private val viewModel: MovieDetailsViewModel by viewModels { MovieDetailsViewModelFactory(MoviesApiService.getService()) }
+    private val viewModel: MovieDetailsViewModel by viewModels {
+        MovieDetailsViewModelFactory(
+            MoviesApiService.getService()
+        )
+    }
 
     private val args: MovieDetailsFragmentArgs by navArgs()
 
@@ -59,25 +63,29 @@ class MovieDetailsFragment : Fragment() {
 
         viewModel.movieDetails.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is Result.Loading -> {
-                    binding.lottieProgress.makeVisible()
-                }
-                is Result.Success -> {
-                    binding.lottieProgress.makeGone()
-                    result.data.let { movieDetails ->
-                        // Set toolbar title
-                        (requireActivity() as AppCompatActivity).supportActionBar?.title = movieDetails.details?.title
-                        controller.data = listOf(movieDetails)
-                        controller.requestModelBuild()
-                    }
-                }
-                is Result.Error -> {
-                    binding.lottieProgress.makeGone()
-                    requireView().showErrorMessage(result.error.localizedMessage)
-                    Timber.e(result.error)
-                }
+                is Result.Loading -> handleLoading()
+                is Result.Success -> handleSuccess(result.data)
+                is Result.Error -> handleError(result.error)
             }
         }
+    }
+
+    private fun handleLoading() = with(binding) {
+        lottieProgress.makeVisible()
+    }
+
+    private fun handleError(error: Throwable) = with(binding) {
+        lottieProgress.makeGone()
+        root.showErrorMessage(error.localizedMessage)
+        Timber.e(error)
+    }
+
+    private fun handleSuccess(movieDetails: MovieDetailsResponse) = with(binding) {
+        lottieProgress.makeGone()
+        (requireActivity() as AppCompatActivity).supportActionBar?.title =
+            movieDetails.details?.title
+        controller.data = listOf(movieDetails)
+        controller.requestModelBuild()
     }
 
     companion object {

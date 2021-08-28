@@ -24,20 +24,21 @@
                 android:id="@+id/back_drop"
                 android:layout_width="0dp"
                 android:layout_height="320dp"
-                android:scaleType="fitXY"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@tools:sample/backgrounds/scenic" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView4"
                 android:layout_width="110dp"
                 android:layout_height="165dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="265dp"
                 app:cardElevation="12dp"
+                app:layout_constraintBottom_toBottomOf="@+id/back_drop"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/back_drop">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

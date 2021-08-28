@@ -10,8 +10,27 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:animateLayoutChanges="true">
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/all_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:constraint_referenced_ids="biography,birthday,cast_image,cast_movies,cast_movies_toggle,cast_shows,cast_shows_toggle,name,gender,textView" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_progress"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="loader_movie.json"
+            app:lottie_loop="true"
+            app:lottie_repeatMode="reverse" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/cast_image"
@@ -81,9 +100,9 @@
             android:id="@+id/biography"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
             android:fontFamily="sans-serif"
             android:textColor="@color/colorAccentLight"
             app:layout_constraintEnd_toEndOf="parent"
@@ -134,7 +153,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cast_movies_toggle" />
