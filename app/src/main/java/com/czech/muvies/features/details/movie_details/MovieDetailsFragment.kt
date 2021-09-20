@@ -25,7 +25,11 @@ import timber.log.Timber
 @Suppress("UNCHECKED_CAST")
 class MovieDetailsFragment : Fragment() {
     private lateinit var binding: MovieDetailsFragmentBinding
-    private val viewModel: MovieDetailsViewModel by viewModels { MovieDetailsViewModelFactory(MoviesApiService.getService()) }
+    private val viewModel: MovieDetailsViewModel by viewModels {
+        MovieDetailsViewModelFactory(
+            MoviesApiService.getService()
+        )
+    }
 
     private val args: MovieDetailsFragmentArgs by navArgs()
 
@@ -59,25 +63,29 @@ class MovieDetailsFragment : Fragment() {
 
         viewModel.movieDetails.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is Result.Loading -> {
-                    binding.lottieProgress.makeVisible()
-                }
-                is Result.Success -> {
-                    binding.lottieProgress.makeGone()
-                    result.data.let { movieDetails ->
-                        // Set toolbar title
-                        (requireActivity() as AppCompatActivity).supportActionBar?.title = movieDetails.details?.title
-                        controller.data = listOf(movieDetails)
-                        controller.requestModelBuild()
-                    }
-                }
-                is Result.Error -> {
-                    binding.lottieProgress.makeGone()
-                    requireView().showErrorMessage(result.error.localizedMessage)
-                    Timber.e(result.error)
-                }
+                is Result.Loading -> handleLoading()
+                is Result.Success -> handleSuccess(result.data)
+                is Result.Error -> handleError(result.error)
             }
         }
+    }
+
+    private fun handleLoading() = with(binding) {
+        lottieProgress.makeVisible()
+    }
+
+    private fun handleError(error: Throwable) = with(binding) {
+        lottieProgress.makeGone()
+        root.showErrorMessage(error.localizedMessage)
+        Timber.e(error)
+    }
+
+    private fun handleSuccess(movieDetails: MovieDetailsResponse) = with(binding) {
+        lottieProgress.makeGone()
+        (requireActivity() as AppCompatActivity).supportActionBar?.title =
+            movieDetails.details?.title
+        controller.data = listOf(movieDetails)
+        controller.requestModelBuild()
     }
 
     companion object {
@@ -138,11 +146,7 @@ class MovieDetailsFragment : Fragment() {
                     id("cast_carousel")
                     casts?.cast?.mapIndexed { index, cast ->
                         CastAdapter {
-                            launchFragment(
-                                MovieDetailsFragmentDirections.actionDetailsFragmentToCastDetailsFragment(
-                                    it
-                                )
-                            )
+                            launchFragment(NavigationDeepLinks.toCastDetails(it))
                         }.apply {
                             imageUrl = cast?.profilePath ?: ""
                             castRealName = cast?.name ?: "-"
@@ -186,11 +190,7 @@ class MovieDetailsFragment : Fragment() {
                     id("similar_carousel")
                     similarMovies?.results?.mapIndexed { index, movie ->
                         SimilarMoviesAdapter {
-                            launchFragment(
-                                MovieDetailsFragmentDirections.actionDetailsFragmentSelf(
-                                    it
-                                )
-                            )
+                            launchFragment(NavigationDeepLinks.toMovieDetails(it))
                         }.apply {
                             imageUrl = movie?.posterPath ?: ""
                             movieId = movie?.id ?: 0

@@ -11,9 +11,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.czech.muvies.databinding.CastDetailsFragmentBinding
 import com.czech.muvies.features.cast.epoxy.CastAdapter
+import com.czech.muvies.models.PersonDetails
 import com.czech.muvies.models.PersonMovies
 import com.czech.muvies.models.PersonTvShows
 import com.czech.muvies.network.MoviesApiService
+import com.czech.muvies.utils.NavigationDeepLinks
 import com.czech.muvies.utils.Result
 import com.czech.muvies.utils.convertDate
 import com.czech.muvies.utils.epoxy.BaseEpoxyController
@@ -77,27 +79,9 @@ class CastDetailsFragment : Fragment() {
 
         viewModel.castDetails.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is Result.Loading -> {
-                }
-                is Result.Success -> {
-                    val details = result.data
-                    binding.biography.text = details.biography
-                    binding.birthday.text = "Born on ".plus(details.birthday?.convertDate())
-                    binding.name.text = details.name
-                    (requireActivity() as AppCompatActivity).supportActionBar?.title = details.name
-                    binding.castImage.loadRoundCastImage(details.profilePath)
-                    try {
-                        details.gender?.let {
-                            binding.gender.text = it.toGender().name.toLowerCase(Locale.getDefault())
-                        }
-                    } catch (e: Exception) {
-                        Timber.e(e)
-                    }
-                }
-                is Result.Error -> {
-                    requireView().showErrorMessage(result.error.localizedMessage)
-                    Timber.e(result.error)
-                }
+                is Result.Loading -> handleLoading()
+                is Result.Success -> handleSuccess(result.data)
+                is Result.Error -> handleError(result.error)
             }
         }
 
@@ -106,7 +90,7 @@ class CastDetailsFragment : Fragment() {
                 is Result.Loading -> {
                 }
                 is Result.Success -> {
-                    val movieDetails = result.data.cast
+                    val movieDetails = result.data.cast?.take(20)
                     moviesController.data = movieDetails
                     moviesController.requestModelBuild()
                 }
@@ -122,7 +106,7 @@ class CastDetailsFragment : Fragment() {
                 is Result.Loading -> {
                 }
                 is Result.Success -> {
-                    val tvShowDetails = result.data.cast
+                    val tvShowDetails = result.data.cast?.take(20)
                     tvShowsController.data = tvShowDetails
                     tvShowsController.requestModelBuild()
                 }
@@ -134,6 +118,35 @@ class CastDetailsFragment : Fragment() {
         }
     }
 
+    private fun handleLoading() = with(binding) {
+        lottieProgress.makeVisible()
+    }
+
+    private fun handleError(error: Throwable) = with(binding) {
+        root.showErrorMessage(error.localizedMessage)
+        lottieProgress.makeGone()
+        Timber.e(error)
+    }
+
+    private fun handleSuccess(details: PersonDetails) = with(binding) {
+        lottieProgress.makeGone()
+        allView.makeVisible()
+        biography.text = details.biography
+        birthday.text = "Born on ".plus(details.birthday?.convertDate())
+        name.text = details.name
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = details.name
+        castImage.loadRoundCastImage(details.profilePath)
+        try {
+            details.gender?.let {
+                gender.text = it.toGender().name.toLowerCase(Locale.getDefault())
+            }
+        } catch (e: Exception) {
+            Timber.e(e)
+        }
+        // Hide tv shows list initially
+        castShows.makeGone()
+    }
+
     inner class CastMoviesEpoxyController : BaseEpoxyController<PersonMovies.Cast?>() {
         override fun buildModels() {
             data?.let {
@@ -141,7 +154,7 @@ class CastDetailsFragment : Fragment() {
                     id("movies_carousel")
                     models(it.mapIndexed { index, cast ->
                         CastAdapter {
-                            launchFragment(CastDetailsFragmentDirections.actionCastDetailsFragmentToDetailsFragment(it))
+                            launchFragment(NavigationDeepLinks.toMovieDetails(it))
                         }.apply {
                             id(index)
                             itemId = cast?.id ?: 0
@@ -161,7 +174,7 @@ class CastDetailsFragment : Fragment() {
                     id("tv_shows_carousel")
                     models(it.mapIndexed { index, cast ->
                         CastAdapter {
-
+                            launchFragment(NavigationDeepLinks.toTvShowDetails(it))
                         }.apply {
                             id(index)
                             itemId = cast?.id ?: 0

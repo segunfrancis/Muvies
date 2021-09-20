@@ -2,11 +2,15 @@ package com.czech.muvies.utils
 
 import android.view.View
 import android.widget.ImageView
+import androidx.annotation.IdRes
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.NavDirections
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.czech.muvies.R
@@ -52,11 +56,26 @@ fun View.makeInvisible() {
 }
 
 fun Fragment.launchFragment(directions: NavDirections) {
-    findNavController().navigate(directions)
+    val controller = findNavController()
+    if ((controller.currentDestination as FragmentNavigator.Destination).className == javaClass.name) {
+        controller.navigate(directions)
+    }
 }
 
-fun Fragment.launchFragment(destination: Int) {
-    findNavController().navigate(destination)
+fun Fragment.launchFragment(@IdRes destination: Int) {
+    val controller = findNavController()
+    if ((controller.currentDestination as FragmentNavigator.Destination).className == javaClass.name) {
+        controller.navigate(destination)
+    }
+}
+
+fun Fragment.launchFragment(deepLink: String) {
+    val controller = findNavController()
+    val request = NavDeepLinkRequest.Builder.fromUri(deepLink.toUri())
+        .build()
+    if ((controller.currentDestination as FragmentNavigator.Destination).className == javaClass.name) {
+        controller.navigate(request)
+    }
 }
 
 fun <T> Flow<T>.doAsync(block: (data: Result<T>) -> Unit): Flow<T> {
@@ -111,3 +130,4 @@ fun String.convertDate(): String {
         ""
     }
 }
+

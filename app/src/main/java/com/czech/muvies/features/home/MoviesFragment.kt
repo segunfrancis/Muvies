@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.czech.muvies.adapters.*
 import com.czech.muvies.databinding.MoviesFragmentBinding
 import com.czech.muvies.features.home.epoxy.MainMovieHolder
 import com.czech.muvies.features.home.epoxy.MovieHeaderHolder
@@ -42,19 +41,27 @@ class MoviesFragment : Fragment() {
 
         viewModel.movieResponse.observe(viewLifecycleOwner) { result ->
             when (result) {
-                is Result.Loading -> binding.lottieProgress.makeVisible()
-                is Result.Error -> {
-                    requireView().showErrorMessage(result.error.localizedMessage)
-                    binding.lottieProgress.makeGone()
-                    Timber.e(result.error)
-                }
-                is Result.Success -> {
-                    binding.lottieProgress.makeGone()
-                    controller.data = result.data
-                    controller.requestModelBuild()
-                }
+                is Result.Loading -> handleLoading()
+                is Result.Error -> handleError(result.error)
+                is Result.Success -> handleSuccess(result.data)
             }
         }
+    }
+
+    private fun handleError(error: Throwable) = with(binding) {
+        root.showErrorMessage(error.localizedMessage)
+        lottieProgress.makeGone()
+        Timber.e(error)
+    }
+
+    private fun handleLoading() {
+        binding.lottieProgress.makeVisible()
+    }
+
+    private fun handleSuccess(data: List<Movies.MoviesResult>) {
+        binding.lottieProgress.makeGone()
+        controller.data = data
+        controller.requestModelBuild()
     }
 
     inner class MovieAdapterController : BaseEpoxyController<Movies.MoviesResult?>() {
@@ -82,11 +89,7 @@ class MoviesFragment : Fragment() {
                         }.mapIndexed { index, moviesResult ->
                             if (moviesResult?.movieCategory == MovieCategory.IN_THEATER) {
                                 MainMovieHolder {
-                                    launchFragment(
-                                        MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
-                                            it
-                                        )
-                                    )
+                                    launchFragment(NavigationDeepLinks.toMovieDetails(it))
                                 }.apply {
                                     moviesResult.let {
                                         title = it.title
@@ -97,11 +100,7 @@ class MoviesFragment : Fragment() {
                                 }
                             } else {
                                 SubMovieHolder {
-                                    launchFragment(
-                                        MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
-                                            it
-                                        )
-                                    )
+                                    launchFragment(NavigationDeepLinks.toMovieDetails(it))
                                 }.apply {
                                     moviesResult?.let {
                                         title = it.title

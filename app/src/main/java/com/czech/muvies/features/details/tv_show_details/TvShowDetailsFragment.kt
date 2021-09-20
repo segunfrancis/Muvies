@@ -20,6 +20,7 @@ import com.czech.muvies.features.details.epoxy.SynopsisAdapter
 import com.czech.muvies.features.details.model.TvShowsDetailsResponse
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.repository.TvShowsDetailsRepository
+import com.czech.muvies.utils.NavigationDeepLinks
 import com.czech.muvies.utils.Result
 import com.czech.muvies.utils.epoxy.BaseEpoxyController
 import com.czech.muvies.utils.epoxy.carouselNoSnap
@@ -41,11 +42,16 @@ class TvShowDetailsFragment : Fragment(R.layout.tv_show_details_fragment) {
     private val args: TvShowDetailsFragmentArgs by navArgs()
     private val controller: TvShowsDetailsController by lazy { TvShowsDetailsController() }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel.getTvShowsDetails(args.tvShowId)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = TvShowDetailsFragmentBinding.bind(view)
-        viewModel.getTvShowsDetails(args.tvShowId)
         binding.tvShowsDetailsEpoxyRecyclerView.adapter = controller.adapter
         setupObservers()
     }
@@ -133,11 +139,7 @@ class TvShowDetailsFragment : Fragment(R.layout.tv_show_details_fragment) {
                         id("cast_carousel")
                         casts?.mapIndexed { index, cast ->
                             CastAdapter {
-                                launchFragment(
-                                    TvShowDetailsFragmentDirections.actionTvShowsDetailsFragmentToCastDetailsFragment(
-                                        it
-                                    )
-                                )
+                                launchFragment(NavigationDeepLinks.toCastDetails(it))
                             }.apply {
                                 imageUrl = cast?.profilePath ?: ""
                                 castRealName = cast?.name ?: "-"
@@ -201,11 +203,7 @@ class TvShowDetailsFragment : Fragment(R.layout.tv_show_details_fragment) {
                         id("similar_carousel")
                         similarTvShows?.mapIndexed { index, movie ->
                             SimilarMoviesAdapter {
-                                launchFragment(
-                                    TvShowDetailsFragmentDirections.actionTvShowsDetailsFragmentSelf(
-                                        it
-                                    )
-                                )
+                                launchFragment(NavigationDeepLinks.toTvShowDetails(it))
                             }.apply {
                                 imageUrl = movie?.posterPath ?: ""
                                 movieId = movie?.id ?: 0
