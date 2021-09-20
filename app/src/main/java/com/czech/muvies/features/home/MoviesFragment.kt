@@ -2,10 +2,9 @@ package com.czech.muvies.features.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.czech.muvies.R
 import com.czech.muvies.databinding.MoviesFragmentBinding
 import com.czech.muvies.features.home.epoxy.MainMovieHolder
 import com.czech.muvies.features.home.epoxy.MovieHeaderHolder
@@ -19,25 +18,16 @@ import com.czech.muvies.utils.epoxy.BaseEpoxyController
 import com.czech.muvies.utils.epoxy.carouselNoSnap
 import timber.log.Timber
 
-class MoviesFragment : Fragment() {
+class MoviesFragment : Fragment(R.layout.movies_fragment) {
 
-    private lateinit var binding: MoviesFragmentBinding
+    private val binding: MoviesFragmentBinding by viewBinding(MoviesFragmentBinding::bind)
     private val viewModel by viewModels<MoviesViewModel> { MovieViewModelFactory(MovieRepository((MoviesApiService.getService()))) }
     private val controller: MovieAdapterController by lazy { MovieAdapterController() }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-
-        binding = MoviesFragmentBinding.inflate(inflater)
-        binding.movieEpoxyRecyclerView.adapter = controller.adapter
-
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.movieEpoxyRecyclerView.adapter = controller.adapter
 
         viewModel.movieResponse.observe(viewLifecycleOwner) { result ->
             when (result) {
@@ -76,7 +66,8 @@ class MoviesFragment : Fragment() {
                 movieMap.keys.forEachIndexed { index, movieCategory ->
                     carouselNoSnap {
                         MovieHeaderHolder { title ->
-                            requireView().showMessage(title)
+                            //requireView().showMessage(title)
+                            launchFragment(NavigationDeepLinks.toAllMovies())
                         }.apply {
                             title = movieCategory!!.value
                             id(movieCategory.name.plus(index))

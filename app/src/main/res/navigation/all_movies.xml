@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/all_movies"
+    app:startDestination="@id/allFragment">
+
+    <fragment
+        android:id="@+id/allFragment"
+        android:name="com.czech.muvies.features.all.AllFragment"
+        android:label="all_fragment"
+        tools:layout="@layout/all_fragment">
+        <deepLink app:uri="https://czech.muvies/all_movies" />
+    </fragment>
+</navigation>

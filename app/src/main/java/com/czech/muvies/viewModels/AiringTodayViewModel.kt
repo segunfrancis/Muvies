@@ -13,11 +13,11 @@ class AiringTodayViewModel : ViewModel() {
 
     private val apiService = MoviesApiService.getService()
     private val airingTodayList: LiveData<PagedList<TvShows.TvShowsResult>>
-    private val pageSize = 1000
-    private val airingTodayDataSourceFactory: AiringTodayDataSourceFactory
+    private val pageSize = 50
+    private val airingTodayDataSourceFactory: AiringTodayDataSourceFactory =
+        AiringTodayDataSourceFactory(apiService, Dispatchers.IO)
 
     init {
-        airingTodayDataSourceFactory = AiringTodayDataSourceFactory(apiService, Dispatchers.IO)
         val config = PagedList.Config.Builder()
             .setPageSize(pageSize)
             .setEnablePlaceholders(false)

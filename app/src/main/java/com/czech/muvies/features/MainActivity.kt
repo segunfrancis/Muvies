@@ -49,6 +49,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.favoritesFragment -> showBottomNavigation()
                 else -> hideBottomNavigation()
             }
+            when(destination.id) {
+                R.id.allFragment -> hideAppBar()
+                else -> showAppBar()
+            }
         }
         binding.bottomNav.setOnNavigationItemReselectedListener { }
     }
@@ -64,6 +68,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun hideBottomNavigation() {
         binding.bottomNav.makeGone()
+    }
+
+    private fun hideAppBar() {
+        supportActionBar?.hide()
+    }
+
+    private fun showAppBar() {
+        supportActionBar?.show()
     }
 
     override fun onBackPressed() {

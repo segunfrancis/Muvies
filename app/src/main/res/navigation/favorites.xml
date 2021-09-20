@@ -6,12 +6,12 @@
     app:startDestination="@id/favoritesFragment">
     <fragment
         android:id="@+id/favoritesFragment"
-        android:name="com.czech.muvies.fragments.FavoritesFragment"
+        android:name="com.czech.muvies.features.favorite.FavoritesFragment"
         android:label="Favorites"
         tools:layout="@layout/favorites_fragment" />
     <fragment
         android:id="@+id/favMoviesTabFragment"
-        android:name="com.czech.muvies.fragments.FavMoviesTabFragment"
+        android:name="com.czech.muvies.features.favorite.FavMoviesTabFragment"
         android:label="fragment_fav_movies_tab"
         tools:layout="@layout/fragment_fav_movies_tab">
         <argument

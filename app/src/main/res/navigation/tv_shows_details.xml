@@ -12,7 +12,31 @@
         <argument
             android:name="tvShowId"
             app:argType="integer" />
-        <deepLink
-            app:uri="https://czech.muvies/tv_show_details/{tvShowId}" />
+        <deepLink app:uri="https://czech.muvies/tv_show_details/{tvShowId}" />
+        <action
+            android:id="@+id/open_season_details"
+            app:destination="@id/seasonDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/seasonDetailsFragment"
+        android:name="com.czech.muvies.fragments.SeasonDetailsFragment"
+        android:label="season details"
+        tools:layout="@layout/season_details_fragment">
+        <argument
+            android:name="seasonArgs"
+            app:argType="com.czech.muvies.models.TvShowDetails$Season"
+            app:nullable="true" />
+        <argument
+            android:name="showId"
+            app:argType="integer" />
+        <argument
+            android:name="showName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="backdrop"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>

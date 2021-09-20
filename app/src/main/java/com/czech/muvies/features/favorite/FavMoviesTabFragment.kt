@@ -1,4 +1,4 @@
-package com.czech.muvies.fragments
+package com.czech.muvies.features.favorite
 
 import android.content.Intent
 import android.os.Bundle
