@@ -12,6 +12,7 @@ import com.czech.muvies.features.home.epoxy.SubMovieHolder
 import com.czech.muvies.models.TvShows
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.repository.TvShowsRepository
+import com.czech.muvies.utils.NavigationDeepLinks
 import com.czech.muvies.utils.Result
 import com.czech.muvies.utils.epoxy.BaseEpoxyController
 import com.czech.muvies.utils.epoxy.carouselNoSnap
@@ -87,11 +88,7 @@ class TvShowsFragment : Fragment(R.layout.tv_shows_fragment) {
                         }.mapIndexed { index, tvShowsResult ->
                             if (tvShowsResult?.category == TvShows.TvShowsCategory.AIRING_TODAY) {
                                 MainMovieHolder {
-                                    launchFragment(
-                                        TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
-                                            it
-                                        )
-                                    )
+                                    launchFragment(NavigationDeepLinks.toTvShowDetails(it))
                                 }.apply {
                                     tvShowsResult.let {
                                         title = it.name
@@ -102,11 +99,7 @@ class TvShowsFragment : Fragment(R.layout.tv_shows_fragment) {
                                 }
                             } else {
                                 SubMovieHolder {
-                                    launchFragment(
-                                        TvShowsFragmentDirections.actionTvShowsFragmentToTvShowsDetailsFragment(
-                                            it
-                                        )
-                                    )
+                                    launchFragment(NavigationDeepLinks.toTvShowDetails(it))
                                 }.apply {
                                     tvShowsResult?.let {
                                         title = it.name

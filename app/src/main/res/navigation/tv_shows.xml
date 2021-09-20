@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tv_shows"
+    app:startDestination="@id/tvShowsFragment">
+
+    <fragment
+        android:id="@+id/tvShowsFragment"
+        android:name="com.czech.muvies.features.tv_shows.TvShowsFragment"
+        android:label="Tv Shows"
+        tools:layout="@layout/tv_shows_fragment">
+    </fragment>
+    <fragment
+        android:id="@+id/seasonDetailsFragment"
+        android:name="com.czech.muvies.fragments.SeasonDetailsFragment"
+        android:label="season details"
+        tools:layout="@layout/season_details_fragment">
+        <argument
+            android:name="seasonArgs"
+            app:argType="com.czech.muvies.models.TvShowDetails$Season"
+            app:nullable="true" />
+        <argument
+            android:name="showId"
+            app:argType="integer" />
+        <argument
+            android:name="showName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="backdrop"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+</navigation>

@@ -89,11 +89,7 @@ class MoviesFragment : Fragment() {
                         }.mapIndexed { index, moviesResult ->
                             if (moviesResult?.movieCategory == MovieCategory.IN_THEATER) {
                                 MainMovieHolder {
-                                    launchFragment(
-                                        MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
-                                            it
-                                        )
-                                    )
+                                    launchFragment(NavigationDeepLinks.toMovieDetails(it))
                                 }.apply {
                                     moviesResult.let {
                                         title = it.title
@@ -104,11 +100,7 @@ class MoviesFragment : Fragment() {
                                 }
                             } else {
                                 SubMovieHolder {
-                                    launchFragment(
-                                        MoviesFragmentDirections.actionMoviesFragmentToDetailsFragment(
-                                            it
-                                        )
-                                    )
+                                    launchFragment(NavigationDeepLinks.toMovieDetails(it))
                                 }.apply {
                                     moviesResult?.let {
                                         title = it.title

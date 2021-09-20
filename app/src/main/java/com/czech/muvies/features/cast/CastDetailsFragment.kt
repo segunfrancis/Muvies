@@ -15,6 +15,7 @@ import com.czech.muvies.models.PersonDetails
 import com.czech.muvies.models.PersonMovies
 import com.czech.muvies.models.PersonTvShows
 import com.czech.muvies.network.MoviesApiService
+import com.czech.muvies.utils.NavigationDeepLinks
 import com.czech.muvies.utils.Result
 import com.czech.muvies.utils.convertDate
 import com.czech.muvies.utils.epoxy.BaseEpoxyController
@@ -153,11 +154,7 @@ class CastDetailsFragment : Fragment() {
                     id("movies_carousel")
                     models(it.mapIndexed { index, cast ->
                         CastAdapter {
-                            launchFragment(
-                                CastDetailsFragmentDirections.actionCastDetailsFragmentToDetailsFragment(
-                                    it
-                                )
-                            )
+                            launchFragment(NavigationDeepLinks.toMovieDetails(it))
                         }.apply {
                             id(index)
                             itemId = cast?.id ?: 0
@@ -177,11 +174,7 @@ class CastDetailsFragment : Fragment() {
                     id("tv_shows_carousel")
                     models(it.mapIndexed { index, cast ->
                         CastAdapter {
-                            launchFragment(
-                                CastDetailsFragmentDirections.actionCastDetailsFragmentToTvShowsDetailsFragment(
-                                    it
-                                )
-                            )
+                            launchFragment(NavigationDeepLinks.toTvShowDetails(it))
                         }.apply {
                             id(index)
                             itemId = cast?.id ?: 0

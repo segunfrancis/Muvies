@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.czech.muvies.utils.AppConstants.BASE_IMAGE_PATH
 import com.czech.muvies.R
-import com.czech.muvies.adapters.trendingTvSItemClickListener
 import com.czech.muvies.models.TvShows
 import kotlinx.android.synthetic.main.paged_list.view.*
 

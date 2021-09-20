@@ -34,11 +34,9 @@ android {
             buildConfigField("String", "API_KEY", getApiKey())
         }
     }
-    dataBinding {
-        enabled = true
-    }
-    viewBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding true
+        viewBinding true
     }
     packagingOptions {
         exclude 'META-INF/atomicfu.kotlin_module'

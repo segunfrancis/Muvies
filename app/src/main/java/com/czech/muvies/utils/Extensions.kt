@@ -4,9 +4,11 @@ import android.view.View
 import android.widget.ImageView
 import androidx.annotation.IdRes
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.navigation.NavDeepLinkRequest
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.findNavController
@@ -67,6 +69,15 @@ fun Fragment.launchFragment(@IdRes destination: Int) {
     }
 }
 
+fun Fragment.launchFragment(deepLink: String) {
+    val controller = findNavController()
+    val request = NavDeepLinkRequest.Builder.fromUri(deepLink.toUri())
+        .build()
+    if ((controller.currentDestination as FragmentNavigator.Destination).className == javaClass.name) {
+        controller.navigate(request)
+    }
+}
+
 fun <T> Flow<T>.doAsync(block: (data: Result<T>) -> Unit): Flow<T> {
     return onStart { block(Result.Loading) }
         .catch { block(Result.Error(it)) }
@@ -119,3 +130,4 @@ fun String.convertDate(): String {
         ""
     }
 }
+

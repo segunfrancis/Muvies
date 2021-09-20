@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
     tools:context="com.czech.muvies.features.details.tv_show_details.TvShowDetailsFragment">
 
     <com.airbnb.epoxy.EpoxyRecyclerView
@@ -20,7 +19,6 @@
         android:id="@+id/lottie_progress"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
         app:lottie_autoPlay="true"
         app:lottie_fileName="loader_movie.json"
         app:lottie_loop="true"

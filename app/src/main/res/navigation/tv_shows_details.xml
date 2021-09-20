@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tv_shows_details"
+    app:startDestination="@id/tvShowsDetailsFragment">
+
+    <fragment
+        android:id="@+id/tvShowsDetailsFragment"
+        android:name="com.czech.muvies.features.details.tv_show_details.TvShowDetailsFragment"
+        tools:layout="@layout/tv_show_details_fragment">
+        <argument
+            android:name="tvShowId"
+            app:argType="integer" />
+        <deepLink
+            app:uri="https://czech.muvies/tv_show_details/{tvShowId}" />
+    </fragment>
+</navigation>

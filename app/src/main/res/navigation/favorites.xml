@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/favorites"
+    app:startDestination="@id/favoritesFragment">
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.czech.muvies.fragments.FavoritesFragment"
+        android:label="Favorites"
+        tools:layout="@layout/favorites_fragment" />
+    <fragment
+        android:id="@+id/favMoviesTabFragment"
+        android:name="com.czech.muvies.fragments.FavMoviesTabFragment"
+        android:label="fragment_fav_movies_tab"
+        tools:layout="@layout/fragment_fav_movies_tab">
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+        <argument
+            android:name="movieTitle"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="movieOverview"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="moviePoster"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="movieBackdrop"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="movieDate"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="movieVote"
+            app:argType="float" />
+        <argument
+            android:name="movieLang"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+</navigation>

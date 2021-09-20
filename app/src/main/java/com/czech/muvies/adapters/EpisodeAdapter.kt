@@ -1,15 +1,14 @@
 package com.czech.muvies.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.czech.muvies.R
-import com.czech.muvies.features.BASE_IMAGE_PATH
 import com.czech.muvies.models.SeasonDetails
+import com.czech.muvies.utils.AppConstants
 import com.czech.muvies.utils.Converter
 import kotlinx.android.synthetic.main.episodes_list.view.*
 
@@ -46,7 +45,7 @@ class EpisodeAdapter(private var list: List<SeasonDetails.Episode>): RecyclerVie
         fun bind(list: SeasonDetails.Episode) {
 
             Glide.with(itemView)
-                .load("$BASE_IMAGE_PATH${list.stillPath}")
+                .load("${AppConstants.BASE_IMAGE_PATH}${list.stillPath}")
                 .placeholder(R.drawable.backdrop_placeholder)
                 .into(image)
 
