@@ -13,10 +13,8 @@ import com.czech.muvies.databinding.ActivityMainBinding
 import com.czech.muvies.utils.makeGone
 import com.czech.muvies.utils.makeVisible
 import com.czech.muvies.utils.showMessage
-import kotlinx.coroutines.*
-
-@Deprecated("use constants from AppConstants class")
-const val LANGUAGE = "en-US"
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
+        setSupportActionBar(binding.customToolbar)
 
         binding.bottomNav.setupWithNavController(navController)
         val appBarConfig = AppBarConfiguration(
@@ -42,16 +41,33 @@ class MainActivity : AppCompatActivity() {
         )
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfig)
 
-        navController.addOnDestinationChangedListener { _, destination, _ ->
+        navController.addOnDestinationChangedListener { _, destination, args ->
             when (destination.id) {
                 R.id.moviesFragment,
                 R.id.tvShowsFragment,
-                R.id.favoritesFragment -> showBottomNavigation()
-                else -> hideBottomNavigation()
-            }
-            when(destination.id) {
-                R.id.allFragment -> hideAppBar()
-                else -> showAppBar()
+                R.id.favoritesFragment -> {
+                    showBottomNavigation()
+                    setToolbarTitle(getString(R.string.app_name))
+                }
+                R.id.castDetailsFragment -> {
+                    hideBottomNavigation()
+                    setToolbarTitle("${args?.get("castName")}")
+                }
+                R.id.detailsFragment -> {
+                    hideBottomNavigation()
+                    setToolbarTitle("${args?.get("movieTitle")}")
+                }
+                R.id.tvShowsDetailsFragment -> {
+                    hideBottomNavigation()
+                    setToolbarTitle("${args?.get("tvShowTitle")}")
+                }
+                R.id.allFragment -> {
+                    setToolbarTitle("${args?.get("movie_title")} movies")
+                    hideBottomNavigation()
+                }
+                else -> {
+                    hideBottomNavigation()
+                }
             }
         }
         binding.bottomNav.setOnNavigationItemReselectedListener { }
@@ -70,12 +86,8 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNav.makeGone()
     }
 
-    private fun hideAppBar() {
-        supportActionBar?.hide()
-    }
-
-    private fun showAppBar() {
-        supportActionBar?.show()
+    private fun setToolbarTitle(title: String) {
+        binding.allTitle.text = title
     }
 
     override fun onBackPressed() {

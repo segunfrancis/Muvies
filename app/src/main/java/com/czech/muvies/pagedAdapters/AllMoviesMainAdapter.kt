@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.czech.muvies.R
 import com.czech.muvies.databinding.PagedListBinding
-import com.czech.muvies.models.TvShows
+import com.czech.muvies.models.Movies
 import com.czech.muvies.utils.loadMoviePoster
 
-class AiringTodayMainAdapter(private val clickListener: (Int) -> Unit) :
-    PagedListAdapter<TvShows.TvShowsResult, AiringTodayMainAdapter.AiringTodayMainViewHolder>(
+class AllMoviesMainAdapter(private val clickListener: (Int, String) -> Unit) :
+    PagedListAdapter<Movies.MoviesResult, AllMoviesMainAdapter.AiringTodayMainViewHolder>(
         diffUtil
     ) {
 
@@ -27,17 +27,17 @@ class AiringTodayMainAdapter(private val clickListener: (Int) -> Unit) :
     }
 
     companion object {
-        val diffUtil = object : DiffUtil.ItemCallback<TvShows.TvShowsResult>() {
+        val diffUtil = object : DiffUtil.ItemCallback<Movies.MoviesResult>() {
             override fun areItemsTheSame(
-                oldItem: TvShows.TvShowsResult,
-                newItem: TvShows.TvShowsResult
+                oldItem: Movies.MoviesResult,
+                newItem: Movies.MoviesResult
             ): Boolean {
                 return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
-                oldItem: TvShows.TvShowsResult,
-                newItem: TvShows.TvShowsResult
+                oldItem: Movies.MoviesResult,
+                newItem: Movies.MoviesResult
             ): Boolean {
                 return oldItem == newItem
             }
@@ -47,16 +47,16 @@ class AiringTodayMainAdapter(private val clickListener: (Int) -> Unit) :
     inner class AiringTodayMainViewHolder(private val binding: PagedListBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(result: TvShows.TvShowsResult) = with(binding) {
-            date.text = result.firstAirDate
+        fun bind(result: Movies.MoviesResult) = with(binding) {
+            date.text = result.releaseDate
             vote.text = result.voteAverage.toString()
-            title.text = result.name
+            title.text = result.title
             posterImage.loadMoviePoster(result.posterPath)
         }
 
         init {
             itemView.setOnClickListener {
-                getItem(adapterPosition)?.let { result -> clickListener(result.id) }
+                getItem(adapterPosition)?.let { result -> clickListener(result.id, result.title) }
             }
         }
     }

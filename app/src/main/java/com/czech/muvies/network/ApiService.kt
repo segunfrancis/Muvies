@@ -4,6 +4,7 @@ import com.czech.muvies.BuildConfig
 import com.czech.muvies.utils.AppConstants.LANGUAGE
 import com.czech.muvies.models.Movies
 import com.czech.muvies.models.*
+import com.czech.muvies.utils.AppConstants
 import com.czech.muvies.utils.AppConstants.NETWORK_TIMEOUT
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
@@ -15,9 +16,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
-
-@Deprecated("use constants from AppConstants class")
-const val BASE_URL = "https://api.themoviedb.org/3/"
 
 interface MoviesApiService {
 
@@ -32,7 +30,7 @@ interface MoviesApiService {
                 .build()
 
             val retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(AppConstants.BASE_URL)
                 .client(client)
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -110,6 +108,14 @@ interface MoviesApiService {
         @Query("language") language: String = LANGUAGE,
         @Query("page") page: Int
     ): Response<TvShows>
+
+    @GET("movie/{category}")
+    suspend fun getPagedMovieList(
+        @Path("category") category: String,
+        @Query("api_key") apiKey: String = BuildConfig.API_KEY,
+        @Query("language") language: String = LANGUAGE,
+        @Query("page") page: Int
+    ): Movies
 
     @GET("tv/on_the_air")
     suspend fun getOnAirTvAsync(

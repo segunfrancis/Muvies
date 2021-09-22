@@ -67,9 +67,11 @@ class MoviesFragment : Fragment(R.layout.movies_fragment) {
                     carouselNoSnap {
                         MovieHeaderHolder { title ->
                             //requireView().showMessage(title)
-                            launchFragment(NavigationDeepLinks.toAllMovies())
+                            movieCategory?.let {
+                                launchFragment(NavigationDeepLinks.toAllMovies(it.value, it.formattedName))
+                            }
                         }.apply {
-                            title = movieCategory!!.value
+                            title = movieCategory!!.formattedName
                             id(movieCategory.name.plus(index))
                             addTo(this@MovieAdapterController)
                         }
@@ -80,7 +82,7 @@ class MoviesFragment : Fragment(R.layout.movies_fragment) {
                         }.mapIndexed { index, moviesResult ->
                             if (moviesResult?.movieCategory == MovieCategory.IN_THEATER) {
                                 MainMovieHolder {
-                                    launchFragment(NavigationDeepLinks.toMovieDetails(it))
+                                    launchFragment(NavigationDeepLinks.toMovieDetails(it, moviesResult.title))
                                 }.apply {
                                     moviesResult.let {
                                         title = it.title
@@ -91,7 +93,7 @@ class MoviesFragment : Fragment(R.layout.movies_fragment) {
                                 }
                             } else {
                                 SubMovieHolder {
-                                    launchFragment(NavigationDeepLinks.toMovieDetails(it))
+                                    launchFragment(NavigationDeepLinks.toMovieDetails(it, moviesResult?.title ?: ""))
                                 }.apply {
                                     moviesResult?.let {
                                         title = it.title

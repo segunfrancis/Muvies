@@ -11,7 +11,10 @@
         <argument
             android:name="castId"
             app:argType="integer" />
+        <argument
+            android:name="castName"
+            app:argType="string" />
         <deepLink
-            app:uri="https://czech.muvies/cast_details/{castId}" />
+            app:uri="https://czech.muvies/cast_details/{castId}/{castName}" />
     </fragment>
 </navigation>

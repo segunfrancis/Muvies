@@ -139,7 +139,7 @@ class TvShowDetailsFragment : Fragment(R.layout.tv_show_details_fragment) {
                         id("cast_carousel")
                         casts?.mapIndexed { index, cast ->
                             CastAdapter {
-                                launchFragment(NavigationDeepLinks.toCastDetails(it))
+                                launchFragment(NavigationDeepLinks.toCastDetails(it, cast?.name ?: ""))
                             }.apply {
                                 imageUrl = cast?.profilePath ?: ""
                                 castRealName = cast?.name ?: "-"
@@ -205,7 +205,7 @@ class TvShowDetailsFragment : Fragment(R.layout.tv_show_details_fragment) {
                         id("similar_carousel")
                         similarTvShows?.mapIndexed { index, movie ->
                             SimilarMoviesAdapter {
-                                launchFragment(NavigationDeepLinks.toTvShowDetails(it))
+                                launchFragment(NavigationDeepLinks.toTvShowDetails(it, movie?.name ?: ""))
                             }.apply {
                                 imageUrl = movie?.posterPath ?: ""
                                 movieId = movie?.id ?: 0

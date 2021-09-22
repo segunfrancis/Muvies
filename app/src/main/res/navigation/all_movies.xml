@@ -10,6 +10,12 @@
         android:name="com.czech.muvies.features.all.AllFragment"
         android:label="all_fragment"
         tools:layout="@layout/all_fragment">
-        <deepLink app:uri="https://czech.muvies/all_movies" />
+        <argument
+            android:name="category"
+            app:argType="string" />
+        <argument
+            android:name="movie_title"
+            app:argType="string" />
+        <deepLink app:uri="https://czech.muvies/all_movies/{category}/{movie_title}" />
     </fragment>
 </navigation>

@@ -12,7 +12,10 @@
         <argument
             android:name="tvShowId"
             app:argType="integer" />
-        <deepLink app:uri="https://czech.muvies/tv_show_details/{tvShowId}" />
+        <argument
+            android:name="tvShowTitle"
+            app:argType="string" />
+        <deepLink app:uri="https://czech.muvies/tv_show_details/{tvShowId}/{tvShowTitle}" />
         <action
             android:id="@+id/open_season_details"
             app:destination="@id/seasonDetailsFragment" />
