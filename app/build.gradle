@@ -81,9 +81,8 @@ dependencies {
 
     // Retrofit & Gson
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
-    implementation 'com.google.code.gson:gson:2.8.6'
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.8.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0"
@@ -99,8 +98,7 @@ dependencies {
     implementation "androidx.room:room-ktx:2.2.6"
 
     // Glide
-    implementation "com.github.bumptech.glide:glide:4.9.0"
-    kapt 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation "com.github.bumptech.glide:glide:4.12.0"
 
     // ViewPager2 $ TabLayout
     implementation "androidx.viewpager2:viewpager2:1.0.0"

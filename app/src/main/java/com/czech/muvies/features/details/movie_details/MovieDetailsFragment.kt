@@ -146,7 +146,7 @@ class MovieDetailsFragment : Fragment() {
                     id("cast_carousel")
                     casts?.cast?.mapIndexed { index, cast ->
                         CastAdapter {
-                            launchFragment(NavigationDeepLinks.toCastDetails(it))
+                            launchFragment(NavigationDeepLinks.toCastDetails(it, cast?.name ?: ""))
                         }.apply {
                             imageUrl = cast?.profilePath ?: ""
                             castRealName = cast?.name ?: "-"
@@ -190,7 +190,7 @@ class MovieDetailsFragment : Fragment() {
                     id("similar_carousel")
                     similarMovies?.results?.mapIndexed { index, movie ->
                         SimilarMoviesAdapter {
-                            launchFragment(NavigationDeepLinks.toMovieDetails(it))
+                            launchFragment(NavigationDeepLinks.toMovieDetails(it, movie?.title ?: ""))
                         }.apply {
                             imageUrl = movie?.posterPath ?: ""
                             movieId = movie?.id ?: 0

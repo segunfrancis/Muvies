@@ -6,24 +6,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
-import com.bumptech.glide.Glide
 import com.czech.muvies.R
 import com.czech.muvies.adapters.EpisodeAdapter
 import com.czech.muvies.databinding.SeasonDetailsFragmentBinding
 import com.czech.muvies.models.SeasonDetails
 import com.czech.muvies.network.MoviesApiService
-import com.czech.muvies.utils.Converter
 import com.czech.muvies.utils.EpisodesListTransformer
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.SeasonDetailsViewModel
 import com.czech.muvies.viewModels.SeasonDetailsViewModelFactory
-import com.yarolegovich.discretescrollview.DSVOrientation
 import kotlinx.android.synthetic.main.season_details_fragment.*
 
 class SeasonDetailsFragment : Fragment() {

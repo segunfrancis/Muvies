@@ -42,12 +42,12 @@ data class Movies(
         val releaseDate: String = "",
         var movieCategory: MovieCategory? = null
     ): Parcelable {
-        enum class MovieCategory(val value: String) {
-            IN_THEATER("in theater"),
-            UPCOMING("upcoming"),
-            POPULAR("popular"),
-            TOP_RATED("top rated"),
-            TRENDING("trending")
+        enum class MovieCategory(val formattedName: String, val value: String) {
+            IN_THEATER("in theater", "in_theater"),
+            UPCOMING("upcoming", "upcoming"),
+            POPULAR("popular", "popular"),
+            TOP_RATED("top rated", "top_rated"),
+            TRENDING("trending", "trending")
         }
     }
 

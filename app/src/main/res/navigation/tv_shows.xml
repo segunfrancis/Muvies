@@ -11,25 +11,4 @@
         android:label="Tv Shows"
         tools:layout="@layout/tv_shows_fragment">
     </fragment>
-    <fragment
-        android:id="@+id/seasonDetailsFragment"
-        android:name="com.czech.muvies.fragments.SeasonDetailsFragment"
-        android:label="season details"
-        tools:layout="@layout/season_details_fragment">
-        <argument
-            android:name="seasonArgs"
-            app:argType="com.czech.muvies.models.TvShowDetails$Season"
-            app:nullable="true" />
-        <argument
-            android:name="showId"
-            app:argType="integer" />
-        <argument
-            android:name="showName"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="backdrop"
-            app:argType="string"
-            app:nullable="true" />
-    </fragment>
 </navigation>

@@ -29,11 +29,12 @@ import com.czech.muvies.utils.launchFragment
 import com.czech.muvies.utils.makeGone
 import com.czech.muvies.utils.makeVisible
 import com.czech.muvies.utils.showErrorMessage
+import com.czech.muvies.utils.viewBinding
 import timber.log.Timber
 
 class TvShowDetailsFragment : Fragment(R.layout.tv_show_details_fragment) {
 
-    private lateinit var binding: TvShowDetailsFragmentBinding
+    private val binding: TvShowDetailsFragmentBinding by viewBinding(TvShowDetailsFragmentBinding::bind)
     private val viewModel: TvShowDetailsViewModel by viewModels {
         TvShowDetailsViewModelFactory(
             TvShowsDetailsRepository(MoviesApiService.getService())
@@ -51,7 +52,6 @@ class TvShowDetailsFragment : Fragment(R.layout.tv_show_details_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = TvShowDetailsFragmentBinding.bind(view)
         binding.tvShowsDetailsEpoxyRecyclerView.adapter = controller.adapter
         setupObservers()
     }
@@ -139,7 +139,7 @@ class TvShowDetailsFragment : Fragment(R.layout.tv_show_details_fragment) {
                         id("cast_carousel")
                         casts?.mapIndexed { index, cast ->
                             CastAdapter {
-                                launchFragment(NavigationDeepLinks.toCastDetails(it))
+                                launchFragment(NavigationDeepLinks.toCastDetails(it, cast?.name ?: ""))
                             }.apply {
                                 imageUrl = cast?.profilePath ?: ""
                                 castRealName = cast?.name ?: "-"
@@ -183,7 +183,9 @@ class TvShowDetailsFragment : Fragment(R.layout.tv_show_details_fragment) {
                     carouselNoSnap {
                         id("seasons_carousel")
                         details?.seasons?.mapIndexed { index, season ->
-                            SimilarMoviesAdapter { }.apply {
+                            SimilarMoviesAdapter {
+
+                            }.apply {
                                 imageUrl = season?.posterPath ?: ""
                                 id(index)
                             }
@@ -203,7 +205,7 @@ class TvShowDetailsFragment : Fragment(R.layout.tv_show_details_fragment) {
                         id("similar_carousel")
                         similarTvShows?.mapIndexed { index, movie ->
                             SimilarMoviesAdapter {
-                                launchFragment(NavigationDeepLinks.toTvShowDetails(it))
+                                launchFragment(NavigationDeepLinks.toTvShowDetails(it, movie?.name ?: ""))
                             }.apply {
                                 imageUrl = movie?.posterPath ?: ""
                                 movieId = movie?.id ?: 0

@@ -1,4 +1,4 @@
-package com.czech.muvies.viewModels
+package com.czech.muvies.features.favorite
 
 import androidx.lifecycle.*
 import com.czech.muvies.room.movies.MoviesEntity

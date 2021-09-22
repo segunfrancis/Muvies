@@ -1,4 +1,4 @@
-package com.czech.muvies.fragments
+package com.czech.muvies.features.favorite
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.czech.muvies.R
 import com.czech.muvies.adapters.TabAdapter
-import com.czech.muvies.viewModels.FavoritesViewModel
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.cast_details_fragment.*
 import kotlinx.android.synthetic.main.favorites_fragment.*
 
 class FavoritesFragment : Fragment() {

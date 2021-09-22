@@ -88,7 +88,7 @@ class TvShowsFragment : Fragment(R.layout.tv_shows_fragment) {
                         }.mapIndexed { index, tvShowsResult ->
                             if (tvShowsResult?.category == TvShows.TvShowsCategory.AIRING_TODAY) {
                                 MainMovieHolder {
-                                    launchFragment(NavigationDeepLinks.toTvShowDetails(it))
+                                    launchFragment(NavigationDeepLinks.toTvShowDetails(it, tvShowsResult.name))
                                 }.apply {
                                     tvShowsResult.let {
                                         title = it.name
@@ -99,7 +99,7 @@ class TvShowsFragment : Fragment(R.layout.tv_shows_fragment) {
                                 }
                             } else {
                                 SubMovieHolder {
-                                    launchFragment(NavigationDeepLinks.toTvShowDetails(it))
+                                    launchFragment(NavigationDeepLinks.toTvShowDetails(it, tvShowsResult?.name ?: ""))
                                 }.apply {
                                     tvShowsResult?.let {
                                         title = it.name

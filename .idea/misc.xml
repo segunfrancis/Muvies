@@ -8,6 +8,8 @@
         <entry key="app/src/main/res/drawable/toggle_button_bg.xml" value="0.27395833333333336" />
         <entry key="app/src/main/res/layout/about_item.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/airing_today_fragment.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/all_fragment.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/cast_details_fragment.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/cast_item.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/cast_list.xml" value="0.45" />
@@ -25,6 +27,7 @@
         <entry key="app/src/main/res/layout/movie_info_item.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/movie_item.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/movies_fragment.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/paged_list.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/popular_fragment.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/popular_list.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/season_details_fragment.xml" value="0.2578125" />

@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.czech.muvies.fragments.FavoritesFragment">
+    tools:context="com.czech.muvies.features.favorite.FavoritesFragment">
 
     <data>
         <variable
             name="favoritesViewModel"
-            type="com.czech.muvies.viewModels.FavoritesViewModel" />
+            type="com.czech.muvies.features.favorite.FavoritesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

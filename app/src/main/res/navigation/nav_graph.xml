@@ -11,4 +11,6 @@
     <include app:graph="@navigation/movie_details" />
     <include app:graph="@navigation/tv_shows_details" />
     <include app:graph="@navigation/casts_details" />
+
+    <include app:graph="@navigation/all_movies" />
 </navigation>

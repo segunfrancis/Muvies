@@ -154,7 +154,7 @@ class CastDetailsFragment : Fragment() {
                     id("movies_carousel")
                     models(it.mapIndexed { index, cast ->
                         CastAdapter {
-                            launchFragment(NavigationDeepLinks.toMovieDetails(it))
+                            launchFragment(NavigationDeepLinks.toMovieDetails(it, cast?.title ?: ""))
                         }.apply {
                             id(index)
                             itemId = cast?.id ?: 0
@@ -174,7 +174,7 @@ class CastDetailsFragment : Fragment() {
                     id("tv_shows_carousel")
                     models(it.mapIndexed { index, cast ->
                         CastAdapter {
-                            launchFragment(NavigationDeepLinks.toTvShowDetails(it))
+                            launchFragment(NavigationDeepLinks.toTvShowDetails(it, cast?.name ?: ""))
                         }.apply {
                             id(index)
                             itemId = cast?.id ?: 0
