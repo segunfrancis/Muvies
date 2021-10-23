@@ -7,7 +7,7 @@ import kotlinx.coroutines.launch
 
 class FavMoviesTabViewModel(private val repository: MoviesRepository): ViewModel() {
 
-    val allMovies: LiveData<List<MoviesEntity>> = repository.allMovies.asLiveData()
+    //val allMovies: LiveData<List<MoviesEntity>> = repository.allMovies.asLiveData()
 
     fun insert(movie: MoviesEntity) = viewModelScope.launch {
         repository.insert(movie)

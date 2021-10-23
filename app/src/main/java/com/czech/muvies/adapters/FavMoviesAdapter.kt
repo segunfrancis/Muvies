@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.R
 import com.czech.muvies.room.movies.MoviesEntity
 import com.czech.muvies.utils.AppConstants.BASE_IMAGE_PATH
-import com.czech.muvies.utils.Converter
+import com.czech.muvies.utils.convertDate
 import kotlinx.android.synthetic.main.favorites_list.view.*
 
 class FavMoviesAdapter(private var list: List<MoviesEntity>): RecyclerView.Adapter<FavMoviesAdapter.FavMoviesViewHolder>() {
@@ -30,7 +30,7 @@ class FavMoviesAdapter(private var list: List<MoviesEntity>): RecyclerView.Adapt
 
                     title.text = movie.title
 
-                    date.text = Converter.convertDate(movie.releaseDate)
+                    date.text = movie.releaseDate?.convertDate()
                 }
             }
 

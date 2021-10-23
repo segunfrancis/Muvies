@@ -10,9 +10,9 @@ import com.czech.muvies.R
 import com.czech.muvies.databinding.AllFragmentBinding
 import com.czech.muvies.pagedAdapters.AllMoviesMainAdapter
 import com.czech.muvies.utils.NavigationDeepLinks
-import com.czech.muvies.utils.viewBinding
 import com.czech.muvies.viewModels.AllMoviesViewModel
 import com.czech.muvies.viewModels.AllMoviesViewModelFactory
+import com.segunfrancis.muvies.common.viewBinding
 
 class AllFragment : Fragment(R.layout.all_fragment) {
 

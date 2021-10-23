@@ -2,7 +2,6 @@ package com.czech.muvies.features
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,18 +12,18 @@ import com.czech.muvies.databinding.ActivityMainBinding
 import com.czech.muvies.utils.makeGone
 import com.czech.muvies.utils.makeVisible
 import com.czech.muvies.utils.showMessage
-import kotlinx.coroutines.launch
+import com.segunfrancis.muvies.common.viewBinding
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
 
     private var backPressedOnce = false
-    private lateinit var binding: ActivityMainBinding
+    private val binding: ActivityMainBinding by viewBinding(ActivityMainBinding::inflate)
     private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
@@ -70,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
-        binding.bottomNav.setOnNavigationItemReselectedListener { }
+        binding.bottomNav.setOnItemReselectedListener { }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -91,14 +90,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (navController.graph.startDestination == navController.currentDestination?.id) {
+        if (navController.currentDestination?.id == navController.graph.startDestination) {
             if (backPressedOnce) {
                 super.onBackPressed()
                 return
             }
             backPressedOnce = true
             binding.root.showMessage("Press BACK again to exit")
-            lifecycleScope.launch {
+            runBlocking {
                 delay(2000)
                 backPressedOnce = false
             }

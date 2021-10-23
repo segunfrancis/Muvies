@@ -28,16 +28,16 @@ class FavMoviesTabFragment : Fragment() {
 
     private val applicationScope = CoroutineScope(SupervisorJob())
 
-    private val database by lazy { MoviesDatabase.getDatabase(requireContext(), applicationScope) }
-    private val repository by lazy { MoviesRepository(database.moviesDao()) }
+    //private val database by lazy { MoviesDatabase.getDatabase(requireContext(), applicationScope) }
+    //private val repository by lazy { MoviesRepository(database.moviesDao()) }
     private val favMoviesAdapter = FavMoviesAdapter(arrayListOf())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?): View? {
 
-        viewModel = ViewModelProvider(this, FavMoviesTabViewModelFactory(repository))
-            .get(FavMoviesTabViewModel::class.java)
+        /*viewModel = ViewModelProvider(this, FavMoviesTabViewModelFactory(repository))
+            .get(FavMoviesTabViewModel::class.java)*/
         binding = FragmentFavMoviesTabBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.favMoviesTabViewModel = viewModel
@@ -70,9 +70,9 @@ class FavMoviesTabFragment : Fragment() {
             adapter = favMoviesAdapter
         }
 
-        viewModel.allMovies.observe(viewLifecycleOwner, Observer { movies ->
+        /*viewModel.allMovies.observe(viewLifecycleOwner, Observer { movies ->
             movies.let { favMoviesAdapter.updateList(it) }
-        })
+        })*/
 
     }
 

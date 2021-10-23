@@ -37,6 +37,8 @@
         <entry key="app/src/main/res/layout/tv_shows_fragment.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/upcoming_list.xml" value="0.2578125" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.25384615384615383" />
+        <entry key="common/src/main/res/drawable/dot.xml" value="0.109" />
+        <entry key="common/src/main/res/layout/styles.xml" value="0.2578125" />
       </map>
     </option>
   </component>

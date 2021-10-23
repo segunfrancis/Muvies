@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.R
 import com.czech.muvies.models.SeasonDetails
 import com.czech.muvies.utils.AppConstants
-import com.czech.muvies.utils.Converter
+import com.czech.muvies.utils.convertDate
 import kotlinx.android.synthetic.main.episodes_list.view.*
 
 class EpisodeAdapter(private var list: List<SeasonDetails.Episode>): RecyclerView.Adapter<EpisodeAdapter.EpisodeViewHolder>() {
@@ -53,7 +53,7 @@ class EpisodeAdapter(private var list: List<SeasonDetails.Episode>): RecyclerVie
 
             title.text = list.name
 
-            date.text = Converter.convertDate(list.airDate)
+            date.text = list.airDate?.convertDate()
 
             overview.text = list.overview
         }

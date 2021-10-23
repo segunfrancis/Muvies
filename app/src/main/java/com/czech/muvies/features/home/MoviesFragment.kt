@@ -16,6 +16,7 @@ import com.czech.muvies.repository.MovieRepository
 import com.czech.muvies.utils.*
 import com.czech.muvies.utils.epoxy.BaseEpoxyController
 import com.czech.muvies.utils.epoxy.carouselNoSnap
+import com.segunfrancis.muvies.common.viewBinding
 import timber.log.Timber
 
 class MoviesFragment : Fragment(R.layout.movies_fragment) {

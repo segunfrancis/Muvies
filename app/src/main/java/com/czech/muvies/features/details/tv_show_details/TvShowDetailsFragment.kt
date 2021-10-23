@@ -29,7 +29,7 @@ import com.czech.muvies.utils.launchFragment
 import com.czech.muvies.utils.makeGone
 import com.czech.muvies.utils.makeVisible
 import com.czech.muvies.utils.showErrorMessage
-import com.czech.muvies.utils.viewBinding
+import com.segunfrancis.muvies.common.viewBinding
 import timber.log.Timber
 
 class TvShowDetailsFragment : Fragment(R.layout.tv_show_details_fragment) {

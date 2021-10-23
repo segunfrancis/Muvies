@@ -1,4 +1,4 @@
-package com.czech.muvies.utils
+package com.segunfrancis.muvies.common
 
 import android.view.LayoutInflater
 import android.view.View

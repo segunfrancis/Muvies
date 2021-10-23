@@ -1,2 +1,6 @@
 rootProject.name='Muvies'
 include ':app'
+include ':common'
+include ':feature:movies'
+include ':data:remote'
+include ':domain'
