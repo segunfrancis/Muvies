@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (navController.currentDestination?.id == navController.graph.startDestination) {
+        if (navController.currentDestination?.id == navController.graph.getStartDestination()) {
             if (backPressedOnce) {
                 super.onBackPressed()
                 return

@@ -24,7 +24,7 @@ class SeasonDetailsViewModel(private val apiService: MoviesApiService) : ViewMod
 
 class SeasonDetailsViewModelFactory(private val apiService: MoviesApiService): ViewModelProvider.Factory {
 
-    override fun <T: ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T: ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SeasonDetailsViewModel::class.java)) {
             return SeasonDetailsViewModel(apiService) as T
         }

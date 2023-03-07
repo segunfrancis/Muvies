@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import kotlinx.coroutines.CoroutineScope
 
-@Database(entities = [MoviesEntity::class], version = 2)
+@Database(entities = [MoviesEntity::class], version = 2, exportSchema = false)
 abstract class MoviesDatabase: RoomDatabase() {
 
     abstract fun moviesDao(): MoviesDao
@@ -16,8 +16,7 @@ abstract class MoviesDatabase: RoomDatabase() {
         @Volatile
         private var INSTANCE: MoviesDatabase? = null
 
-        fun getDatabase(context: Context,
-        scope: CoroutineScope): MoviesDatabase {
+        fun getDatabase(context: Context): MoviesDatabase {
 
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(

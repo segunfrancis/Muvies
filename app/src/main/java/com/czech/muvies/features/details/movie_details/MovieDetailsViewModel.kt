@@ -38,7 +38,7 @@ class MovieDetailsViewModel(
 class MovieDetailsViewModelFactory(private val apiService: MoviesApiService) :
     ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MovieDetailsViewModel::class.java)) {
             return MovieDetailsViewModel(MovieDetailsRepository(apiService)) as T
         }

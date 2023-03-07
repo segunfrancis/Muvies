@@ -31,7 +31,7 @@ class AllMoviesViewModel(category: String) : ViewModel() {
 
 @Suppress("UNCHECKED_CAST")
 class AllMoviesViewModelFactory(private val category: String) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(AllMoviesViewModel::class.java)) {
             AllMoviesViewModel(category) as T
         } else throw IllegalArgumentException("Unknown class")

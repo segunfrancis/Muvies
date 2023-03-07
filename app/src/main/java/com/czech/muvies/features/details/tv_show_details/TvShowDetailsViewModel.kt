@@ -39,7 +39,7 @@ class TvShowDetailsViewModel(private val repository: TvShowsDetailsRepository) :
 @Suppress("UNCHECKED_CAST")
 class TvShowDetailsViewModelFactory(private val repository: TvShowsDetailsRepository): ViewModelProvider.Factory {
 
-    override fun <T: ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T: ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TvShowDetailsViewModel::class.java)) {
             return TvShowDetailsViewModel(repository) as T
         }

@@ -61,7 +61,7 @@ class TvShowsViewModelFactory(
 ) :
     ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TvShowsViewModel::class.java)) {
             return TvShowsViewModel(repository) as T
         }
