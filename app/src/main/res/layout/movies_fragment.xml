@@ -7,11 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".features.home.MoviesFragment">
 
-    <com.airbnb.epoxy.EpoxyRecyclerView
-        android:id="@+id/movie_epoxy_recycler_view"
+    <androidx.compose.ui.platform.ComposeView
+        android:id="@+id/movie_compose_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/main_movie_item" />
+        android:layout_height="match_parent" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie_progress"

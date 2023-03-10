@@ -6,6 +6,7 @@ import androidx.paging.PageKeyedDataSource
 import com.czech.muvies.models.Movies
 import com.czech.muvies.network.MoviesApiService
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
@@ -19,8 +20,12 @@ class AllMoviesDataSource(
     private val category: String
 ) : PageKeyedDataSource<Int, Movies.MoviesResult>() {
 
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        Timber.e(throwable)
+    }
+
     private val job = Job()
-    private val scope = CoroutineScope(coroutineContext + job)
+    private val scope = CoroutineScope(coroutineContext + job + exceptionHandler)
 
     override fun loadInitial(
         params: LoadInitialParams<Int>,

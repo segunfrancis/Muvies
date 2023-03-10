@@ -1,24 +1,28 @@
 package com.czech.muvies.features.home
 
-import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.czech.muvies.models.Movies
 import com.czech.muvies.repository.MovieRepository
 import com.czech.muvies.utils.Result
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class MoviesViewModel(
     private val repository: MovieRepository
 ) : ViewModel() {
+
+    private val _uiState = mutableStateOf(AllMovies())
+    val uiState: State<AllMovies> = _uiState
 
     private val _movieResponse = MutableLiveData<Result<List<Movies.MoviesResult>>>()
     val movieResponse: LiveData<Result<List<Movies.MoviesResult>>> get() = _movieResponse
@@ -57,11 +61,16 @@ class MoviesViewModel(
                 trending.results,
                 upComing.results
             ).flatten()
-        }.onStart { _movieResponse.postValue(Result.Loading) }
-            .catch { _movieResponse.postValue(Result.Error(it)) }
-            .flowOn(Dispatchers.IO)
+        }.onStart {
+            _movieResponse.postValue(Result.Loading)
+            _uiState.value = AllMovies(isLoading = true)
+        }.catch {
+            _movieResponse.postValue(Result.Error(it))
+            _uiState.value = AllMovies(isLoading = false, error = it)
+        }.flowOn(Dispatchers.IO)
             .collect {
                 _movieResponse.postValue(Result.Success(it))
+                _uiState.value = AllMovies(isLoading = false, error = null, movies = it)
             }
     }
 }
@@ -78,3 +87,9 @@ class MovieViewModelFactory(
         throw IllegalArgumentException("Unknown class name")
     }
 }
+
+data class AllMovies(
+    val movies: List<Movies.MoviesResult> = emptyList(),
+    val isLoading: Boolean = false,
+    val error: Throwable? = null
+)
