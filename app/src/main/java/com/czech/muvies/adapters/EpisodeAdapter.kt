@@ -10,7 +10,6 @@ import com.czech.muvies.R
 import com.czech.muvies.models.SeasonDetails
 import com.czech.muvies.utils.AppConstants
 import com.czech.muvies.utils.convertDate
-import kotlinx.android.synthetic.main.episodes_list.view.*
 
 class EpisodeAdapter(private var list: List<SeasonDetails.Episode>): RecyclerView.Adapter<EpisodeAdapter.EpisodeViewHolder>() {
 
@@ -36,11 +35,11 @@ class EpisodeAdapter(private var list: List<SeasonDetails.Episode>): RecyclerVie
     inner class EpisodeViewHolder(inflater: LayoutInflater, parent: ViewGroup):
         RecyclerView.ViewHolder(inflater.inflate(R.layout.episodes_list, parent, false)) {
 
-        private val image: ImageView = itemView.image
-        private val episodeNum: TextView = itemView.episode_number
-        private val title: TextView = itemView.episode_title
-        private val date: TextView = itemView.release_date
-        private val overview: TextView = itemView.overview
+        private val image: ImageView = itemView.findViewById(R.id.image)
+        private val episodeNum: TextView = itemView.findViewById(R.id.episode_number)
+        private val title: TextView = itemView.findViewById(R.id.episode_title)
+        private val date: TextView = itemView.findViewById(R.id.release_date)
+        private val overview: TextView = itemView.findViewById(R.id.overview)
 
         fun bind(list: SeasonDetails.Episode) {
 

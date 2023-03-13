@@ -29,7 +29,7 @@ import com.czech.muvies.utils.AppConstants
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun MuviesItem(
+fun MuviesItemHome(
     modifier: Modifier = Modifier,
     onItemClick: (Movies.MoviesResult) -> Unit,
     movie: Movies.MoviesResult
@@ -65,7 +65,7 @@ fun MuviesItem(
 @Preview
 @Composable
 fun MuviesItemMainPreview() {
-    MuviesItem(
+    MuviesItemHome(
         onItemClick = {}, movie = movie, modifier = Modifier
             .width(197.dp)
             .height(287.dp)
@@ -75,7 +75,7 @@ fun MuviesItemMainPreview() {
 @Preview
 @Composable
 fun MuviesItemPreview() {
-    MuviesItem(
+    MuviesItemHome(
         onItemClick = {}, movie = movie, modifier = Modifier
             .width(129.dp)
             .height(194.dp)
@@ -96,6 +96,6 @@ val movie = Movies.MoviesResult(
     title = "Clash of the Titans",
     voteAverage = 6.7,
     overview = "",
-    releaseDate = "",
+    releaseDate = "12-8-2021",
     movieCategory = null
 )

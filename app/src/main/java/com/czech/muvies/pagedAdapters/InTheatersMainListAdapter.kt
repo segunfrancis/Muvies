@@ -12,7 +12,6 @@ import com.bumptech.glide.Glide
 import com.czech.muvies.utils.AppConstants.BASE_IMAGE_PATH
 import com.czech.muvies.R
 import com.czech.muvies.models.Movies
-import kotlinx.android.synthetic.main.paged_list.view.*
 
 typealias inTheatersItemClickListener = (Movies.MoviesResult) -> Unit
 
@@ -31,10 +30,10 @@ class InTheatersMainListAdapter(private val clickListener: inTheatersItemClickLi
 
     inner class InTheatersMainListViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
 
-        private var poster: ImageView = itemView.poster_image
-        private var title: TextView = itemView.title
-        private var date: TextView = itemView.date
-        private var vote: TextView = itemView.vote
+        private var poster: ImageView = itemView.findViewById(R.id.poster_image)
+        private var title: TextView = itemView.findViewById(R.id.title)
+        private var date: TextView = itemView.findViewById(R.id.date)
+        private var vote: TextView = itemView.findViewById(R.id.vote)
 
         fun bind(result: Movies.MoviesResult) {
             title.text = result.title

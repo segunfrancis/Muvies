@@ -10,16 +10,15 @@ import com.czech.muvies.R
 import com.czech.muvies.room.movies.MoviesEntity
 import com.czech.muvies.utils.AppConstants.BASE_IMAGE_PATH
 import com.czech.muvies.utils.convertDate
-import kotlinx.android.synthetic.main.favorites_list.view.*
 
 class FavMoviesAdapter(private var list: List<MoviesEntity>): RecyclerView.Adapter<FavMoviesAdapter.FavMoviesViewHolder>() {
 
     inner class FavMoviesViewHolder(inflater: LayoutInflater, parent: ViewGroup):
             RecyclerView.ViewHolder(inflater.inflate(R.layout.favorites_list, parent, false)) {
 
-        private val poster: ImageView = itemView.poster
-        private val title: TextView = itemView.title
-        private val date: TextView = itemView.date
+        private val poster: ImageView = itemView.findViewById(R.id.poster)
+        private val title: TextView = itemView.findViewById(R.id.title)
+        private val date: TextView = itemView.findViewById(R.id.date)
 
                 fun bind(movie: MoviesEntity) {
 

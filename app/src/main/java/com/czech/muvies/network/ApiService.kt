@@ -67,6 +67,22 @@ interface MoviesApiService {
         @Query("page") page: Int
     ): Response<Movies>
 
+    @GET("movie/popular")
+    suspend fun getPagedPopularMovies(
+        @Query("api_key") apiKey: String = BuildConfig.API_KEY,
+        @Query("language") language: String = LANGUAGE,
+        @Query("page") page: Int
+    ): Movies
+
+    @GET("{first}/{second}")
+    suspend fun getMoviesGeneric(
+        @Path("first") firstPath: String,
+        @Path(value = "second", encoded = true) secondPath: String,
+        @Query("api_key") apiKey: String = BuildConfig.API_KEY,
+        @Query("language") language: String = LANGUAGE,
+        @Query("page") page: Int,
+    ): Movies
+
     @GET("movie/top_rated")
     suspend fun getTopRatedMoviesAsync(
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,

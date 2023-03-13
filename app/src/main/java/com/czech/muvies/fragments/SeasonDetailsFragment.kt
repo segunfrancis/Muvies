@@ -20,7 +20,6 @@ import com.czech.muvies.utils.EpisodesListTransformer
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.SeasonDetailsViewModel
 import com.czech.muvies.viewModels.SeasonDetailsViewModelFactory
-import kotlinx.android.synthetic.main.season_details_fragment.*
 
 class SeasonDetailsFragment : Fragment() {
 
@@ -35,8 +34,9 @@ class SeasonDetailsFragment : Fragment() {
     ): View? {
 
         binding = SeasonDetailsFragmentBinding.inflate(inflater)
-        viewModel = ViewModelProvider(this, SeasonDetailsViewModelFactory(MoviesApiService.getService()))
-            .get(SeasonDetailsViewModel::class.java)
+        viewModel =
+            ViewModelProvider(this, SeasonDetailsViewModelFactory(MoviesApiService.getService()))
+                .get(SeasonDetailsViewModel::class.java)
         binding.lifecycleOwner = this
         binding.seasonDetailsViewModel = viewModel
 
@@ -52,33 +52,33 @@ class SeasonDetailsFragment : Fragment() {
         val backdrop = SeasonDetailsFragmentArgs.fromBundle(requireArguments()).backdrop
         //val seasonArgs = SeasonDetailsFragmentArgs.fromBundle(requireArguments()).seasonArgs
 
-       /* if (seasonArgs != null) {
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH${seasonArgs.posterPath}")
-                .placeholder(R.drawable.poster_placeholder)
-                .error(R.drawable.poster_error)
-                .into(poster)
+        /* if (seasonArgs != null) {
+             Glide.with(this)
+                 .load("$BASE_IMAGE_PATH${seasonArgs.posterPath}")
+                 .placeholder(R.drawable.poster_placeholder)
+                 .error(R.drawable.poster_error)
+                 .into(poster)
 
-            Glide.with(this)
-                .load("$BASE_IMAGE_PATH$backdrop")
-                .placeholder(R.drawable.backdrop_placeholder)
-                .into(back_drop)
+             Glide.with(this)
+                 .load("$BASE_IMAGE_PATH$backdrop")
+                 .placeholder(R.drawable.backdrop_placeholder)
+                 .into(back_drop)
 
-            title.text = showName
+             title.text = showName
 
-            season_number.text =
-                if (seasonArgs.seasonNumber == 0) "Specials"
-                else "Season ${seasonArgs.seasonNumber}"
+             season_number.text =
+                 if (seasonArgs.seasonNumber == 0) "Specials"
+                 else "Season ${seasonArgs.seasonNumber}"
 
-            val releaseYear = Converter.convertDateToYear(seasonArgs.airDate)
-            release_year.text = "($releaseYear)"
+             val releaseYear = Converter.convertDateToYear(seasonArgs.airDate)
+             release_year.text = "($releaseYear)"
 
-            episode_number.text = "${seasonArgs.episodeCount} episodes"
+             episode_number.text = "${seasonArgs.episodeCount} episodes"
 
-            getDetails(showId, seasonArgs.seasonNumber!!)
-        }*/
+             getDetails(showId, seasonArgs.seasonNumber!!)
+         }*/
 
-        episodes_list.apply {
+        binding.episodesList.apply {
             adapter = episodeAdapter
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
             setPageTransformer(CompositePageTransformer().also {
@@ -88,7 +88,7 @@ class SeasonDetailsFragment : Fragment() {
         }
     }
 
-    private fun getDetails(showId: Int, seasonNum: Int) {
+    private fun getDetails(showId: Int, seasonNum: Int) = with(binding) {
 
         viewModel.getSeasonDetails(showId, seasonNum).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
@@ -99,9 +99,9 @@ class SeasonDetailsFragment : Fragment() {
                             if (seasonDetails != null) {
 
                                 if (seasonDetails.overview == null) {
-                                    overview_layout.visibility = View.GONE
+                                    overviewLayout.visibility = View.GONE
                                 } else {
-                                    overview_layout.visibility = View.VISIBLE
+                                    overviewLayout.visibility = View.VISIBLE
                                     overview.text = seasonDetails.overview
                                 }
 
@@ -110,9 +110,11 @@ class SeasonDetailsFragment : Fragment() {
                         }
                         details.visibility = View.VISIBLE
                     }
+
                     Status.LOADING -> {
                         details.visibility = View.INVISIBLE
                     }
+
                     Status.ERROR -> {
                         details.visibility = View.GONE
                     }
@@ -120,5 +122,4 @@ class SeasonDetailsFragment : Fragment() {
             }
         })
     }
-
 }

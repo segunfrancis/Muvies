@@ -10,9 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.czech.muvies.utils.AppConstants.BASE_IMAGE_PATH
 import com.czech.muvies.R
-import com.czech.muvies.models.SimilarMovies
 import com.czech.muvies.models.SimilarTvShows
-import kotlinx.android.synthetic.main.similar_list.view.*
 
 typealias similarTvItemClickListener = (SimilarTvShows.SimilarTvShowsResult) -> Unit
 
@@ -43,7 +41,7 @@ class SimilarTvShowsAdapter(private val clickListener: similarTvItemClickListene
 
     inner class SimilarTvShowsViewHolder(view: View): RecyclerView.ViewHolder(view), View.OnClickListener {
 
-        private var poster: ImageView = itemView.poster
+        private var poster: ImageView = itemView.findViewById(R.id.poster)
 
         fun bind(show: SimilarTvShows.SimilarTvShowsResult) {
             Glide.with(itemView)

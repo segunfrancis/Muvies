@@ -1,18 +1,17 @@
 package com.czech.muvies.dataSources
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
 import com.czech.muvies.BuildConfig
-import com.czech.muvies.utils.AppConstants.LANGUAGE
 import com.czech.muvies.models.Movies
 import com.czech.muvies.network.MoviesApiService
+import com.czech.muvies.utils.AppConstants.LANGUAGE
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.lang.Exception
+import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
 class UpcomingDataSource(private var apiService: MoviesApiService,
@@ -30,8 +29,8 @@ class UpcomingDataSource(private var apiService: MoviesApiService,
                         callback.onResult(response.body()!!.results, null, 2)
                     }
                 }
-            } catch (e : Exception){
-                Log.d("MoviesDataSource", "Failed to fetch upcoming movies!")
+            } catch (e : Exception) {
+                Timber.tag("MoviesDataSource").d("Failed to fetch upcoming movies!")
             }
         }
     }
@@ -45,8 +44,8 @@ class UpcomingDataSource(private var apiService: MoviesApiService,
                         callback.onResult(response.body()!!.results, params.key + 1)
                     }
                 }
-            } catch (e : Exception){
-                Log.d("MoviesDataSource", "Failed to fetch upcoming movies!")
+            } catch (e : Exception) {
+                Timber.tag("MoviesDataSource").d("Failed to fetch upcoming movies!")
             }
         }
     }

@@ -29,7 +29,7 @@ class SimilarMoviesDataSource (private var apiService: MoviesApiService, corouti
                 when {
                     response.isSuccessful -> {
                         response.body()!!.results?.let {
-                            callback.onResult(it, null, 2)
+                            //callback.onResult(it, null, 2)
                         }
                     }
                 }
@@ -47,7 +47,7 @@ class SimilarMoviesDataSource (private var apiService: MoviesApiService, corouti
                 when {
                     response.isSuccessful -> {
                         response.body()!!.results?.let {
-                            callback.onResult(it, params.key + 1)
+                            //callback.onResult(it, params.key + 1)
                         }
                     }
                 }

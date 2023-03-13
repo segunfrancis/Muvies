@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.czech.muvies.components.CategoryHeader
-import com.czech.muvies.components.MuviesItem
+import com.czech.muvies.components.MuviesItemHome
 import com.czech.muvies.components.movie
 import com.czech.muvies.models.Movies
 
@@ -55,7 +55,7 @@ fun MuviesRow(
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(items = muvies) {
-            MuviesItem(
+            MuviesItemHome(
                 onItemClick = onMovieItemClick, movie = it, modifier = Modifier
                     .width(197.dp)
                     .height(287.dp)

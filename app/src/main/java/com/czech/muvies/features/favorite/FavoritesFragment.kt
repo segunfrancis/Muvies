@@ -8,14 +8,17 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.czech.muvies.R
 import com.czech.muvies.adapters.TabAdapter
+import com.czech.muvies.databinding.FavoritesFragmentBinding
 import com.google.android.material.tabs.TabLayoutMediator
-import kotlinx.android.synthetic.main.favorites_fragment.*
+import com.segunfrancis.muvies.common.viewBinding
 
 class FavoritesFragment : Fragment() {
 
     private lateinit var viewModel: FavoritesViewModel
 
     private lateinit var tabAdapter: TabAdapter
+
+    private val binding by viewBinding(FavoritesFragmentBinding::bind)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,9 +34,9 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         tabAdapter = TabAdapter(this, createTabs())
-        fav_view_pager.adapter = tabAdapter
+        binding.favViewPager.adapter = tabAdapter
 
-        TabLayoutMediator(fav_tab_layout, fav_view_pager) { tab, position ->
+        TabLayoutMediator(binding.favTabLayout, binding.favViewPager) { tab, position ->
             when(position) {
                 0 -> tab.text = "Movies"
                 1 -> tab.text = "Shows"
@@ -52,5 +55,4 @@ class FavoritesFragment : Fragment() {
 
         return fragments
     }
-
 }
