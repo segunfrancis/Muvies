@@ -1,17 +1,16 @@
 package com.czech.muvies.features.tv_shows
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.czech.muvies.R
 import com.czech.muvies.databinding.TvShowsFragmentBinding
+import com.czech.muvies.di.InjectorUtils
 import com.czech.muvies.features.home.epoxy.MainMovieHolder
 import com.czech.muvies.features.home.epoxy.MovieHeaderHolder
 import com.czech.muvies.features.home.epoxy.SubMovieHolder
 import com.czech.muvies.models.TvShows
-import com.czech.muvies.network.MoviesApiService
-import com.czech.muvies.repository.TvShowsRepository
 import com.czech.muvies.utils.NavigationDeepLinks
 import com.czech.muvies.utils.Result
 import com.czech.muvies.utils.epoxy.BaseEpoxyController
@@ -21,24 +20,20 @@ import com.czech.muvies.utils.makeGone
 import com.czech.muvies.utils.makeVisible
 import com.czech.muvies.utils.showErrorMessage
 import com.czech.muvies.utils.showMessage
+import com.segunfrancis.muvies.common.viewBinding
 import timber.log.Timber
 
 class TvShowsFragment : Fragment(R.layout.tv_shows_fragment) {
 
     private val controller: TvShowsAdapterController by lazy { TvShowsAdapterController() }
     private val tvShowsViewModel: TvShowsViewModel by viewModels {
-        TvShowsViewModelFactory(
-            TvShowsRepository(
-                MoviesApiService.getService()
-            )
-        )
+        InjectorUtils.ViewModelFactory.provideTvShowsViewModelFactory()
     }
-    private lateinit var binding: TvShowsFragmentBinding
+    private val binding: TvShowsFragmentBinding by viewBinding(TvShowsFragmentBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = TvShowsFragmentBinding.bind(view)
         binding.tvShowsEpoxyRecyclerView.adapter = controller.adapter
         setupObservers()
     }
@@ -49,11 +44,13 @@ class TvShowsFragment : Fragment(R.layout.tv_shows_fragment) {
                 is Result.Loading -> {
                     binding.lottieProgress.makeVisible()
                 }
+
                 is Result.Success -> {
                     binding.lottieProgress.makeGone()
                     controller.data = result.data
                     controller.requestModelBuild()
                 }
+
                 is Result.Error -> {
                     requireView().showErrorMessage(result.error.localizedMessage)
                     binding.lottieProgress.makeGone()
@@ -88,7 +85,12 @@ class TvShowsFragment : Fragment(R.layout.tv_shows_fragment) {
                         }.mapIndexed { index, tvShowsResult ->
                             if (tvShowsResult?.category == TvShows.TvShowsCategory.AIRING_TODAY) {
                                 MainMovieHolder {
-                                    launchFragment(NavigationDeepLinks.toTvShowDetails(it, tvShowsResult.name))
+                                    launchFragment(
+                                        NavigationDeepLinks.toTvShowDetails(
+                                            it,
+                                            tvShowsResult.name
+                                        )
+                                    )
                                 }.apply {
                                     tvShowsResult.let {
                                         title = it.name
@@ -99,7 +101,12 @@ class TvShowsFragment : Fragment(R.layout.tv_shows_fragment) {
                                 }
                             } else {
                                 SubMovieHolder {
-                                    launchFragment(NavigationDeepLinks.toTvShowDetails(it, tvShowsResult?.name ?: ""))
+                                    launchFragment(
+                                        NavigationDeepLinks.toTvShowDetails(
+                                            it,
+                                            tvShowsResult?.name ?: ""
+                                        )
+                                    )
                                 }.apply {
                                     tvShowsResult?.let {
                                         title = it.name

@@ -10,7 +10,6 @@ import com.czech.muvies.utils.Result
 import com.czech.muvies.utils.toLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -32,7 +31,7 @@ class TvShowDetailsViewModel(private val repository: TvShowsDetailsRepository) :
         }.onStart { _tvShowsResponse.postValue(Result.Loading) }
             .catch { _tvShowsResponse.postValue(Result.Error(it)) }
             .flowOn(Dispatchers.IO)
-            .collect { _tvShowsResponse.postValue(Result.Success(it)) }
+            .collect { _tvShowsResponse.value = Result.Success(it) }
     }
 }
 

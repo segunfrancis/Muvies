@@ -8,8 +8,8 @@ import androidx.navigation.fragment.navArgs
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.czech.muvies.R
 import com.czech.muvies.databinding.AllFragmentBinding
+import com.czech.muvies.di.InjectorUtils
 import com.czech.muvies.models.Movies.MoviesResult.MovieCategory
-import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.utils.NavigationDeepLinks
 import com.czech.muvies.utils.launchFragment
 import com.segunfrancis.muvies.common.viewBinding
@@ -27,13 +27,10 @@ class AllFragment : Fragment(R.layout.all_fragment) {
             else -> MovieCategory.UPCOMING
         }
     }
-    private val apiService: MoviesApiService by lazy {
-        MoviesApiService.getService()
-    }
+
     private val viewModel: AllMoviesViewModel by viewModels {
-        AllMoviesViewModelFactory(
-            category = movieCategory,
-            apiService = apiService
+        InjectorUtils.ViewModelFactory.provideAllMoviesViewModelFactory(
+            category = movieCategory
         )
     }
 

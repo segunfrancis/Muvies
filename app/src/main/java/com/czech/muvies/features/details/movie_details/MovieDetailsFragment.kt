@@ -4,31 +4,41 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Parcelable
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.czech.muvies.R
 import com.czech.muvies.databinding.MovieDetailsFragmentBinding
-import com.czech.muvies.features.details.epoxy.*
+import com.czech.muvies.di.InjectorUtils
+import com.czech.muvies.features.details.epoxy.AboutItemAdapter
+import com.czech.muvies.features.details.epoxy.CastAdapter
+import com.czech.muvies.features.details.epoxy.DetailImageAdapter
+import com.czech.muvies.features.details.epoxy.GenreItemAdapter
+import com.czech.muvies.features.details.epoxy.SectionHeaderAdapter
+import com.czech.muvies.features.details.epoxy.SimilarMoviesAdapter
+import com.czech.muvies.features.details.epoxy.SynopsisAdapter
 import com.czech.muvies.features.details.model.MovieDetailsResponse
-import com.czech.muvies.network.MoviesApiService
-import com.czech.muvies.utils.*
+import com.czech.muvies.utils.NavigationDeepLinks
+import com.czech.muvies.utils.Result
 import com.czech.muvies.utils.epoxy.BaseEpoxyController
 import com.czech.muvies.utils.epoxy.carouselNoSnap
 import com.czech.muvies.utils.epoxy.gridCarouselNoSnap
-import kotlinx.android.parcel.Parcelize
+import com.czech.muvies.utils.launchFragment
+import com.czech.muvies.utils.makeGone
+import com.czech.muvies.utils.makeVisible
+import com.czech.muvies.utils.showErrorMessage
+import com.segunfrancis.muvies.common.viewBinding
+import kotlinx.parcelize.Parcelize
 import timber.log.Timber
 
-@Suppress("UNCHECKED_CAST")
-class MovieDetailsFragment : Fragment() {
-    private lateinit var binding: MovieDetailsFragmentBinding
+class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
+    private val binding: MovieDetailsFragmentBinding by viewBinding(MovieDetailsFragmentBinding::bind)
     private val viewModel: MovieDetailsViewModel by viewModels {
-        MovieDetailsViewModelFactory(
-            MoviesApiService.getService()
-        )
+        InjectorUtils.ViewModelFactory.provideMovieDetailsViewModelFactory()
     }
 
     private val args: MovieDetailsFragmentArgs by navArgs()
@@ -43,19 +53,10 @@ class MovieDetailsFragment : Fragment() {
         viewModel.getMovieDetails(movieId)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = MovieDetailsFragmentBinding.inflate(inflater)
-        binding.detailsEpoxyRecyclerView.adapter = controller.adapter
-        return binding.root
-    }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.detailsEpoxyRecyclerView.adapter = controller.adapter
         getDetails()
     }
 
@@ -86,11 +87,6 @@ class MovieDetailsFragment : Fragment() {
             movieDetails.details?.title
         controller.data = listOf(movieDetails)
         controller.requestModelBuild()
-    }
-
-    companion object {
-        @Deprecated("Use constants from AppConstants class")
-        const val EXTRA_REPLY = "com.example.android.favmovieslistsql.REPLY"
     }
 
     inner class MovieDetailsController : BaseEpoxyController<MovieDetailsResponse>() {

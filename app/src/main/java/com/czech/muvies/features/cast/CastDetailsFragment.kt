@@ -2,19 +2,18 @@ package com.czech.muvies.features.cast
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import com.czech.muvies.R
 import com.czech.muvies.databinding.CastDetailsFragmentBinding
+import com.czech.muvies.di.InjectorUtils
 import com.czech.muvies.features.cast.epoxy.CastAdapter
 import com.czech.muvies.models.PersonDetails
 import com.czech.muvies.models.PersonMovies
 import com.czech.muvies.models.PersonTvShows
-import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.utils.NavigationDeepLinks
 import com.czech.muvies.utils.Result
 import com.czech.muvies.utils.convertDate
@@ -26,36 +25,20 @@ import com.czech.muvies.utils.makeGone
 import com.czech.muvies.utils.makeVisible
 import com.czech.muvies.utils.showErrorMessage
 import com.czech.muvies.utils.toGender
+import com.segunfrancis.muvies.common.viewBinding
 import timber.log.Timber
-import java.lang.Exception
 import java.util.*
 
-class CastDetailsFragment : Fragment() {
+class CastDetailsFragment : Fragment(R.layout.cast_details_fragment) {
 
-    private var _binding: CastDetailsFragmentBinding? = null
-    private val binding get() = _binding!!
+    private val binding: CastDetailsFragmentBinding by viewBinding(CastDetailsFragmentBinding::bind)
     private val args: CastDetailsFragmentArgs by navArgs()
     private val castId: Int by lazy { args.castId }
     private val viewModel: CastDetailsViewModel by viewModels {
-        CastDetailsViewModelFactory(
-            MoviesApiService.getService()
-        )
+        InjectorUtils.ViewModelFactory.provideCastDetailsViewModelFactory(castId = castId)
     }
     private val moviesController = CastMoviesEpoxyController()
     private val tvShowsController = CastTvShowsEpoxyController()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.getCastDetails(castId)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = CastDetailsFragmentBinding.inflate(layoutInflater)
-        return binding.root
-    }
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -138,7 +121,7 @@ class CastDetailsFragment : Fragment() {
         castImage.loadRoundCastImage(details.profilePath)
         try {
             details.gender?.let {
-                gender.text = it.toGender().name.toLowerCase(Locale.getDefault())
+                gender.text = it.toGender().name.lowercase(Locale.getDefault())
             }
         } catch (e: Exception) {
             Timber.e(e)
@@ -185,10 +168,5 @@ class CastDetailsFragment : Fragment() {
                 }
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 }

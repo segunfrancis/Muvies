@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.czech.muvies.R
 import com.czech.muvies.databinding.TvShowDetailsFragmentBinding
+import com.czech.muvies.di.InjectorUtils
 import com.czech.muvies.features.details.epoxy.AboutItemAdapter
 import com.czech.muvies.features.details.epoxy.CastAdapter
 import com.czech.muvies.features.details.epoxy.DetailImageAdapter
@@ -36,9 +37,7 @@ class TvShowDetailsFragment : Fragment(R.layout.tv_show_details_fragment) {
 
     private val binding: TvShowDetailsFragmentBinding by viewBinding(TvShowDetailsFragmentBinding::bind)
     private val viewModel: TvShowDetailsViewModel by viewModels {
-        TvShowDetailsViewModelFactory(
-            TvShowsDetailsRepository(MoviesApiService.getService())
-        )
+        InjectorUtils.ViewModelFactory.provideTvShowDetailsViewModelFactory()
     }
     private val args: TvShowDetailsFragmentArgs by navArgs()
     private val controller: TvShowsDetailsController by lazy { TvShowsDetailsController() }

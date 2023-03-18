@@ -6,8 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.czech.muvies.R
 import com.czech.muvies.databinding.MoviesFragmentBinding
-import com.czech.muvies.network.MoviesApiService
-import com.czech.muvies.repository.MovieRepository
+import com.czech.muvies.di.InjectorUtils
 import com.czech.muvies.utils.NavigationDeepLinks
 import com.czech.muvies.utils.launchFragment
 import com.czech.muvies.utils.makeGone
@@ -17,7 +16,9 @@ import com.segunfrancis.muvies.common.viewBinding
 class MoviesFragment : Fragment(R.layout.movies_fragment) {
 
     private val binding: MoviesFragmentBinding by viewBinding(MoviesFragmentBinding::bind)
-    private val viewModel by viewModels<MoviesViewModel> { MovieViewModelFactory(MovieRepository((MoviesApiService.getService()))) }
+    private val viewModel by viewModels<MoviesViewModel> {
+        InjectorUtils.ViewModelFactory.provideMovieViewModelFactory()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

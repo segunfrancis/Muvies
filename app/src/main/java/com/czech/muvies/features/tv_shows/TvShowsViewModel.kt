@@ -6,7 +6,6 @@ import com.czech.muvies.repository.TvShowsRepository
 import com.czech.muvies.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
@@ -51,15 +50,14 @@ class TvShowsViewModel(
         }.onStart { _tvShowsResponse.postValue(Result.Loading) }
             .catch { _tvShowsResponse.postValue(Result.Error(it)) }
             .flowOn(Dispatchers.IO)
-            .collect { _tvShowsResponse.postValue(Result.Success(it)) }
+            .collect { _tvShowsResponse.value = Result.Success(it) }
     }
 }
 
 @Suppress("UNCHECKED_CAST")
 class TvShowsViewModelFactory(
     private val repository: TvShowsRepository
-) :
-    ViewModelProvider.Factory {
+) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(TvShowsViewModel::class.java)) {

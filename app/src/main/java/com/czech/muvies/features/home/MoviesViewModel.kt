@@ -61,14 +61,14 @@ class MoviesViewModel(
                 trending.results,
                 upComing.results
             ).flatten()
-        }.onStart {
-            _movieResponse.postValue(Result.Loading)
-            _uiState.value = AllMovies(isLoading = true)
-        }.catch {
-            _movieResponse.postValue(Result.Error(it))
-            _uiState.value = AllMovies(isLoading = false, error = it)
         }.flowOn(Dispatchers.IO)
-            .collect {
+            .onStart {
+                _movieResponse.postValue(Result.Loading)
+                _uiState.value = AllMovies(isLoading = true)
+            }.catch {
+                _movieResponse.postValue(Result.Error(it))
+                _uiState.value = AllMovies(isLoading = false, error = it)
+            }.collect {
                 _movieResponse.postValue(Result.Success(it))
                 _uiState.value = AllMovies(isLoading = false, error = null, movies = it)
             }
