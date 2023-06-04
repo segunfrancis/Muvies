@@ -28,6 +28,7 @@ import com.czech.muvies.models.Movies
 import com.czech.muvies.theme.MuviesShape
 import com.czech.muvies.theme.MuviesTypography
 import com.czech.muvies.utils.AppConstants
+import com.czech.muvies.utils.roundUp
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -83,7 +84,7 @@ fun MuviesItemAll(
                         contentDescription = null
                     )
                     ItemText(
-                        text = movie.voteAverage.toString(),
+                        text = movie.voteAverage.roundUp().toString(),
                         style = MuviesTypography.subtitle2
                     )
                 }

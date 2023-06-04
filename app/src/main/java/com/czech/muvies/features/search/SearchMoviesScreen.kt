@@ -91,12 +91,14 @@ fun SearchMovieContent(
                     ),
                     keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                     keyboardActions = KeyboardActions(onSearch = {
-                        onAction(
-                            SearchActions.OnSearchClick(
-                                searchQuery
+                        if (searchQuery.isNotBlank()) {
+                            onAction(
+                                SearchActions.OnSearchClick(
+                                    searchQuery
+                                )
                             )
-                        )
-                        keyboardController?.hide()
+                            keyboardController?.hide()
+                        }
                     })
                 )
                 Spacer(modifier = Modifier.height(4.dp))

@@ -1,9 +1,8 @@
 package com.czech.muvies.models
 
-
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Movies(
@@ -23,11 +22,11 @@ data class Movies(
         val voteCount: Int = 0,
         val video: Boolean = false,
         @SerializedName("poster_path")
-        val posterPath: String = "",
+        val posterPath: String? = "",
         val id: Int = 0,
         val adult: Boolean = false,
         @SerializedName("backdrop_path")
-        val backdropPath: String = "",
+        val backdropPath: String? = "",
         @SerializedName("original_language")
         val originalLanguage: String = "",
         @SerializedName("original_title")

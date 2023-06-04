@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.czech.muvies.models.Movies
 import com.czech.muvies.network.MoviesApiService
+import com.czech.muvies.utils.roundUp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class SearchViewModel(private val api: MoviesApiService) : ViewModel() {
 
@@ -35,11 +37,15 @@ class SearchViewModel(private val api: MoviesApiService) : ViewModel() {
             try {
                 val response =
                     withContext(Dispatchers.IO) { api.searchMovie(movieTitle = movieTitle) }
-                _searchResponse.update { response.results }
+                val mappedResult = response.results.map {
+                    it.copy(voteAverage = it.voteAverage.roundUp(decimalPlaces = 1))
+                }
+                _searchResponse.update { mappedResult }
                 _isLoading.update { false }
             } catch (t: Throwable) {
                 t.localizedMessage?.let { _error.emit(it) }
                 _isLoading.update { false }
+                Timber.e(t)
             }
         }
     }
