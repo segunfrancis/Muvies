@@ -22,6 +22,7 @@ class SeasonDetailsViewModel(private val apiService: MoviesApiService) : ViewMod
     }
 }
 
+@Suppress("UNCHECKED_CAST")
 class SeasonDetailsViewModelFactory(private val apiService: MoviesApiService): ViewModelProvider.Factory {
 
     override fun <T: ViewModel> create(modelClass: Class<T>): T {

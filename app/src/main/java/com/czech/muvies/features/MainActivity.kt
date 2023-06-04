@@ -35,7 +35,8 @@ class MainActivity : AppCompatActivity() {
             topLevelDestinationIds = setOf(
                 R.id.moviesFragment,
                 R.id.tvShowsFragment,
-                R.id.favoritesFragment
+                R.id.favoritesFragment,
+                R.id.searchFragment
             )
         )
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfig)
@@ -44,6 +45,7 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.moviesFragment,
                 R.id.tvShowsFragment,
+                R.id.searchFragment,
                 R.id.favoritesFragment -> {
                     showBottomNavigation()
                     setToolbarTitle(getString(R.string.app_name))

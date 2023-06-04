@@ -7,6 +7,7 @@ import androidx.fragment.app.viewModels
 import com.czech.muvies.R
 import com.czech.muvies.databinding.MoviesFragmentBinding
 import com.czech.muvies.di.InjectorUtils
+import com.czech.muvies.theme.MuviesTheme
 import com.czech.muvies.utils.NavigationDeepLinks
 import com.czech.muvies.utils.launchFragment
 import com.czech.muvies.utils.makeGone
@@ -24,29 +25,31 @@ class MoviesFragment : Fragment(R.layout.movies_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.movieComposeView.setContent {
-            val response = viewModel.uiState.value
-            if (response.isLoading) {
-                binding.lottieProgress.makeVisible()
-            } else {
-                binding.lottieProgress.makeGone()
-                if (response.movies.isNotEmpty()) {
-                    HomeScreen(movies = response, onMovieItemClick = {
-                        launchFragment(
-                            NavigationDeepLinks.toMovieDetails(
-                                movieId = it.id,
-                                movieTitle = it.title
-                            )
-                        )
-                    }, onSeeAllClick = {
-                        launchFragment(
-                            NavigationDeepLinks.toAllMovies(
-                                category = it.value,
-                                movieTitle = it.formattedName
-                            )
-                        )
-                    })
+            MuviesTheme {
+                val response = viewModel.uiState.value
+                if (response.isLoading) {
+                    binding.lottieProgress.makeVisible()
                 } else {
-                    // todo: Handle error
+                    binding.lottieProgress.makeGone()
+                    if (response.movies.isNotEmpty()) {
+                        HomeScreen(movies = response, onMovieItemClick = {
+                            launchFragment(
+                                NavigationDeepLinks.toMovieDetails(
+                                    movieId = it.id,
+                                    movieTitle = it.title
+                                )
+                            )
+                        }, onSeeAllClick = {
+                            launchFragment(
+                                NavigationDeepLinks.toAllMovies(
+                                    category = it.value,
+                                    movieTitle = it.formattedName
+                                )
+                            )
+                        })
+                    } else {
+                        // todo: Handle error
+                    }
                 }
             }
         }

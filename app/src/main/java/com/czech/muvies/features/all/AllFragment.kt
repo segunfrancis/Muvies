@@ -8,8 +8,9 @@ import androidx.navigation.fragment.navArgs
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.czech.muvies.R
 import com.czech.muvies.databinding.AllFragmentBinding
-import com.czech.muvies.di.InjectorUtils
+import com.czech.muvies.di.InjectorUtils.ViewModelFactory.provideAllMoviesViewModelFactory
 import com.czech.muvies.models.Movies.MoviesResult.MovieCategory
+import com.czech.muvies.theme.MuviesTheme
 import com.czech.muvies.utils.NavigationDeepLinks
 import com.czech.muvies.utils.launchFragment
 import com.segunfrancis.muvies.common.viewBinding
@@ -29,9 +30,7 @@ class AllFragment : Fragment(R.layout.all_fragment) {
     }
 
     private val viewModel: AllMoviesViewModel by viewModels {
-        InjectorUtils.ViewModelFactory.provideAllMoviesViewModelFactory(
-            category = movieCategory
-        )
+        provideAllMoviesViewModelFactory(category = movieCategory)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,14 +38,16 @@ class AllFragment : Fragment(R.layout.all_fragment) {
 
         binding.composeView.setContent {
             val pagedList = viewModel.moviesFlow.collectAsLazyPagingItems()
-            AllMoviesScreen(movies = pagedList, onItemClick = {
-                launchFragment(
-                    NavigationDeepLinks.toMovieDetails(
-                        movieId = it.id,
-                        movieTitle = it.title
+            MuviesTheme {
+                AllMoviesScreen(movies = pagedList, onItemClick = {
+                    launchFragment(
+                        NavigationDeepLinks.toMovieDetails(
+                            movieId = it.id,
+                            movieTitle = it.title
+                        )
                     )
-                )
-            })
+                })
+            }
         }
     }
 }

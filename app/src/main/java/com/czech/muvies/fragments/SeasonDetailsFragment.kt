@@ -2,30 +2,28 @@ package com.czech.muvies.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.CompositePageTransformer
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import com.czech.muvies.R
 import com.czech.muvies.adapters.EpisodeAdapter
 import com.czech.muvies.databinding.SeasonDetailsFragmentBinding
+import com.czech.muvies.di.InjectorUtils.ViewModelFactory.provideSeasonDetailsViewModelFactory
 import com.czech.muvies.models.SeasonDetails
-import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.utils.EpisodesListTransformer
 import com.czech.muvies.utils.Status
 import com.czech.muvies.viewModels.SeasonDetailsViewModel
-import com.czech.muvies.viewModels.SeasonDetailsViewModelFactory
 
 class SeasonDetailsFragment : Fragment() {
 
-    private lateinit var viewModel: SeasonDetailsViewModel
     private lateinit var binding: SeasonDetailsFragmentBinding
-
+    private val viewModel: SeasonDetailsViewModel by viewModels { provideSeasonDetailsViewModelFactory() }
     private var episodeAdapter = EpisodeAdapter(arrayListOf())
 
     override fun onCreateView(
@@ -34,9 +32,7 @@ class SeasonDetailsFragment : Fragment() {
     ): View? {
 
         binding = SeasonDetailsFragmentBinding.inflate(inflater)
-        viewModel =
-            ViewModelProvider(this, SeasonDetailsViewModelFactory(MoviesApiService.getService()))
-                .get(SeasonDetailsViewModel::class.java)
+
         binding.lifecycleOwner = this
         binding.seasonDetailsViewModel = viewModel
 

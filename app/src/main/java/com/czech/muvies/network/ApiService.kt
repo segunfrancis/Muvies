@@ -13,6 +13,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Path
 import retrofit2.http.Query
 import java.util.concurrent.TimeUnit
@@ -24,7 +25,8 @@ interface MoviesApiService {
             val loggingInterceptor = HttpLoggingInterceptor()
             loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
 
-            val client = OkHttpClient().newBuilder().addInterceptor(loggingInterceptor)
+            val client = OkHttpClient().newBuilder()
+                .addInterceptor(loggingInterceptor)
                 .callTimeout(NETWORK_TIMEOUT, TimeUnit.SECONDS)
                 .connectTimeout(NETWORK_TIMEOUT, TimeUnit.SECONDS)
                 .build()
@@ -282,4 +284,12 @@ interface MoviesApiService {
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
         @Query("language") language: String = LANGUAGE
     ): PersonTvShows
+
+    @GET("search/movie")
+    suspend fun searchMovie(
+        @Query("query") movieTitle: String,
+        @Query("api_key") apiKey: String = BuildConfig.API_KEY,
+        @Query("language") language: String = LANGUAGE,
+        @Header("Authorization") token: String = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyM2JiYTAwN2VjY2RhNDczZDc5NGFkNDI5MTA5MWRkNiIsInN1YiI6IjVjMTRiNDBhYzNhMzY4NjZjMzM2NzUwMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.CSqxiBr3sxR1nJk7JrRpZfo5vq_fQq7_NncyOLtoVqM"
+    ): Movies
 }

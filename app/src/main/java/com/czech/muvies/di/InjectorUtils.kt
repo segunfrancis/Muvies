@@ -5,6 +5,7 @@ import com.czech.muvies.features.cast.CastDetailsViewModelFactory
 import com.czech.muvies.features.details.movie_details.MovieDetailsViewModelFactory
 import com.czech.muvies.features.details.tv_show_details.TvShowDetailsViewModelFactory
 import com.czech.muvies.features.home.MovieViewModelFactory
+import com.czech.muvies.features.search.SearchViewModelFactory
 import com.czech.muvies.features.tv_shows.TvShowsViewModelFactory
 import com.czech.muvies.models.Movies.MoviesResult.MovieCategory
 import com.czech.muvies.network.MoviesApiService
@@ -12,6 +13,7 @@ import com.czech.muvies.repository.CastRepository
 import com.czech.muvies.repository.MovieRepository
 import com.czech.muvies.repository.TvShowsDetailsRepository
 import com.czech.muvies.repository.TvShowsRepository
+import com.czech.muvies.viewModels.SeasonDetailsViewModelFactory
 
 object InjectorUtils {
 
@@ -22,20 +24,22 @@ object InjectorUtils {
         return apiService
     }
 
-    private fun getMovieRepository(): MovieRepository {
-        return MovieRepository(service = getService())
-    }
+    object Repository {
+        internal fun getMovieRepository(): MovieRepository {
+            return MovieRepository(service = getService())
+        }
 
-    private fun getTvShowsRepository(): TvShowsRepository {
-        return TvShowsRepository(moviesApiService = getService())
-    }
+        internal fun getTvShowsRepository(): TvShowsRepository {
+            return TvShowsRepository(moviesApiService = getService())
+        }
 
-    private fun getTvShowsDetailsRepository(): TvShowsDetailsRepository {
-        return TvShowsDetailsRepository(moviesApiService = getService())
-    }
+        internal fun getTvShowsDetailsRepository(): TvShowsDetailsRepository {
+            return TvShowsDetailsRepository(moviesApiService = getService())
+        }
 
-    private fun getCastRepository(): CastRepository {
-        return CastRepository(service = getService())
+        internal fun getCastRepository(): CastRepository {
+            return CastRepository(service = getService())
+        }
     }
 
     object ViewModelFactory {
@@ -44,11 +48,11 @@ object InjectorUtils {
         }
 
         fun provideMovieViewModelFactory(): MovieViewModelFactory {
-            return MovieViewModelFactory(repository = getMovieRepository())
+            return MovieViewModelFactory(repository = Repository.getMovieRepository())
         }
 
         fun provideTvShowsViewModelFactory(): TvShowsViewModelFactory {
-            return TvShowsViewModelFactory(repository = getTvShowsRepository())
+            return TvShowsViewModelFactory(repository = Repository.getTvShowsRepository())
         }
 
         fun provideMovieDetailsViewModelFactory(): MovieDetailsViewModelFactory {
@@ -56,11 +60,22 @@ object InjectorUtils {
         }
 
         fun provideTvShowDetailsViewModelFactory(): TvShowDetailsViewModelFactory {
-            return TvShowDetailsViewModelFactory(repository = getTvShowsDetailsRepository())
+            return TvShowDetailsViewModelFactory(repository = Repository.getTvShowsDetailsRepository())
         }
 
         fun provideCastDetailsViewModelFactory(castId: Int): CastDetailsViewModelFactory {
-            return CastDetailsViewModelFactory(castId = castId, repository = getCastRepository())
+            return CastDetailsViewModelFactory(
+                castId = castId,
+                repository = Repository.getCastRepository()
+            )
+        }
+
+        fun provideSeasonDetailsViewModelFactory(): SeasonDetailsViewModelFactory {
+            return SeasonDetailsViewModelFactory(apiService = getService())
+        }
+
+        fun provideSearchViewModelFactory(): SearchViewModelFactory {
+            return SearchViewModelFactory(api = getService())
         }
     }
 }

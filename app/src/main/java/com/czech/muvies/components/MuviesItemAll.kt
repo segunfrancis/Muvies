@@ -33,8 +33,8 @@ import com.czech.muvies.utils.AppConstants
 @Composable
 fun MuviesItemAll(
     modifier: Modifier = Modifier,
-    onItemClick: (Movies.MoviesResult) -> Unit = {},
-    movie: Movies.MoviesResult
+    movie: Movies.MoviesResult,
+    onItemClick: (Movies.MoviesResult) -> Unit = {}
 ) {
     Surface(
         modifier = modifier

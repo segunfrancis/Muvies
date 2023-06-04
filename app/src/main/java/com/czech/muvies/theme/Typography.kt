@@ -33,7 +33,7 @@ val MuviesTypography = Typography(
     ),
     h6 = TextStyle(
         fontFamily = Convergence,
-        fontWeight = FontWeight.W600,
+        fontWeight = FontWeight.W900,
         fontSize = 20.sp
     ),
     subtitle1 = TextStyle(

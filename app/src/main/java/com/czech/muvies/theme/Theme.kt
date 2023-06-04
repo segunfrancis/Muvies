@@ -21,5 +21,5 @@ private val DarkColors = darkColors(
     onSecondary = White,
     error = Red600,
     surface = Red1000,
-    onSurface = Grey700
+    onSurface = Grey400
 )

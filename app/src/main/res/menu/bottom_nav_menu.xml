@@ -17,4 +17,8 @@
         android:title="@string/text_favorites"
         android:visible="false" />
 
+    <item
+        android:id="@+id/search"
+        android:icon="@drawable/search"
+        android:title="@string/text_search" />
 </menu>
