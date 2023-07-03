@@ -19,8 +19,8 @@ import timber.log.Timber
 
 class SearchViewModel(private val api: MoviesApiService) : ViewModel() {
 
-    private val _searchResponse = MutableStateFlow<List<Movies.MoviesResult>>(emptyList())
-    val searchResponse = _searchResponse.asStateFlow()
+    var uiState = MutableStateFlow<SearchMoviesUiState>(SearchMoviesUiState.DefaultState)
+        private set
 
     private val _error = MutableSharedFlow<String>()
     val error: SharedFlow<String> = _error.asSharedFlow()
@@ -40,7 +40,11 @@ class SearchViewModel(private val api: MoviesApiService) : ViewModel() {
                 val mappedResult = response.results.map {
                     it.copy(voteAverage = it.voteAverage.roundUp(decimalPlaces = 1))
                 }
-                _searchResponse.update { mappedResult }
+                if (mappedResult.isNotEmpty()) {
+                    uiState.update { SearchMoviesUiState.Content(mappedResult) }
+                } else {
+                    uiState.update { SearchMoviesUiState.EmptyContent }
+                }
                 _isLoading.update { false }
             } catch (t: Throwable) {
                 t.localizedMessage?.let { _error.emit(it) }
@@ -66,4 +70,10 @@ class SearchViewModelFactory(
         }
         throw IllegalArgumentException("Unknown class name")
     }
+}
+
+sealed interface SearchMoviesUiState {
+    data class Content(val movies: List<Movies.MoviesResult>) : SearchMoviesUiState
+    object EmptyContent : SearchMoviesUiState
+    object DefaultState : SearchMoviesUiState
 }

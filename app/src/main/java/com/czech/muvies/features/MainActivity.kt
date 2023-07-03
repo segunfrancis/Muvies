@@ -2,7 +2,10 @@ package com.czech.muvies.features
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -72,6 +75,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.bottomNav.setOnItemReselectedListener { }
+
+        /*setContent {
+            val navController = rememberNavController()
+            NavHost(navController = navController, route = "/", startDestination = "") {
+
+            }
+        }*/
     }
 
     override fun onSupportNavigateUp(): Boolean {
