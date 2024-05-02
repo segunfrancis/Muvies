@@ -39,8 +39,8 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.czech.muvies.components.MuviesItemAll
-import com.czech.muvies.models.Movies
+import com.segunfrancis.muvies.common.Movies
+import com.segunfrancis.muvies.common.components.MuviesItemAll
 import com.segunfrancis.muvies.common.theme.Grey400
 import com.segunfrancis.muvies.common.theme.Grey700
 import com.segunfrancis.muvies.common.theme.MuviesTheme

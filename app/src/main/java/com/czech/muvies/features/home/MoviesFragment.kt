@@ -9,11 +9,9 @@ import com.czech.muvies.R
 import com.czech.muvies.databinding.MoviesFragmentBinding
 import com.czech.muvies.di.InjectorUtils.Navigator
 import com.czech.muvies.di.InjectorUtils.ViewModelFactory
-import com.segunfrancis.muvies.common.theme.MuviesTheme
-import com.czech.muvies.utils.NavigationDeepLinks
-import com.czech.muvies.utils.launchFragment
 import com.czech.muvies.utils.makeGone
 import com.czech.muvies.utils.makeVisible
+import com.segunfrancis.muvies.common.theme.MuviesTheme
 import com.segunfrancis.muvies.common.viewBinding
 
 class MoviesFragment : Fragment(R.layout.movies_fragment) {
@@ -38,12 +36,7 @@ class MoviesFragment : Fragment(R.layout.movies_fragment) {
                         HomeScreen(movies = response, onMovieItemClick = {
                             navigator.toMovieDetailsScreen(it.id, it.title)
                         }, onSeeAllClick = {
-                            launchFragment(
-                                NavigationDeepLinks.toAllMovies(
-                                    category = it.value,
-                                    movieTitle = it.formattedName
-                                )
-                            )
+                            navigator.toAllMovies(category = it)
                         })
                     } else {
                         // todo: Handle error

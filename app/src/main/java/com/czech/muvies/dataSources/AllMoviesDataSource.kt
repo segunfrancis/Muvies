@@ -3,8 +3,8 @@ package com.czech.muvies.dataSources
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import androidx.paging.PageKeyedDataSource
-import com.czech.muvies.models.Movies
 import com.czech.muvies.network.MoviesApiService
+import com.segunfrancis.muvies.common.Movies
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope

@@ -23,6 +23,7 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import kotlin.math.roundToLong
 
 fun ImageView.loadMoviePoster(posterPath: String?) {
     Glide.with(this)
@@ -141,4 +142,19 @@ fun Throwable?.handleError(): String {
             this.localizedMessage ?: "Something went wrong"
         }
     }
+}
+
+
+fun Double.roundUp(decimalPlaces: Int = 1): Double {
+    val multiplier = StringBuilder("1")
+    repeat(decimalPlaces) {
+        multiplier.append("0")
+    }
+    val safeMultiplier = try {
+        multiplier.toString().toInt()
+    } catch (e: Exception) {
+        e.printStackTrace()
+        1
+    }
+    return (this * safeMultiplier).roundToLong() / safeMultiplier.toDouble()
 }

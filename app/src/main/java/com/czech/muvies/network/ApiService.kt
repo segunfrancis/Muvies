@@ -2,11 +2,11 @@ package com.czech.muvies.network
 
 import com.czech.muvies.BuildConfig
 import com.czech.muvies.utils.AppConstants.LANGUAGE
-import com.czech.muvies.models.Movies
 import com.czech.muvies.models.*
 import com.czech.muvies.utils.AppConstants
 import com.czech.muvies.utils.AppConstants.NETWORK_TIMEOUT
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.segunfrancis.muvies.common.Movies
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
@@ -74,15 +74,6 @@ interface MoviesApiService {
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
         @Query("language") language: String = LANGUAGE,
         @Query("page") page: Int
-    ): Movies
-
-    @GET("{first}/{second}")
-    suspend fun getMoviesGeneric(
-        @Path("first") firstPath: String,
-        @Path(value = "second", encoded = true) secondPath: String,
-        @Query("api_key") apiKey: String = BuildConfig.API_KEY,
-        @Query("language") language: String = LANGUAGE,
-        @Query("page") page: Int,
     ): Movies
 
     @GET("movie/top_rated")

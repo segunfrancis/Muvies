@@ -1,7 +1,7 @@
 package com.czech.muvies.repository
 
-import com.czech.muvies.models.Movies
 import com.czech.muvies.network.MoviesApiService
+import com.segunfrancis.muvies.common.Movies
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

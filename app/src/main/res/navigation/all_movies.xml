@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/allFragment"
-        android:name="com.czech.muvies.features.all.AllFragment"
+        android:name="com.segunfrancis.all_movies.ui.AllFragment"
         android:label="all_fragment"
         tools:layout="@layout/all_fragment">
         <argument

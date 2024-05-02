@@ -3,9 +3,9 @@ package com.czech.muvies.features.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.czech.muvies.models.Movies
 import com.czech.muvies.network.MoviesApiService
-import com.czech.muvies.utils.roundUp
+import com.segunfrancis.muvies.common.Movies
+import com.segunfrancis.muvies.common.roundUp
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -68,7 +68,7 @@ class SearchViewModelFactory(
         if (modelClass.isAssignableFrom(SearchViewModel::class.java)) {
             return SearchViewModel(api) as T
         }
-        throw IllegalArgumentException("Unknown class name")
+        throw IllegalArgumentException("Class ${modelClass.canonicalName} is not assignable")
     }
 }
 

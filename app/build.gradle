@@ -6,38 +6,12 @@ plugins {
     id 'kotlin-parcelize'
 }
 
-/*def getApiKey() {
-    def keysProperties = new Properties()
-    keysProperties.load(project.rootProject.file("local.properties").newDataInputStream())
-    def ApiKey = keysProperties.getProperty("api_key", "")
-    return ApiKey
-}
-
-def getApiToken() {
-    def keysProperties = new Properties()
-    keysProperties.load(project.rootProject.file("local.properties").newDataInputStream())
-    def ApiToken = keysProperties.getProperty("api_token", "")
-    return ApiToken
-}*/
-
 android {
     defaultConfig {
         applicationId "com.example.muvies"
         versionCode 1
         versionName "1.0"
     }
-
-    /*buildTypes {
-        debug {
-            buildConfigField("String", "API_KEY", getApiKey())
-            buildConfigField("String", "API_TOKEN", getApiToken())
-        }
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "API_KEY", getApiKey())
-        }
-    }*/
     packagingOptions {
         exclude 'META-INF/atomicfu.kotlin_module'
         resources {
@@ -49,7 +23,6 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion '1.4.0'
-        //kotlinCompilerVersion '1.6.10'
     }
 }
 
@@ -57,6 +30,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(":common")
     implementation project(":feature:movie_details")
+    implementation project(":feature:all_movies")
     implementation "androidx.appcompat:appcompat:1.3.1"
     implementation "androidx.activity:activity-ktx:1.3.1"
     implementation 'androidx.core:core-ktx:1.6.0'

@@ -1,11 +1,8 @@
 package com.czech.muvies.features
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -15,6 +12,7 @@ import com.czech.muvies.databinding.ActivityMainBinding
 import com.czech.muvies.utils.makeGone
 import com.czech.muvies.utils.makeVisible
 import com.czech.muvies.utils.showMessage
+import com.segunfrancis.muvies.common.Movies.MoviesResult.MovieCategory
 import com.segunfrancis.muvies.common.viewBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -55,18 +53,18 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.castDetailsFragment -> {
                     hideBottomNavigation()
-                    setToolbarTitle("${args?.get("castName")}")
+                    setToolbarTitle("${args?.getString("castName")}")
                 }
                 R.id.detailsFragment -> {
                     hideBottomNavigation()
-                    setToolbarTitle("${args?.get("movieTitle")}")
+                    setToolbarTitle("${args?.getString("movieTitle")}")
                 }
                 R.id.tvShowsDetailsFragment -> {
                     hideBottomNavigation()
-                    setToolbarTitle("${args?.get("tvShowTitle")}")
+                    setToolbarTitle("${args?.getString("tvShowTitle")}")
                 }
                 R.id.allFragment -> {
-                    setToolbarTitle("${args?.get("movie_title")} movies")
+                    setToolbarTitle("${(args?.getSerializable("category") as MovieCategory).formattedName} movies")
                     hideBottomNavigation()
                 }
                 else -> {
@@ -75,13 +73,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.bottomNav.setOnItemReselectedListener { }
-
-        /*setContent {
-            val navController = rememberNavController()
-            NavHost(navController = navController, route = "/", startDestination = "") {
-
-            }
-        }*/
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -99,10 +90,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun setToolbarTitle(title: String) {
         binding.allTitle.text = title
+        binding.allTitle.setSelected(true)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        if (navController.currentDestination?.id == navController.graph.getStartDestination()) {
+        if (navController.currentDestination?.id == navController.graph.startDestinationId) {
             if (backPressedOnce) {
                 super.onBackPressed()
                 return
