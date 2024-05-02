@@ -17,14 +17,15 @@ import androidx.compose.ui.unit.dp
 import com.czech.muvies.components.CategoryHeader
 import com.czech.muvies.components.MuviesItemHome
 import com.czech.muvies.components.movie
-import com.czech.muvies.models.Movies
+import com.segunfrancis.muvies.common.Movies
+import com.segunfrancis.muvies.common.Movies.MoviesResult.MovieCategory
 
 @Composable
 fun HomeScreen(
     movies: AllMovies,
     modifier: Modifier = Modifier,
     onMovieItemClick: (Movies.MoviesResult) -> Unit = {},
-    onSeeAllClick: (Movies.MoviesResult.MovieCategory) -> Unit = {}
+    onSeeAllClick: (MovieCategory) -> Unit = {}
 ) {
     Surface(modifier = modifier.fillMaxSize()) {
         LazyColumn {
@@ -37,7 +38,7 @@ fun HomeScreen(
                     }
                 }
                 item {
-                    if (key == Movies.MoviesResult.MovieCategory.IN_THEATER) {
+                    if (key == MovieCategory.IN_THEATER) {
                         MuviesRow(
                             muvies = value,
                             cardWidth = 195.dp,

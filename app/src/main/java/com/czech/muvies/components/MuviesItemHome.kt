@@ -22,10 +22,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.czech.muvies.R
-import com.czech.muvies.models.Movies
 import com.segunfrancis.muvies.common.theme.MuviesShape
 import com.segunfrancis.muvies.common.theme.MuviesTypography
 import com.czech.muvies.utils.AppConstants
+import com.segunfrancis.muvies.common.Movies
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable

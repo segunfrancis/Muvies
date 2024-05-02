@@ -122,12 +122,11 @@ fun MoviePosterSection(
 
         Text(
             text = synopsis,
-            modifier = Modifier.padding(start = 24.dp),
+            modifier = Modifier.padding(horizontal = 24.dp),
             style = MaterialTheme.typography.caption.copy(fontWeight = FontWeight.Light)
         )
     }
 }
-
 
 @Preview
 @Composable

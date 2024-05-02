@@ -1,13 +1,11 @@
 package com.czech.muvies.di
 
 import androidx.navigation.NavController
-import com.czech.muvies.features.all.AllMoviesViewModelFactory
 import com.czech.muvies.features.cast.CastDetailsViewModelFactory
 import com.czech.muvies.features.details.tv_show_details.TvShowDetailsViewModelFactory
 import com.czech.muvies.features.home.MovieViewModelFactory
 import com.czech.muvies.features.search.SearchViewModelFactory
 import com.czech.muvies.features.tv_shows.TvShowsViewModelFactory
-import com.czech.muvies.models.Movies.MoviesResult.MovieCategory
 import com.czech.muvies.navigation.AppNavigation
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.repository.CastRepository
@@ -44,9 +42,6 @@ object InjectorUtils {
     }
 
     object ViewModelFactory {
-        fun provideAllMoviesViewModelFactory(category: MovieCategory): AllMoviesViewModelFactory {
-            return AllMoviesViewModelFactory(apiService = getService(), category = category)
-        }
 
         fun provideMovieViewModelFactory(): MovieViewModelFactory {
             return MovieViewModelFactory(repository = Repository.getMovieRepository())

@@ -7,9 +7,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.czech.muvies.models.Movies
 import com.czech.muvies.repository.MovieRepository
 import com.czech.muvies.utils.Result
+import com.segunfrancis.muvies.common.Movies
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine

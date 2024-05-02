@@ -131,17 +131,3 @@ fun String.convertDate(): String {
         ""
     }
 }
-
-fun Double.roundUp(decimalPlaces: Int = 1): Double {
-    val multiplier = StringBuilder("1")
-    repeat(decimalPlaces) {
-        multiplier.append("0")
-    }
-    val safeMultiplier = try {
-        multiplier.toString().toInt()
-    } catch (e: Exception) {
-        e.printStackTrace()
-        1
-    }
-   return (this * safeMultiplier).roundToLong() / safeMultiplier.toDouble()
-}

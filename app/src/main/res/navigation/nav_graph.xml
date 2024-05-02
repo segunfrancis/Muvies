@@ -12,14 +12,10 @@
         tools:layout="@layout/movies_fragment">
         <action
             android:id="@+id/toMovieDetails"
-            app:destination="@id/detailsFragment">
-            <argument
-                android:name="movieId"
-                app:argType="integer" />
-            <argument
-                android:name="movieTitle"
-                app:argType="string" />
-        </action>
+            app:destination="@id/detailsFragment"/>
+        <action
+            android:id="@+id/toAllMovies"
+            app:destination="@id/allFragment" />
     </fragment>
 
     <fragment
@@ -102,16 +98,12 @@
 
     <fragment
         android:id="@+id/allFragment"
-        android:name="com.czech.muvies.features.all.AllFragment"
+        android:name="com.segunfrancis.all_movies.ui.AllFragment"
         android:label="all_fragment"
         tools:layout="@layout/all_fragment">
         <argument
             android:name="category"
-            app:argType="string" />
-        <argument
-            android:name="movie_title"
-            app:argType="string" />
-        <deepLink app:uri="https://czech.muvies/all_movies/{category}/{movie_title}" />
+            app:argType="com.segunfrancis.muvies.common.Movies$MoviesResult$MovieCategory" />
     </fragment>
 
     <fragment
