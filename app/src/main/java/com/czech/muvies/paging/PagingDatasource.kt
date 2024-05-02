@@ -19,7 +19,7 @@ class PagingDatasource(
             LoadResult.Page(
                 data = response.results,
                 prevKey = null,
-                nextKey = response.page + 1
+                nextKey = if (response.page < response.totalPages) response.page + 1 else null
             )
         } catch (t: Throwable) {
             LoadResult.Error(t)

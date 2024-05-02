@@ -17,7 +17,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.segunfrancis.muvies.common.CommonConstants.BASE_IMAGE_PATH
 import com.segunfrancis.muvies.common.CommonConstants.SOURCE_DATE_PATTERN
 import com.segunfrancis.muvies.common.CommonConstants.TARGET_DATE_PATTERN
+import retrofit2.HttpException
 import timber.log.Timber
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -103,9 +106,11 @@ fun Int.toGender(): GENDER {
         this == 1 -> {
             GENDER.FEMALE
         }
+
         this == 2 -> {
             GENDER.MALE
         }
+
         else -> {
             throw IllegalArgumentException("Unknown gender")
         }
@@ -119,5 +124,21 @@ fun String.convertDate(): String {
     } catch (e: Exception) {
         Timber.e(e)
         ""
+    }
+}
+
+fun Throwable?.handleError(): String {
+    return if (this == null) {
+        "Something went wrong"
+    } else {
+        if (this is SocketTimeoutException) {
+            "Your network might be slow. Kindly try again"
+        } else if (this is UnknownHostException) {
+            "We've detected a network problem. Please check your internet connection and try again"
+        } else if (this is HttpException && this.code() in 500..599) {
+            "We are currently unable to complete your request. Please try again later"
+        } else {
+            this.localizedMessage ?: "Something went wrong"
+        }
     }
 }

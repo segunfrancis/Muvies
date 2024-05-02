@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.Flow
 
 class AllMoviesViewModel(private val apiService: MoviesApiService, private val category: MovieCategory) : ViewModel() {
 
-    private val pageSize = 50
+    private val pageSize = 20
 
     var moviesFlow: Flow<PagingData<Movies.MoviesResult>>
 

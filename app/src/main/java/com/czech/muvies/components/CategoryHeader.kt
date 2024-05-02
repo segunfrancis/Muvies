@@ -17,10 +17,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.czech.muvies.R
 import com.czech.muvies.models.Movies.MoviesResult.MovieCategory
-import com.czech.muvies.theme.Grey700
-import com.czech.muvies.theme.MuviesTheme
-import com.czech.muvies.theme.MuviesTypography
-import com.czech.muvies.theme.Red600
+import com.segunfrancis.muvies.common.theme.Grey700
+import com.segunfrancis.muvies.common.theme.MuviesTheme
+import com.segunfrancis.muvies.common.theme.MuviesTypography
+import com.segunfrancis.muvies.common.theme.Red600
 
 @Composable
 fun CategoryHeader(
@@ -53,7 +53,7 @@ fun CategoryHeader(
 }
 
 @Composable
-@Preview()
+@Preview
 fun CategoryHeaderPreview() {
     MuviesTheme {
         CategoryHeader(category = MovieCategory.UPCOMING)
@@ -61,7 +61,7 @@ fun CategoryHeaderPreview() {
 }
 
 @Composable
-@Preview()
+@Preview
 fun CategoryHeaderDarkPreview() {
     MuviesTheme {
         CategoryHeader(category = MovieCategory.IN_THEATER)

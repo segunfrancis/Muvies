@@ -36,7 +36,7 @@ class SearchViewModel(private val api: MoviesApiService) : ViewModel() {
         viewModelScope.launch {
             try {
                 val response =
-                    withContext(Dispatchers.IO) { api.searchMovie(movieTitle = movieTitle) }
+                    withContext(Dispatchers.IO) { api.searchMovie(movieTitle = movieTitle, page = 1) }
                 val mappedResult = response.results.map {
                     it.copy(voteAverage = it.voteAverage.roundUp(decimalPlaces = 1))
                 }

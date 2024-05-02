@@ -15,6 +15,5 @@ dependencyResolutionManagement {
 rootProject.name='Muvies'
 include ':app'
 include ':common'
-include ':feature:movies'
+include ':feature:movie_details'
 include ':data:remote'
-include ':domain'

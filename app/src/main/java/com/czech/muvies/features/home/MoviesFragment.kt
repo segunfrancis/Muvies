@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.czech.muvies.R
 import com.czech.muvies.databinding.MoviesFragmentBinding
-import com.czech.muvies.di.InjectorUtils
-import com.czech.muvies.theme.MuviesTheme
+import com.czech.muvies.di.InjectorUtils.Navigator
+import com.czech.muvies.di.InjectorUtils.ViewModelFactory
+import com.segunfrancis.muvies.common.theme.MuviesTheme
 import com.czech.muvies.utils.NavigationDeepLinks
 import com.czech.muvies.utils.launchFragment
 import com.czech.muvies.utils.makeGone
@@ -18,8 +20,9 @@ class MoviesFragment : Fragment(R.layout.movies_fragment) {
 
     private val binding: MoviesFragmentBinding by viewBinding(MoviesFragmentBinding::bind)
     private val viewModel by viewModels<MoviesViewModel> {
-        InjectorUtils.ViewModelFactory.provideMovieViewModelFactory()
+        ViewModelFactory.provideMovieViewModelFactory()
     }
+    private val navigator by lazy { Navigator.getAppNavigator(findNavController()) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,12 +36,7 @@ class MoviesFragment : Fragment(R.layout.movies_fragment) {
                     binding.lottieProgress.makeGone()
                     if (response.movies.isNotEmpty()) {
                         HomeScreen(movies = response, onMovieItemClick = {
-                            launchFragment(
-                                NavigationDeepLinks.toMovieDetails(
-                                    movieId = it.id,
-                                    movieTitle = it.title
-                                )
-                            )
+                            navigator.toMovieDetailsScreen(it.id, it.title)
                         }, onSeeAllClick = {
                             launchFragment(
                                 NavigationDeepLinks.toAllMovies(

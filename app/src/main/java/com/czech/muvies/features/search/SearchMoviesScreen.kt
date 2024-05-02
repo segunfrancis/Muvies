@@ -41,10 +41,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.czech.muvies.components.MuviesItemAll
 import com.czech.muvies.models.Movies
-import com.czech.muvies.theme.Grey400
-import com.czech.muvies.theme.Grey700
-import com.czech.muvies.theme.MuviesTheme
-import com.czech.muvies.theme.MuviesTypography
+import com.segunfrancis.muvies.common.theme.Grey400
+import com.segunfrancis.muvies.common.theme.Grey700
+import com.segunfrancis.muvies.common.theme.MuviesTheme
+import com.segunfrancis.muvies.common.theme.MuviesTypography
 
 @Composable
 fun SearchMoviesScreen(viewModel: SearchViewModel) {

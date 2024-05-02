@@ -26,6 +26,20 @@ plugins {
     id 'org.jetbrains.kotlin.android' version '1.8.0' apply false
 }
 
+def getApiKey() {
+    def keysProperties = new Properties()
+    keysProperties.load(project.rootProject.file("local.properties").newDataInputStream())
+    def ApiKey = keysProperties.getProperty("api_key", "")
+    return ApiKey
+}
+
+def getApiToken() {
+    def keysProperties = new Properties()
+    keysProperties.load(project.rootProject.file("local.properties").newDataInputStream())
+    def ApiToken = keysProperties.getProperty("api_token", "")
+    return ApiToken
+}
+
 subprojects {
     afterEvaluate { project ->
         if (project.hasProperty("android")) {
@@ -36,6 +50,17 @@ subprojects {
                     targetSdkVersion(33)
                     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
                     consumerProguardFiles "consumer-rules.pro"
+                }
+                buildTypes {
+                    debug {
+                        buildConfigField("String", "API_KEY", getApiKey())
+                        buildConfigField("String", "API_TOKEN", getApiToken())
+                    }
+                    release {
+                        minifyEnabled false
+                        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                        buildConfigField("String", "API_KEY", getApiKey())
+                    }
                 }
                 compileOptions {
                     sourceCompatibility JavaVersion.VERSION_1_8

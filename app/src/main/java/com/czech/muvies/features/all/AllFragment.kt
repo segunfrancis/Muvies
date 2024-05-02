@@ -10,7 +10,7 @@ import com.czech.muvies.R
 import com.czech.muvies.databinding.AllFragmentBinding
 import com.czech.muvies.di.InjectorUtils.ViewModelFactory.provideAllMoviesViewModelFactory
 import com.czech.muvies.models.Movies.MoviesResult.MovieCategory
-import com.czech.muvies.theme.MuviesTheme
+import com.segunfrancis.muvies.common.theme.MuviesTheme
 import com.czech.muvies.utils.NavigationDeepLinks
 import com.czech.muvies.utils.launchFragment
 import com.segunfrancis.muvies.common.viewBinding
@@ -18,7 +18,7 @@ import com.segunfrancis.muvies.common.viewBinding
 class AllFragment : Fragment(R.layout.all_fragment) {
 
     private val binding: AllFragmentBinding by viewBinding(AllFragmentBinding::bind)
-    private val args: AllFragmentArgs by navArgs()
+    private val args: AllFragmentArgs by navArgs<AllFragmentArgs>()
     private val movieCategory: MovieCategory by lazy {
         when (args.category) {
             MovieCategory.IN_THEATER.value -> MovieCategory.IN_THEATER

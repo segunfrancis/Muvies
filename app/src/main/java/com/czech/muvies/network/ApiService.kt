@@ -290,6 +290,7 @@ interface MoviesApiService {
         @Query("query") movieTitle: String,
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
         @Query("language") language: String = LANGUAGE,
-        @Header("Authorization") token: String = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyM2JiYTAwN2VjY2RhNDczZDc5NGFkNDI5MTA5MWRkNiIsInN1YiI6IjVjMTRiNDBhYzNhMzY4NjZjMzM2NzUwMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.CSqxiBr3sxR1nJk7JrRpZfo5vq_fQq7_NncyOLtoVqM"
+        @Query("page") page: Int,
+        @Header("Authorization") token: String = "Bearer ${BuildConfig.API_TOKEN}"
     ): Movies
 }

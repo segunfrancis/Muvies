@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.czech.muvies.R
 import com.czech.muvies.adapters.FavMoviesAdapter
 import com.czech.muvies.databinding.FragmentFavMoviesTabBinding
-import com.czech.muvies.features.details.movie_details.ToFavorites
+import com.segunfrancis.muvies.feature.movie_details.ui.ToFavorites
 import com.czech.muvies.room.movies.MoviesEntity
 import com.czech.muvies.utils.AppConstants.EXTRA_REPLY
 import com.czech.muvies.viewModels.FavMoviesTabViewModel
@@ -46,7 +46,7 @@ class FavMoviesTabFragment : Fragment(R.layout.fragment_fav_movies_tab) {
 
         val intentData = Intent()
 
-        intentData.getParcelableExtra<ToFavorites>(EXTRA_REPLY).let { data ->
+        intentData.getParcelableExtra<com.segunfrancis.muvies.feature.movie_details.ui.ToFavorites>(EXTRA_REPLY).let { data ->
 
             val favMovies = MoviesEntity(
                 data?.movieId,

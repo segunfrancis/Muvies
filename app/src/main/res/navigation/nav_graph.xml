@@ -1,17 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@+id/movies">
+    app:startDestination="@+id/moviesFragment">
 
-    <include app:graph="@navigation/movies" />
-    <include app:graph="@navigation/tv_shows" />
-    <include app:graph="@navigation/favorites" />
-    <include app:graph="@navigation/search" />
+    <fragment
+        android:id="@+id/moviesFragment"
+        android:name="com.czech.muvies.features.home.MoviesFragment"
+        android:label="Movies"
+        tools:layout="@layout/movies_fragment">
+        <action
+            android:id="@+id/toMovieDetails"
+            app:destination="@id/detailsFragment">
+            <argument
+                android:name="movieId"
+                app:argType="integer" />
+            <argument
+                android:name="movieTitle"
+                app:argType="string" />
+        </action>
+    </fragment>
 
-    <include app:graph="@navigation/movie_details" />
-    <include app:graph="@navigation/tv_shows_details" />
-    <include app:graph="@navigation/casts_details" />
+    <fragment
+        android:id="@+id/tvShowsFragment"
+        android:name="com.czech.muvies.features.tv_shows.TvShowsFragment"
+        android:label="Tv Shows"
+        tools:layout="@layout/tv_shows_fragment"/>
 
-    <include app:graph="@navigation/all_movies" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.czech.muvies.features.search.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search" />
+
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.segunfrancis.muvies.feature.movie_details.ui.MovieDetailsFragment"
+        tools:layout="@layout/movie_details_fragment">
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+        <argument
+            android:name="movieTitle"
+            app:argType="string" />
+        <deepLink
+            app:uri="https://czech.muvies/movie_details/{movieId}/{movieTitle}" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tvShowsDetailsFragment"
+        android:name="com.czech.muvies.features.details.tv_show_details.TvShowDetailsFragment"
+        tools:layout="@layout/tv_show_details_fragment">
+        <argument
+            android:name="tvShowId"
+            app:argType="integer" />
+        <argument
+            android:name="tvShowTitle"
+            app:argType="string" />
+        <deepLink app:uri="https://czech.muvies/tv_show_details/{tvShowId}/{tvShowTitle}" />
+        <action
+            android:id="@+id/open_season_details"
+            app:destination="@id/seasonDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/seasonDetailsFragment"
+        android:name="com.czech.muvies.fragments.SeasonDetailsFragment"
+        android:label="season details"
+        tools:layout="@layout/season_details_fragment">
+        <argument
+            android:name="seasonArgs"
+            app:argType="com.czech.muvies.models.TvShowDetails$Season"
+            app:nullable="true" />
+        <argument
+            android:name="showId"
+            app:argType="integer" />
+        <argument
+            android:name="showName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="backdrop"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/castDetailsFragment"
+        android:name="com.czech.muvies.features.cast.CastDetailsFragment"
+        tools:layout="@layout/cast_details_fragment">
+        <argument
+            android:name="castId"
+            app:argType="integer" />
+        <argument
+            android:name="castName"
+            app:argType="string" />
+        <deepLink
+            app:uri="https://czech.muvies/cast_details/{castId}/{castName}" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/allFragment"
+        android:name="com.czech.muvies.features.all.AllFragment"
+        android:label="all_fragment"
+        tools:layout="@layout/all_fragment">
+        <argument
+            android:name="category"
+            app:argType="string" />
+        <argument
+            android:name="movie_title"
+            app:argType="string" />
+        <deepLink app:uri="https://czech.muvies/all_movies/{category}/{movie_title}" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.czech.muvies.features.favorite.FavoritesFragment"
+        android:label="Favorites"
+        tools:layout="@layout/favorites_fragment" />
+
+    <fragment
+        android:id="@+id/favMoviesTabFragment"
+        android:name="com.czech.muvies.features.favorite.FavMoviesTabFragment"
+        android:label="fragment_fav_movies_tab"
+        tools:layout="@layout/fragment_fav_movies_tab">
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+        <argument
+            android:name="movieTitle"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="movieOverview"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="moviePoster"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="movieBackdrop"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="movieDate"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="movieVote"
+            app:argType="float" />
+        <argument
+            android:name="movieLang"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>

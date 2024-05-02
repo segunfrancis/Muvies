@@ -3,7 +3,6 @@ package com.czech.muvies.features.all
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,9 +24,11 @@ fun ItemsPlaceholder(modifier: Modifier = Modifier) {
             .padding(all = 8.dp)
     ) {
         LottieAnimation(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(80.dp),
             composition = composition,
-            iterations = LottieConstants.IterateForever,
-            modifier = Modifier.size(80.dp)
+            iterations = LottieConstants.IterateForever
         )
     }
 }

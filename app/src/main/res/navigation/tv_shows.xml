@@ -9,6 +9,5 @@
         android:id="@+id/tvShowsFragment"
         android:name="com.czech.muvies.features.tv_shows.TvShowsFragment"
         android:label="Tv Shows"
-        tools:layout="@layout/tv_shows_fragment">
-    </fragment>
+        tools:layout="@layout/tv_shows_fragment"/>
 </navigation>

@@ -2,23 +2,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/movies"
+        android:id="@+id/moviesFragment"
         android:icon="@drawable/movies_icon"
         android:title="@string/text_movies" />
 
     <item
-        android:id="@+id/tv_shows"
+        android:id="@+id/tvShowsFragment"
         android:icon="@drawable/tv_shows"
         android:title="@string/text_tv_shows" />
 
     <item
-        android:id="@+id/favorites"
+        android:id="@+id/favoritesFragment"
         android:icon="@drawable/favorite"
         android:title="@string/text_favorites"
         android:visible="false" />
 
     <item
-        android:id="@+id/search"
+        android:id="@+id/searchFragment"
         android:icon="@drawable/search"
         android:title="@string/text_search" />
 </menu>

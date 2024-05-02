@@ -25,8 +25,8 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.czech.muvies.R
 import com.czech.muvies.models.Movies
-import com.czech.muvies.theme.MuviesShape
-import com.czech.muvies.theme.MuviesTypography
+import com.segunfrancis.muvies.common.theme.MuviesShape
+import com.segunfrancis.muvies.common.theme.MuviesTypography
 import com.czech.muvies.utils.AppConstants
 import com.czech.muvies.utils.roundUp
 
