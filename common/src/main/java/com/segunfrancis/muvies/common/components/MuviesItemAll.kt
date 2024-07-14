@@ -66,7 +66,7 @@ fun MuviesItemAll(
                     .wrapContentHeight()
             ) {
                 Spacer(modifier = Modifier.height(8.dp))
-                ItemText(text = movie.title)
+                ItemText(text = movie.title.ifEmpty { movie.name })
 
                 Row(
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
@@ -76,7 +76,7 @@ fun MuviesItemAll(
                         painter = painterResource(id = R.drawable.ic_baseline_calendar_today_24),
                         contentDescription = null
                     )
-                    ItemText(text = movie.releaseDate, style = MuviesTypography.subtitle2)
+                    ItemText(text = movie.releaseDate.ifEmpty { movie.firstAirDate }, style = MuviesTypography.subtitle2)
                 }
 
                 Row(modifier = Modifier.padding(horizontal = 8.dp, vertical = 12.dp)) {

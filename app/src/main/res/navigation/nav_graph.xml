@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.czech.muvies.features.search.SearchFragment"
+        android:name="com.segunfrancis.search.ui.SearchFragment"
         android:label="SearchFragment"
         tools:layout="@layout/fragment_search" />
 

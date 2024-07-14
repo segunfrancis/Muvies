@@ -275,13 +275,4 @@ interface MoviesApiService {
         @Query("api_key") apiKey: String = BuildConfig.API_KEY,
         @Query("language") language: String = LANGUAGE
     ): PersonTvShows
-
-    @GET("search/movie")
-    suspend fun searchMovie(
-        @Query("query") movieTitle: String,
-        @Query("api_key") apiKey: String = BuildConfig.API_KEY,
-        @Query("language") language: String = LANGUAGE,
-        @Query("page") page: Int,
-        @Header("Authorization") token: String = "Bearer ${BuildConfig.API_TOKEN}"
-    ): Movies
 }

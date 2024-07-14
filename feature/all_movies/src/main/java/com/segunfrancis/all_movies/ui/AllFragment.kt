@@ -2,6 +2,9 @@ package com.segunfrancis.all_movies.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -23,13 +26,19 @@ class AllFragment : Fragment(R.layout.all_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.composeView.setContent {
-            val pagedList = viewModel.moviesFlow?.collectAsLazyPagingItems()
-            pagedList?.let {
-                MuviesTheme {
-                    AllMoviesScreen(movies = pagedList, onItemClick = {
+            var loading = rememberSaveable { true }
+            val state by viewModel.uiState.collectAsState()
+            val movies = state.moviesFlow?.collectAsLazyPagingItems()
+            if (movies?.itemSnapshotList?.isNotEmpty() == true) {
+                loading = false
+            }
+            MuviesTheme {
+                AllMoviesScreen(
+                    movies = movies,
+                    loading = loading,
+                    onItemClick = {
 
                     })
-                }
             }
         }
     }

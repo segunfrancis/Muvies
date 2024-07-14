@@ -4,6 +4,8 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.segunfrancis.all_movies.api.AllMoviesService
 import com.segunfrancis.muvies.common.Movies
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class PagingDatasource(
     private val api: AllMoviesService,
@@ -14,8 +16,13 @@ class PagingDatasource(
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movies.MoviesResult> {
         return try {
             val nextPage = params.key ?: 1
-            val response =
-                api.getMoviesGeneric(page = nextPage, firstPath = firstPath, secondPath = secondPath)
+            val response = withContext(Dispatchers.IO) {
+                api.getMoviesGeneric(
+                    page = nextPage,
+                    firstPath = firstPath,
+                    secondPath = secondPath
+                )
+            }
             LoadResult.Page(
                 data = response.results,
                 prevKey = null,

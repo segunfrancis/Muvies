@@ -4,7 +4,6 @@ import androidx.navigation.NavController
 import com.czech.muvies.features.cast.CastDetailsViewModelFactory
 import com.czech.muvies.features.details.tv_show_details.TvShowDetailsViewModelFactory
 import com.czech.muvies.features.home.MovieViewModelFactory
-import com.czech.muvies.features.search.SearchViewModelFactory
 import com.czech.muvies.features.tv_shows.TvShowsViewModelFactory
 import com.czech.muvies.navigation.AppNavigation
 import com.czech.muvies.network.MoviesApiService
@@ -64,10 +63,6 @@ object InjectorUtils {
 
         fun provideSeasonDetailsViewModelFactory(): SeasonDetailsViewModelFactory {
             return SeasonDetailsViewModelFactory(apiService = getService())
-        }
-
-        fun provideSearchViewModelFactory(): SearchViewModelFactory {
-            return SearchViewModelFactory(api = getService())
         }
     }
 

@@ -14,7 +14,13 @@ import com.segunfrancis.all_movies.PagingDatasource
 import com.segunfrancis.all_movies.api.AllMoviesService
 import com.segunfrancis.muvies.common.Movies
 import com.segunfrancis.muvies.common.Movies.MoviesResult.MovieCategory
+import com.segunfrancis.muvies.common.handleError
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.update
 
 class AllMoviesViewModel(
     private val apiService: AllMoviesService,
@@ -22,12 +28,12 @@ class AllMoviesViewModel(
 ) : ViewModel() {
 
     private val pageSize = 20
-
-    var moviesFlow: Flow<PagingData<Movies.MoviesResult>>? = null
+    private val _uiState = MutableStateFlow(AllMoviesModel())
+    val uiState = _uiState.asStateFlow()
 
     init {
-        savedStateHandle.get<MovieCategory>("category")?.let {
-            moviesFlow = getPagedList(it)
+        savedStateHandle.get<MovieCategory>("category")?.let { category ->
+            _uiState.update { it.copy(moviesFlow = getPagedList(category)) }
         }
     }
 
@@ -40,7 +46,9 @@ class AllMoviesViewModel(
                 secondPath = category.getPaths().second
             )
         }
-    ).flow.cachedIn(viewModelScope)
+    ).flow
+        .catch { error -> _uiState.update { it.copy(error = error.handleError()) } }
+        .cachedIn(viewModelScope)
 
     private fun MovieCategory.getPaths(): Pair<String, String> {
         return when (this) {
@@ -64,3 +72,8 @@ fun allMoviesViewModelFactory(apiService: AllMoviesService) = object : ViewModel
         } else throw IllegalArgumentException("Class ${modelClass.canonicalName} cannot be assigned")
     }
 }
+
+data class AllMoviesModel(
+    val moviesFlow: Flow<PagingData<Movies.MoviesResult>>? = null,
+    val error: String? = null
+)

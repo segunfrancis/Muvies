@@ -31,6 +31,7 @@ dependencies {
     implementation project(":common")
     implementation project(":feature:movie_details")
     implementation project(":feature:all_movies")
+    implementation project(":feature:search")
     implementation "androidx.appcompat:appcompat:1.3.1"
     implementation "androidx.activity:activity-ktx:1.3.1"
     implementation 'androidx.core:core-ktx:1.6.0'

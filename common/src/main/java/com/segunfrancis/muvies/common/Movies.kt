@@ -35,6 +35,11 @@ data class Movies(
         val overview: String = "",
         @SerializedName("release_date")
         val releaseDate: String = "",
+        @SerializedName("original_name")
+        val originalName: String = "",
+        val name: String = "",
+        @SerializedName("first_air_date")
+        val firstAirDate: String = "",
         var movieCategory: MovieCategory? = null
     ) {
         enum class MovieCategory(val formattedName: String, val value: String) {
