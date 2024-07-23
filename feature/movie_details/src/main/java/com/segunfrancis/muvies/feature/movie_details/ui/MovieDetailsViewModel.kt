@@ -14,11 +14,7 @@ import com.segunfrancis.muvies.feature.movie_details.dto.SimilarMoviesResult
 import com.segunfrancis.muvies.feature.movie_details.repo.MovieDetailsRepository
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -27,31 +23,8 @@ class MovieDetailsViewModel(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val state = MovieDetailsUiResponse()
-
     private val _uiState = MutableStateFlow(MovieDetailsUiResponse())
-    val uiState: StateFlow<MovieDetailsUiResponse> = flow {
-        savedStateHandle.get<Int>("movieId")?.let { id ->
-            emit(state.copy(loading = true))
-            val response = detailsRepository.getMovieDetails(id)
-            emit(
-                state.copy(
-                    details = response.details?.getOrNull(),
-                    similarMovies = response.similarMovies?.getOrNull(),
-                    credits = response.credits?.getOrNull(),
-                    loading = false,
-                    error = if (response.details?.isFailure == true) response.details.exceptionOrNull()
-                        .handleError() else if (response.similarMovies?.isFailure == true) response.similarMovies.exceptionOrNull()
-                        .handleError() else if (response.credits?.isFailure == true) response.credits.exceptionOrNull()
-                        .handleError() else null
-                )
-            )
-        }
-    }
-        .catch {
-            emit(state.copy(error = it.handleError()))
-        }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), MovieDetailsUiResponse())
+    val uiState = _uiState.asStateFlow()
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         _uiState.update {
@@ -61,7 +34,7 @@ class MovieDetailsViewModel(
 
     init {
         savedStateHandle.get<Int>("movieId")?.let {
-            //getMovieDetails(it)
+            getMovieDetails(it)
         }
     }
 

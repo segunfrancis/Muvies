@@ -9,15 +9,19 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.czech.muvies.R
 import com.czech.muvies.databinding.ActivityMainBinding
+import com.czech.muvies.features.home.HomeNav
+import com.czech.muvies.features.home.MoviesFragmentDirections
 import com.czech.muvies.utils.makeGone
 import com.czech.muvies.utils.makeVisible
 import com.czech.muvies.utils.showMessage
 import com.segunfrancis.muvies.common.Movies.MoviesResult.MovieCategory
 import com.segunfrancis.muvies.common.viewBinding
+import com.segunfrancis.muvies.feature.movie_details.navigation.DetailsNav
+import com.segunfrancis.muvies.feature.movie_details.ui.MovieDetailsFragmentDirections
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), HomeNav, DetailsNav {
 
     private var backPressedOnce = false
     private val binding: ActivityMainBinding by viewBinding(ActivityMainBinding::inflate)
@@ -109,5 +113,17 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    override fun toMovieDetailsScreen(movieId: Int, movieTitle: String) {
+        navController.navigate(MoviesFragmentDirections.toMovieDetails(movieId, movieTitle))
+    }
+
+    override fun toAllMovies(category: MovieCategory) {
+        navController.navigate(MoviesFragmentDirections.toAllMovies(category))
+    }
+
+    override fun toMovieDetailsScreen2(movieId: Int, movieTitle: String) {
+        navController.navigate(MovieDetailsFragmentDirections.toMovieDetails(movieId, movieTitle))
     }
 }

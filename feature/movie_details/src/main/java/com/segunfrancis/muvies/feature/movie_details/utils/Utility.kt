@@ -1,10 +1,13 @@
 package com.segunfrancis.muvies.feature.movie_details.utils
 
 import com.segunfrancis.muvies.feature.movie_details.dto.BelongsToCollection
+import com.segunfrancis.muvies.feature.movie_details.dto.Cast
 import com.segunfrancis.muvies.feature.movie_details.dto.Genre
+import com.segunfrancis.muvies.feature.movie_details.dto.MovieCreditsResponse
 import com.segunfrancis.muvies.feature.movie_details.dto.MovieDetailsResponse
 import com.segunfrancis.muvies.feature.movie_details.dto.ProductionCompany
 import com.segunfrancis.muvies.feature.movie_details.dto.ProductionCountry
+import com.segunfrancis.muvies.feature.movie_details.dto.SimilarMoviesResult
 
 val movieDetailsResponse = MovieDetailsResponse(
     adult = false,
@@ -37,4 +40,57 @@ val movieDetailsResponse = MovieDetailsResponse(
     video = true,
     voteAverage = 6.627,
     voteCount = 898
+)
+
+val creditsResponse = MovieCreditsResponse(
+    cast = listOf(
+        Cast(
+            castId = 12,
+            character = "Prince Daemon Tarragon",
+            name = "Matt Smith",
+            profilePath = ""
+        ),
+        Cast(
+            castId = 12,
+            character = "Prince Daemon Tarragon",
+            name = "Matt Smith",
+            profilePath = ""
+        ),
+        Cast(
+            castId = 12,
+            character = "Prince Daemon Tarragon",
+            name = "Matt Smith",
+            profilePath = ""
+        ),
+        Cast(
+            castId = 12,
+            character = "Prince Daemon Tarragon",
+            name = "Matt Smith",
+            profilePath = ""
+        ),
+        Cast(
+            castId = 12,
+            character = "Prince Daemon Tarragon",
+            name = "Matt Smith",
+            profilePath = ""
+        ),
+    )
+)
+
+val similarMoviesResponse = listOf(
+    SimilarMoviesResult(),
+    SimilarMoviesResult(),
+    SimilarMoviesResult(),
+    SimilarMoviesResult(),
+    SimilarMoviesResult(),
+    SimilarMoviesResult(),
+    SimilarMoviesResult(),
+    SimilarMoviesResult(),
+    SimilarMoviesResult(),
+    SimilarMoviesResult(),
+    SimilarMoviesResult(),
+    SimilarMoviesResult(),
+    SimilarMoviesResult(),
+    SimilarMoviesResult(),
+    SimilarMoviesResult()
 )

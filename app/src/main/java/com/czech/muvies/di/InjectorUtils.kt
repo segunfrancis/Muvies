@@ -1,11 +1,9 @@
 package com.czech.muvies.di
 
-import androidx.navigation.NavController
 import com.czech.muvies.features.cast.CastDetailsViewModelFactory
 import com.czech.muvies.features.details.tv_show_details.TvShowDetailsViewModelFactory
 import com.czech.muvies.features.home.MovieViewModelFactory
 import com.czech.muvies.features.tv_shows.TvShowsViewModelFactory
-import com.czech.muvies.navigation.AppNavigation
 import com.czech.muvies.network.MoviesApiService
 import com.czech.muvies.repository.CastRepository
 import com.czech.muvies.repository.MovieRepository
@@ -64,9 +62,5 @@ object InjectorUtils {
         fun provideSeasonDetailsViewModelFactory(): SeasonDetailsViewModelFactory {
             return SeasonDetailsViewModelFactory(apiService = getService())
         }
-    }
-
-    object Navigator {
-        fun getAppNavigator(navController: NavController) = AppNavigation(navController)
     }
 }

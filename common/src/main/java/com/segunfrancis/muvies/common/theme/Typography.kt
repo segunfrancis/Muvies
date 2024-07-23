@@ -29,12 +29,13 @@ val MuviesTypography = Typography(
     h5 = TextStyle(
         fontFamily = Convergence,
         fontWeight = FontWeight.W600,
-        fontSize = 24.sp
+        fontSize = 18.sp
     ),
     h6 = TextStyle(
         fontFamily = Convergence,
         fontWeight = FontWeight.W900,
-        fontSize = 20.sp
+        fontSize = 20.sp,
+        color = Grey400
     ),
     subtitle1 = TextStyle(
         fontFamily = Capriola,
@@ -47,13 +48,16 @@ val MuviesTypography = Typography(
         fontSize = 14.sp
     ),
     body1 = TextStyle(
-        fontFamily = Alice,
+        fontFamily = Capriola,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
+        fontSize = 14.sp,
+        color = White
     ),
     body2 = TextStyle(
-        fontFamily = Alice,
-        fontSize = 14.sp
+        fontFamily = Capriola,
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Normal,
+        color = Grey500
     ),
     button = TextStyle(
         fontFamily = Convergence,
@@ -61,13 +65,15 @@ val MuviesTypography = Typography(
         fontSize = 14.sp
     ),
     caption = TextStyle(
-        fontFamily = Alice,
+        fontFamily = Capriola,
         fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
+        fontSize = 12.sp,
+        color = Grey700
     ),
     overline = TextStyle(
-        fontFamily = Alice,
-        fontWeight = FontWeight.W500,
-        fontSize = 12.sp
+        fontFamily = Convergence,
+        fontWeight = FontWeight.ExtraLight,
+        fontSize = 14.sp,
+        color = Grey500
     )
 )

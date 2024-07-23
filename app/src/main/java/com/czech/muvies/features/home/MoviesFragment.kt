@@ -1,13 +1,12 @@
 package com.czech.muvies.features.home
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.czech.muvies.R
 import com.czech.muvies.databinding.MoviesFragmentBinding
-import com.czech.muvies.di.InjectorUtils.Navigator
 import com.czech.muvies.di.InjectorUtils.ViewModelFactory
 import com.czech.muvies.utils.makeGone
 import com.czech.muvies.utils.makeVisible
@@ -20,7 +19,7 @@ class MoviesFragment : Fragment(R.layout.movies_fragment) {
     private val viewModel by viewModels<MoviesViewModel> {
         ViewModelFactory.provideMovieViewModelFactory()
     }
-    private val navigator by lazy { Navigator.getAppNavigator(findNavController()) }
+    private var homeNav: HomeNav? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,9 +33,9 @@ class MoviesFragment : Fragment(R.layout.movies_fragment) {
                     binding.lottieProgress.makeGone()
                     if (response.movies.isNotEmpty()) {
                         HomeScreen(movies = response, onMovieItemClick = {
-                            navigator.toMovieDetailsScreen(it.id, it.title)
+                            homeNav?.toMovieDetailsScreen(it.id, it.title)
                         }, onSeeAllClick = {
-                            navigator.toAllMovies(category = it)
+                            homeNav?.toAllMovies(category = it)
                         })
                     } else {
                         // todo: Handle error
@@ -44,5 +43,17 @@ class MoviesFragment : Fragment(R.layout.movies_fragment) {
                 }
             }
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is HomeNav) {
+            homeNav = context
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        homeNav = null
     }
 }

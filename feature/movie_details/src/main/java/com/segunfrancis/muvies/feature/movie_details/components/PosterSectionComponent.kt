@@ -1,4 +1,4 @@
-package com.segunfrancis.muvies.common.components
+package com.segunfrancis.muvies.feature.movie_details.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,7 +24,11 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.segunfrancis.muvies.common.CommonConstants.BASE_IMAGE_PATH
 import com.segunfrancis.muvies.common.R
+import com.segunfrancis.muvies.common.components.DateComponent
+import com.segunfrancis.muvies.common.components.GenreComponent
+import com.segunfrancis.muvies.common.components.RatingBar
 import com.segunfrancis.muvies.common.theme.MuviesTheme
+import com.segunfrancis.muvies.common.theme.White
 
 @Composable
 fun MoviePosterSection(
@@ -63,14 +67,14 @@ fun MoviePosterSection(
 
             Text(
                 text = title,
-                style = MaterialTheme.typography.h6,
+                style = MaterialTheme.typography.h6.copy(color = White),
                 modifier = Modifier.constrainAs(titleText) {
                     start.linkTo(dateText.start)
                     bottom.linkTo(dateText.top, 16.dp)
                 })
 
             DateComponent(title = releaseDate, modifier = Modifier.constrainAs(dateText) {
-                start.linkTo(ratingText.start)
+                start.linkTo(parent.start, 24.dp)
                 bottom.linkTo(ratingText.top, 16.dp)
             })
 
@@ -78,23 +82,29 @@ fun MoviePosterSection(
                 start.linkTo(dateText.end, 12.dp)
                 top.linkTo(dateText.top)
             })
+            
+            RatingBar(rating = rating, modifier = Modifier.constrainAs(ratingBar) {
+                bottom.linkTo(parent.bottom, 16.dp)
+                start.linkTo(parent.start, 24.dp)
+            })
 
             Text(
                 text = "$rating/10.0",
-                style = MaterialTheme.typography.caption,
-                color = MaterialTheme.colors.secondaryVariant,
+                style = MaterialTheme.typography.body1,
+                color = MaterialTheme.colors.onSurface,
                 modifier = Modifier.constrainAs(ratingText) {
-                    bottom.linkTo(parent.bottom, 16.dp)
-                    start.linkTo(parent.start, 24.dp)
+                    bottom.linkTo(ratingBar.bottom)
+                    top.linkTo(ratingBar.top)
+                    start.linkTo(ratingBar.end, 8.dp)
                 }
             )
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         Text(
             text = "GENRES",
-            modifier = Modifier.padding(start = 24.dp),
+            modifier = Modifier.padding(start = 16.dp),
             style = MaterialTheme.typography.h6.copy(fontWeight = FontWeight.Normal)
         )
 
@@ -103,7 +113,7 @@ fun MoviePosterSection(
         LazyRow(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
-            contentPadding = PaddingValues(horizontal = 24.dp)
+            contentPadding = PaddingValues(horizontal = 16.dp)
         ) {
             items(genres) {
                 GenreComponent(title = it)
@@ -114,7 +124,7 @@ fun MoviePosterSection(
 
         Text(
             text = "SYNOPSIS",
-            modifier = Modifier.padding(start = 24.dp),
+            modifier = Modifier.padding(start = 16.dp),
             style = MaterialTheme.typography.h6.copy(fontWeight = FontWeight.Normal)
         )
 
@@ -122,8 +132,8 @@ fun MoviePosterSection(
 
         Text(
             text = synopsis,
-            modifier = Modifier.padding(horizontal = 24.dp),
-            style = MaterialTheme.typography.caption.copy(fontWeight = FontWeight.Light)
+            modifier = Modifier.padding(horizontal = 16.dp),
+            style = MaterialTheme.typography.overline
         )
     }
 }

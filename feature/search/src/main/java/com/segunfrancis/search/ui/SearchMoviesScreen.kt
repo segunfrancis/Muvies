@@ -69,7 +69,6 @@ fun SearchMoviesScreen(viewModel: SearchViewModel) {
     }
 
     SearchMovieContent(
-        searchQuery = uiState.searchText,
         uiState = uiState,
         scaffoldState = scaffoldState,
         onAction = { action ->
@@ -95,7 +94,6 @@ fun SearchMoviesScreen(viewModel: SearchViewModel) {
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun SearchMovieContent(
-    searchQuery: String,
     scaffoldState: ScaffoldState,
     uiState: SearchMoviesUiState,
     onAction: (SearchScreenIntents) -> Unit
@@ -113,19 +111,26 @@ fun SearchMovieContent(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp),
-                            value = searchQuery,
+                            value = uiState.searchText,
                             onValueChange = { onAction(SearchScreenIntents.OnSearchFieldChange(it)) },
                             singleLine = true,
                             label = { Text("Search") },
-                            placeholder = { Text("Search for a movie") },
+                            placeholder = {
+                                Text(
+                                    when (uiState.type) {
+                                        SearchType.Movies -> "Search for a movie"
+                                        SearchType.TV -> "Search for a TV show"
+                                    }
+                                )
+                            },
                             textStyle = MuviesTypography.body1.copy(color = Grey400),
                             colors = outlineTextFieldColors,
                             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
                             keyboardActions = KeyboardActions(onSearch = {
-                                if (searchQuery.isNotBlank()) {
+                                if (uiState.searchText.isNotBlank()) {
                                     onAction(
                                         SearchScreenIntents.OnSearchClick(
-                                            searchQuery
+                                            uiState.searchText
                                         )
                                     )
                                     keyboardController?.hide()
@@ -229,9 +234,8 @@ fun SearchMovieContentPreview() {
         movies.add(movie)
     }
     SearchMovieContent(
-        searchQuery = "Shang",
         scaffoldState = rememberScaffoldState(),
-        uiState = SearchMoviesUiState(isLoading = true)
+        uiState = SearchMoviesUiState(isLoading = true, searchText = "Shang")
     ) {
 
     }

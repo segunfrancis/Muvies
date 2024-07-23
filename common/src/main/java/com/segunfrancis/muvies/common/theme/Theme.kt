@@ -2,6 +2,7 @@ package com.segunfrancis.muvies.common.theme
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
+import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
 @Composable
@@ -14,7 +15,7 @@ fun MuviesTheme(content: @Composable () -> Unit) {
     )
 }
 
-private val DarkColors = darkColors(
+private val DarkColors = lightColors(
     primary = Red900,
     primaryVariant = Red900,
     secondary = Yellow,

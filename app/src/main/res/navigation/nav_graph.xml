@@ -42,6 +42,9 @@
             app:argType="string" />
         <deepLink
             app:uri="https://czech.muvies/movie_details/{movieId}/{movieTitle}" />
+        <action
+            android:id="@+id/toMovieDetails"
+            app:destination="@id/detailsFragment" />
     </fragment>
 
     <fragment
