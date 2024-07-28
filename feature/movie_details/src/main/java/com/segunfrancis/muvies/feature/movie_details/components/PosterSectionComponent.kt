@@ -1,5 +1,7 @@
 package com.segunfrancis.muvies.feature.movie_details.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,6 +12,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -26,6 +31,7 @@ import com.segunfrancis.muvies.common.components.DateComponent
 import com.segunfrancis.muvies.common.components.RatingBar
 import com.segunfrancis.muvies.common.roundUp
 import com.segunfrancis.muvies.common.theme.Grey400
+import com.segunfrancis.muvies.common.theme.Grey900
 import com.segunfrancis.muvies.common.theme.MuviesTheme
 import com.segunfrancis.muvies.common.theme.White
 
@@ -47,7 +53,7 @@ fun MoviePosterSection(
             .wrapContentHeight()
     ) {
         ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
-            val (image, titleText, dateText, languageText, ratingBar, ratingText, totalVotesText) = createRefs()
+            val (image, imageOverlay, titleText, dateText, languageText, ratingBar, ratingText, totalVotesText) = createRefs()
             val verticalGuideline = createGuidelineFromStart(0.7F)
             AsyncImage(
                 model = ImageRequest.Builder(context)
@@ -65,6 +71,25 @@ fun MoviePosterSection(
                     },
                 contentScale = ContentScale.Crop
             )
+
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .height(300.dp)
+                .background(
+                    brush = Brush.linearGradient(
+                        colors = listOf(
+                            Color.Transparent,
+                            Grey900
+                        ),
+                        start = Offset(0F, 0F),
+                        end = Offset(0F, 600.dp.value),
+                    )
+                )
+                .constrainAs(imageOverlay) {
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    top.linkTo(parent.top)
+                })
 
             Text(
                 text = title,

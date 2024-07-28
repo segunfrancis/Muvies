@@ -57,7 +57,7 @@ fun SimilarMoviesComponent(
                 SimilarMoviesItem(
                     imageUrl = it.posterPath.orEmpty(),
                     movieTitle = it.title.orEmpty(),
-                    onClick = { onSimilarMovieClick(it.id, it.title.orEmpty()) }
+                    onClick = { onSimilarMovieClick(it.id, it.title.orEmpty().ifEmpty { it.name.orEmpty() }) }
                 )
             }
         }

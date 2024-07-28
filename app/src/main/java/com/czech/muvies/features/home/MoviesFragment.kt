@@ -8,9 +8,12 @@ import androidx.fragment.app.viewModels
 import com.czech.muvies.R
 import com.czech.muvies.databinding.MoviesFragmentBinding
 import com.czech.muvies.di.InjectorUtils.ViewModelFactory
+import com.czech.muvies.features.MainActivity
 import com.czech.muvies.utils.makeGone
 import com.czech.muvies.utils.makeVisible
 import com.segunfrancis.muvies.common.Type
+import com.segunfrancis.muvies.common.navigation.NavigationProvider
+import com.segunfrancis.muvies.common.navigation.Navigator
 import com.segunfrancis.muvies.common.theme.MuviesTheme
 import com.segunfrancis.muvies.common.viewBinding
 
@@ -20,7 +23,7 @@ class MoviesFragment : Fragment(R.layout.movies_fragment) {
     private val viewModel by viewModels<MoviesViewModel> {
         ViewModelFactory.provideMovieViewModelFactory()
     }
-    private var homeNav: HomeNav? = null
+    private var navigator: Navigator? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -34,9 +37,9 @@ class MoviesFragment : Fragment(R.layout.movies_fragment) {
                     binding.lottieProgress.makeGone()
                     if (response.movies.isNotEmpty()) {
                         HomeScreen(movies = response, onMovieItemClick = {
-                            homeNav?.toMovieDetailsScreen(movieId = it.id, movieTitle = it.title, type = Type.Movie)
+                            navigator?.toMovieDetailsScreen(movieId = it.id, movieTitle = it.title, type = Type.Movie)
                         }, onSeeAllClick = {
-                            homeNav?.toAllMovies(category = it)
+                            navigator?.toAllMovies(category = it)
                         })
                     } else {
                         // todo: Handle error
@@ -48,13 +51,13 @@ class MoviesFragment : Fragment(R.layout.movies_fragment) {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is HomeNav) {
-            homeNav = context
+        if (requireActivity() is NavigationProvider) {
+            navigator = (requireActivity() as NavigationProvider).getNavigator()
         }
     }
 
     override fun onDetach() {
         super.onDetach()
-        homeNav = null
+        navigator = null
     }
 }

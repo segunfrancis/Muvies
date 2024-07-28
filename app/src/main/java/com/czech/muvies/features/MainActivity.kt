@@ -9,28 +9,30 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.czech.muvies.R
 import com.czech.muvies.databinding.ActivityMainBinding
-import com.czech.muvies.features.home.HomeNav
-import com.czech.muvies.features.home.MoviesFragmentDirections
+import com.czech.muvies.navigation.AppNavigator
 import com.czech.muvies.utils.makeGone
 import com.czech.muvies.utils.makeVisible
 import com.czech.muvies.utils.showMessage
 import com.segunfrancis.muvies.common.Movies.MoviesResult.MovieCategory
-import com.segunfrancis.muvies.common.Type
+import com.segunfrancis.muvies.common.navigation.Navigator
+import com.segunfrancis.muvies.common.navigation.NavigationProvider
 import com.segunfrancis.muvies.common.viewBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 
-class MainActivity : AppCompatActivity(), HomeNav {
+class MainActivity : AppCompatActivity(), NavigationProvider {
 
     private var backPressedOnce = false
     private val binding: ActivityMainBinding by viewBinding(ActivityMainBinding::inflate)
     private lateinit var navController: NavController
+    private val appNav: AppNavigator by lazy { AppNavigator(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         setSupportActionBar(binding.customToolbar)
 
@@ -54,22 +56,27 @@ class MainActivity : AppCompatActivity(), HomeNav {
                     showBottomNavigation()
                     setToolbarTitle(getString(R.string.app_name))
                 }
+
                 R.id.castDetailsFragment -> {
                     hideBottomNavigation()
                     setToolbarTitle("${args?.getString("castName")}")
                 }
+
                 R.id.detailsFragment -> {
                     hideBottomNavigation()
                     setToolbarTitle("${args?.getString("movieTitle")}")
                 }
+
                 R.id.tvShowsDetailsFragment -> {
                     hideBottomNavigation()
                     setToolbarTitle("${args?.getString("tvShowTitle")}")
                 }
+
                 R.id.allFragment -> {
                     setToolbarTitle("${(args?.getSerializable("category") as MovieCategory).formattedName} movies")
                     hideBottomNavigation()
                 }
+
                 else -> {
                     hideBottomNavigation()
                 }
@@ -114,17 +121,7 @@ class MainActivity : AppCompatActivity(), HomeNav {
         }
     }
 
-    override fun toMovieDetailsScreen(movieId: Long, movieTitle: String, type: Type) {
-        navController.navigate(
-            MoviesFragmentDirections.toDetails(
-                movieTitle = movieTitle,
-                movieOrSeriesId = movieId,
-                type = type
-            )
-        )
-    }
-
-    override fun toAllMovies(category: MovieCategory) {
-        navController.navigate(MoviesFragmentDirections.toAllMovies(category))
+    override fun getNavigator(): Navigator {
+        return appNav
     }
 }

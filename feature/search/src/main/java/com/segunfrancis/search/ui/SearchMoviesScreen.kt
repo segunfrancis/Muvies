@@ -46,6 +46,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.segunfrancis.muvies.common.Movies
+import com.segunfrancis.muvies.common.Type
 import com.segunfrancis.muvies.common.components.MuviesItemAll
 import com.segunfrancis.muvies.common.theme.Grey400
 import com.segunfrancis.muvies.common.theme.MuviesTheme
@@ -55,7 +56,10 @@ import com.segunfrancis.muvies.common.theme.buttonElevation
 import com.segunfrancis.muvies.common.theme.outlineTextFieldColors
 
 @Composable
-fun SearchMoviesScreen(viewModel: SearchViewModel) {
+fun SearchMoviesScreen(
+    viewModel: SearchViewModel,
+    navigateToDetails: (Movies.MoviesResult, Type) -> Unit
+) {
     val uiState by viewModel.uiState.collectAsState()
     val scaffoldState = rememberScaffoldState()
 
@@ -86,6 +90,8 @@ fun SearchMoviesScreen(viewModel: SearchViewModel) {
                 is SearchScreenIntents.OnTypeClick -> viewModel.processIntent(
                     SearchScreenIntents.OnTypeClick(action.searchType)
                 )
+
+                is SearchScreenIntents.OnMovieClick -> navigateToDetails(action.result, action.type)
             }
         }
     )
@@ -170,7 +176,17 @@ fun SearchMovieContent(
                         )
 
                         if (uiState.movies.isNotEmpty()) {
-                            SearchMovieNonEmptyState(movies = uiState.movies)
+                            SearchMovieNonEmptyState(
+                                movies = uiState.movies,
+                                onItemClick = {
+                                    onAction(
+                                        SearchScreenIntents.OnMovieClick(
+                                            result = it,
+                                            type = if (it.title.isNotEmpty()) Type.Movie else Type.TvShow
+                                        )
+                                    )
+                                }
+                            )
                         } else {
                             SearchMovieEmptyState()
                         }
@@ -207,7 +223,10 @@ fun ColumnScope.SearchMovieEmptyState() {
 }
 
 @Composable
-fun SearchMovieNonEmptyState(movies: List<Movies.MoviesResult>) {
+fun SearchMovieNonEmptyState(
+    movies: List<Movies.MoviesResult>,
+    onItemClick: (Movies.MoviesResult) -> Unit
+) {
     Spacer(modifier = Modifier.height(4.dp))
     LazyColumn(
         modifier = Modifier.fillMaxWidth(),
@@ -215,7 +234,7 @@ fun SearchMovieNonEmptyState(movies: List<Movies.MoviesResult>) {
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(movies) {
-            MuviesItemAll(movie = it)
+            MuviesItemAll(movie = it, onItemClick = onItemClick)
         }
     }
 }
@@ -224,6 +243,7 @@ sealed class SearchScreenIntents {
     data class OnSearchFieldChange(val value: String) : SearchScreenIntents()
     data class OnSearchClick(val searchQuery: String) : SearchScreenIntents()
     data class OnTypeClick(val searchType: SearchType) : SearchScreenIntents()
+    data class OnMovieClick(val result: Movies.MoviesResult, val type: Type) : SearchScreenIntents()
 }
 
 @Composable

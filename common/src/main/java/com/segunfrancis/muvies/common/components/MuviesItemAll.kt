@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -28,8 +29,7 @@ import com.segunfrancis.muvies.common.Movies
 import com.segunfrancis.muvies.common.R
 import com.segunfrancis.muvies.common.movie
 import com.segunfrancis.muvies.common.roundUp
-import com.segunfrancis.muvies.common.theme.MuviesShape
-import com.segunfrancis.muvies.common.theme.MuviesTypography
+import com.segunfrancis.muvies.common.theme.MuviesTheme
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -42,7 +42,7 @@ fun MuviesItemAll(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .clip(MuviesShape.large),
+            .clip(MaterialTheme.shapes.medium),
         onClick = { onItemClick(movie) }
     ) {
         Row(
@@ -56,7 +56,7 @@ fun MuviesItemAll(
                 modifier = Modifier
                     .width(80.dp)
                     .height(120.dp)
-                    .clip(MuviesShape.large),
+                    .clip(MaterialTheme.shapes.medium),
                 placeholder = painterResource(id = R.drawable.poster_placeholder),
                 error = painterResource(id = R.drawable.poster_error)
             )
@@ -76,7 +76,7 @@ fun MuviesItemAll(
                         painter = painterResource(id = R.drawable.ic_baseline_calendar_today_24),
                         contentDescription = null
                     )
-                    ItemText(text = movie.releaseDate.ifEmpty { movie.firstAirDate }, style = MuviesTypography.subtitle2)
+                    ItemText(text = movie.releaseDate.ifEmpty { movie.firstAirDate }, style = MaterialTheme.typography.subtitle2)
                 }
 
                 Row(modifier = Modifier.padding(horizontal = 8.dp, vertical = 12.dp)) {
@@ -86,7 +86,7 @@ fun MuviesItemAll(
                     )
                     ItemText(
                         text = movie.voteAverage.roundUp().toString(),
-                        style = MuviesTypography.subtitle2
+                        style = MaterialTheme.typography.subtitle2
                     )
                 }
             }
@@ -98,7 +98,7 @@ fun MuviesItemAll(
 fun ItemText(
     modifier: Modifier = Modifier,
     text: String,
-    style: TextStyle = MuviesTypography.subtitle1
+    style: TextStyle = MaterialTheme.typography.subtitle1
 ) {
     Text(
         text = text,
@@ -114,5 +114,7 @@ fun ItemText(
 @Composable
 @Preview
 fun MuviesItemAllPreview() {
-    MuviesItemAll(movie = movie)
+    MuviesTheme {
+        MuviesItemAll(movie = movie)
+    }
 }

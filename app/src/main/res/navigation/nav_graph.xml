@@ -54,7 +54,21 @@
         android:id="@+id/searchFragment"
         android:name="com.segunfrancis.search.ui.SearchFragment"
         android:label="SearchFragment"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/to_details_nav_graph"
+            app:destination="@id/details_nav_graph">
+            <argument
+                android:name="movieTitle"
+                app:argType="string" />
+            <argument
+                android:name="movieOrSeriesId"
+                app:argType="long" />
+            <argument
+                android:name="type"
+                app:argType="com.segunfrancis.muvies.common.Type" />
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/tvShowsDetailsFragment"

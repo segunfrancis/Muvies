@@ -31,6 +31,7 @@ class SearchViewModel(
             is SearchScreenIntents.OnSearchClick -> searchMovie(intent.searchQuery)
             is SearchScreenIntents.OnSearchFieldChange -> updateSearchField(intent.value)
             is SearchScreenIntents.OnTypeClick -> updateSearchType(intent.searchType)
+            else -> {}
         }
     }
 
