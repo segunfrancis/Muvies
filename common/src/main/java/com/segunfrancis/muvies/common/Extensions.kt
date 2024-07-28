@@ -21,8 +21,10 @@ import retrofit2.HttpException
 import timber.log.Timber
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
+import java.text.NumberFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.Locale
 import kotlin.math.roundToLong
 
 fun ImageView.loadMoviePoster(posterPath: String?) {
@@ -157,6 +159,16 @@ fun Double.roundUp(decimalPlaces: Int = 1): Double {
         1
     }
     return (this * safeMultiplier).roundToLong() / safeMultiplier.toDouble()
+}
+
+fun Long.formatNumber(): String {
+    val numberFormat = NumberFormat.getNumberInstance(Locale.getDefault())
+    return try {
+        numberFormat.format(this)
+    } catch (e: Exception) {
+        e.printStackTrace()
+        this.toString()
+    }
 }
 
 enum class Type {

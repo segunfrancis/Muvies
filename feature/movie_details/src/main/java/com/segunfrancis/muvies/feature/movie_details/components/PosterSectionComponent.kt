@@ -29,6 +29,7 @@ import com.segunfrancis.muvies.common.CommonConstants.BASE_IMAGE_PATH
 import com.segunfrancis.muvies.common.R
 import com.segunfrancis.muvies.common.components.DateComponent
 import com.segunfrancis.muvies.common.components.RatingBar
+import com.segunfrancis.muvies.common.formatNumber
 import com.segunfrancis.muvies.common.roundUp
 import com.segunfrancis.muvies.common.theme.Grey400
 import com.segunfrancis.muvies.common.theme.Grey900
@@ -129,7 +130,7 @@ fun MoviePosterSection(
             )
 
             Text(
-                text = String.format("$voteCount %s", "votes"),
+                text = String.format("${voteCount.formatNumber()} %s", "votes"),
                 style = MaterialTheme.typography.body2.copy(
                     color = Grey400,
                     fontWeight = FontWeight.ExtraLight,
