@@ -3,7 +3,7 @@ package com.segunfrancis.muvies.common
 import com.google.gson.annotations.SerializedName
 
 data class BaseResponse<T>(
-    val page: Int? = null,
+    val page: Int,
     val results: T? = null,
     @SerializedName("total_pages")
     val totalPages: Int? = null,

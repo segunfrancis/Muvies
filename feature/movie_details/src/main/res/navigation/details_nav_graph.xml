@@ -2,19 +2,24 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/movie_details"
+    android:id="@+id/details_nav_graph"
     app:startDestination="@id/detailsFragment">
+
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.segunfrancis.muvies.feature.movie_details.ui.MovieDetailsFragment"
         tools:layout="@layout/movie_details_fragment">
         <argument
-            android:name="movieId"
-            app:argType="integer" />
-        <argument
             android:name="movieTitle"
             app:argType="string" />
-        <deepLink
-            app:uri="https://czech.muvies/movie_details/{movieId}/{movieTitle}" />
+        <argument
+            android:name="movieOrSeriesId"
+            app:argType="long" />
+        <argument
+            android:name="type"
+            app:argType="com.segunfrancis.muvies.common.Type" />
+        <action
+            android:id="@+id/toMovieDetails"
+            app:destination="@id/detailsFragment" />
     </fragment>
 </navigation>

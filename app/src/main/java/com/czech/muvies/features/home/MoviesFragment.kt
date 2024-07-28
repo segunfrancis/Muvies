@@ -10,6 +10,7 @@ import com.czech.muvies.databinding.MoviesFragmentBinding
 import com.czech.muvies.di.InjectorUtils.ViewModelFactory
 import com.czech.muvies.utils.makeGone
 import com.czech.muvies.utils.makeVisible
+import com.segunfrancis.muvies.common.Type
 import com.segunfrancis.muvies.common.theme.MuviesTheme
 import com.segunfrancis.muvies.common.viewBinding
 
@@ -33,7 +34,7 @@ class MoviesFragment : Fragment(R.layout.movies_fragment) {
                     binding.lottieProgress.makeGone()
                     if (response.movies.isNotEmpty()) {
                         HomeScreen(movies = response, onMovieItemClick = {
-                            homeNav?.toMovieDetailsScreen(it.id, it.title)
+                            homeNav?.toMovieDetailsScreen(movieId = it.id, movieTitle = it.title, type = Type.Movie)
                         }, onSeeAllClick = {
                             homeNav?.toAllMovies(category = it)
                         })

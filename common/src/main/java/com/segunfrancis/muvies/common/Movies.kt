@@ -19,7 +19,7 @@ data class Movies(
         val video: Boolean = false,
         @SerializedName("poster_path")
         val posterPath: String? = "",
-        val id: Int = 0,
+        val id: Long = 0,
         val adult: Boolean = false,
         @SerializedName("backdrop_path")
         val backdropPath: String? = "",

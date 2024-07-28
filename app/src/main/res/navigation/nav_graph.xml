@@ -5,47 +5,56 @@
     android:id="@+id/nav_graph"
     app:startDestination="@+id/moviesFragment">
 
+    <include app:graph="@navigation/details_nav_graph" />
+
     <fragment
         android:id="@+id/moviesFragment"
         android:name="com.czech.muvies.features.home.MoviesFragment"
         android:label="Movies"
         tools:layout="@layout/movies_fragment">
         <action
-            android:id="@+id/toMovieDetails"
-            app:destination="@id/detailsFragment"/>
-        <action
             android:id="@+id/toAllMovies"
             app:destination="@id/allFragment" />
+        <action
+            android:id="@+id/to_details"
+            app:destination="@id/details_nav_graph">
+            <argument
+                android:name="movieTitle"
+                app:argType="string" />
+            <argument
+                android:name="movieOrSeriesId"
+                app:argType="long" />
+            <argument
+                android:name="type"
+                app:argType="com.segunfrancis.muvies.common.Type" />
+        </action>
     </fragment>
 
     <fragment
         android:id="@+id/tvShowsFragment"
         android:name="com.czech.muvies.features.tv_shows.TvShowsFragment"
         android:label="Tv Shows"
-        tools:layout="@layout/tv_shows_fragment"/>
+        tools:layout="@layout/tv_shows_fragment">
+        <action
+            android:id="@+id/to_details_nav_graph"
+            app:destination="@id/details_nav_graph">
+            <argument
+                android:name="movieTitle"
+                app:argType="string" />
+            <argument
+                android:name="movieOrSeriesId"
+                app:argType="long" />
+            <argument
+                android:name="type"
+                app:argType="com.segunfrancis.muvies.common.Type" />
+        </action>
+    </fragment>
 
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.segunfrancis.search.ui.SearchFragment"
         android:label="SearchFragment"
         tools:layout="@layout/fragment_search" />
-
-    <fragment
-        android:id="@+id/detailsFragment"
-        android:name="com.segunfrancis.muvies.feature.movie_details.ui.MovieDetailsFragment"
-        tools:layout="@layout/movie_details_fragment">
-        <argument
-            android:name="movieId"
-            app:argType="integer" />
-        <argument
-            android:name="movieTitle"
-            app:argType="string" />
-        <deepLink
-            app:uri="https://czech.muvies/movie_details/{movieId}/{movieTitle}" />
-        <action
-            android:id="@+id/toMovieDetails"
-            app:destination="@id/detailsFragment" />
-    </fragment>
 
     <fragment
         android:id="@+id/tvShowsDetailsFragment"

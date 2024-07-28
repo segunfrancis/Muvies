@@ -3,7 +3,7 @@ package com.segunfrancis.muvies.feature.movie_details.dto
 import com.google.gson.annotations.SerializedName
 
 data class MovieCreditsResponse(
-    val cast: List<Cast?>? = null,
+    val cast: List<Cast>,
     val crew: List<Crew?>? = null,
     val id: Int? = null
 )

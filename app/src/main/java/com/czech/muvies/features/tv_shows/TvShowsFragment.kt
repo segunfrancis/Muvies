@@ -11,7 +11,6 @@ import com.czech.muvies.features.home.epoxy.MainMovieHolder
 import com.czech.muvies.features.home.epoxy.MovieHeaderHolder
 import com.czech.muvies.features.home.epoxy.SubMovieHolder
 import com.czech.muvies.models.TvShows
-import com.czech.muvies.utils.NavigationDeepLinks
 import com.czech.muvies.utils.Result
 import com.czech.muvies.utils.epoxy.BaseEpoxyController
 import com.czech.muvies.utils.epoxy.carouselNoSnap
@@ -20,6 +19,7 @@ import com.czech.muvies.utils.makeGone
 import com.czech.muvies.utils.makeVisible
 import com.czech.muvies.utils.showErrorMessage
 import com.czech.muvies.utils.showMessage
+import com.segunfrancis.muvies.common.Type
 import com.segunfrancis.muvies.common.viewBinding
 import timber.log.Timber
 
@@ -86,9 +86,10 @@ class TvShowsFragment : Fragment(R.layout.tv_shows_fragment) {
                             if (tvShowsResult?.category == TvShows.TvShowsCategory.AIRING_TODAY) {
                                 MainMovieHolder {
                                     launchFragment(
-                                        NavigationDeepLinks.toTvShowDetails(
-                                            it,
-                                            tvShowsResult.name
+                                        TvShowsFragmentDirections.toDetailsNavGraph(
+                                            movieOrSeriesId = it.toLong(),
+                                            movieTitle = tvShowsResult.name,
+                                            type = Type.TvShow
                                         )
                                     )
                                 }.apply {
@@ -102,9 +103,10 @@ class TvShowsFragment : Fragment(R.layout.tv_shows_fragment) {
                             } else {
                                 SubMovieHolder {
                                     launchFragment(
-                                        NavigationDeepLinks.toTvShowDetails(
-                                            it,
-                                            tvShowsResult?.name ?: ""
+                                        TvShowsFragmentDirections.toDetailsNavGraph(
+                                            movieOrSeriesId = it.toLong(),
+                                            movieTitle = tvShowsResult?.name.orEmpty(),
+                                            type = Type.TvShow
                                         )
                                     )
                                 }.apply {

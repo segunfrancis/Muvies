@@ -3,13 +3,13 @@ package com.segunfrancis.muvies.feature.movie_details.dto
 import com.google.gson.annotations.SerializedName
 
 data class MovieDetailsResponse(
-    val adult: Boolean? = null,
+    val adult: Boolean,
     @SerializedName("backdrop_path")
     val backdropPath: String? = null,
     @SerializedName("belongs_to_collection")
     val belongsToCollection: BelongsToCollection? = null,
     val budget: Long? = null,
-    val genres: List<Genre?>? = null,
+    val genres: List<Genre> = emptyList(),
     val homepage: String? = null,
     val id: Int? = null,
     @SerializedName("imdb_id")
@@ -17,7 +17,7 @@ data class MovieDetailsResponse(
     @SerializedName("original_language")
     val originalLanguage: String? = null,
     @SerializedName("original_title")
-    val originalTitle: String? = null,
+    val originalTitle: String? = "",
     val overview: String? = null,
     val popularity: Double? = null,
     @SerializedName("poster_path")
@@ -28,18 +28,26 @@ data class MovieDetailsResponse(
     val productionCountries: List<ProductionCountry?>? = null,
     @SerializedName("release_date")
     val releaseDate: String? = null,
-    val revenue: Int? = null,
+    val revenue: Long = 0,
     val runtime: Int? = null,
     @SerializedName("spoken_languages")
     val spokenLanguages: List<SpokenLanguage?>? = null,
     val status: String? = null,
     val tagline: String? = null,
-    val title: String? = null,
-    val video: Boolean? = null,
+    val title: String? = "",
+    val video: Boolean = false,
     @SerializedName("vote_average")
-    val voteAverage: Double? = null,
+    val voteAverage: Double = 0.0,
     @SerializedName("vote_count")
-    val voteCount: Int? = null
+    val voteCount: Long = 0,
+    @SerializedName("first_air_date")
+    val firstAirDate: String? = "",
+    @SerializedName("episode_run_time")
+    val episodeRunTime: List<Int> = emptyList(),
+    val name: String? = "",
+    @SerializedName("original_name")
+    val originalName: String? = "",
+    val seasons: List<Season> = emptyList()
 )
 
 data class BelongsToCollection(
@@ -52,8 +60,8 @@ data class BelongsToCollection(
 )
 
 data class Genre(
-    val id: Int? = null,
-    val name: String? = null
+    val id: Int,
+    val name: String
 )
 
 data class ProductionCompany(
@@ -75,4 +83,20 @@ data class SpokenLanguage(
     @SerializedName("iso_639_1")
     val iso6391: String? = null,
     val name: String? = null
+)
+
+data class Season(
+    val id: Long = 0,
+    val name: String,
+    @SerializedName("air_date")
+    val airDate: String,
+    val overview: String,
+    @SerializedName("poster_path")
+    val posterPath: String?,
+    @SerializedName("episode_count")
+    val episodeCount: Int = 0,
+    @SerializedName("season_number")
+    val seasonNumber: Int = 0,
+    @SerializedName("vote_average")
+    val voteAverage: Double = 0.0
 )

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
+import com.segunfrancis.muvies.common.Type
 import com.segunfrancis.muvies.common.handleError
 import com.segunfrancis.muvies.feature.movie_details.api.MovieDetailsService
 import com.segunfrancis.muvies.feature.movie_details.dto.MovieCreditsResponse
@@ -32,16 +33,18 @@ class MovieDetailsViewModel(
         }
     }
 
+    private val type = savedStateHandle.get<Type>("type") ?: Type.Movie
+
     init {
-        savedStateHandle.get<Int>("movieId")?.let {
-            getMovieDetails(it)
+        savedStateHandle.get<Long>("movieOrSeriesId")?.let {
+            getMovieDetails(it, type)
         }
     }
 
-    private fun getMovieDetails(movieId: Int) {
+    private fun getMovieDetails(movieOrSeriesId: Long, type: Type) {
         _uiState.update { it.copy(loading = true) }
         viewModelScope.launch(exceptionHandler) {
-            val response = detailsRepository.getMovieDetails(movieId)
+            val response = detailsRepository.getDetails(id = movieOrSeriesId, type = type)
             _uiState.update {
                 it.copy(
                     details = response.details?.getOrNull(),

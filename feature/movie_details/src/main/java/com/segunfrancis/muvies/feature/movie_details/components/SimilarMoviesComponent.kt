@@ -33,12 +33,13 @@ import com.segunfrancis.muvies.feature.movie_details.utils.similarMoviesResponse
 
 @Composable
 fun SimilarMoviesComponent(
+    headerTitle: String,
     similarMovies: List<SimilarMoviesResult>,
-    onSimilarMovieClick: (id: Int, title: String) -> Unit
+    onSimilarMovieClick: (id: Long, title: String) -> Unit
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Text(
-            text = "SIMILAR MOVIES",
+            text = headerTitle,
             modifier = Modifier.padding(start = 16.dp),
             style = MaterialTheme.typography.h6.copy(fontWeight = FontWeight.Normal)
         )
@@ -56,7 +57,7 @@ fun SimilarMoviesComponent(
                 SimilarMoviesItem(
                     imageUrl = it.posterPath.orEmpty(),
                     movieTitle = it.title.orEmpty(),
-                    onClick = { onSimilarMovieClick(it.id ?: 0, it.title.orEmpty()) }
+                    onClick = { onSimilarMovieClick(it.id, it.title.orEmpty()) }
                 )
             }
         }
@@ -83,7 +84,7 @@ fun SimilarMoviesItem(
         AsyncImage(
             model = ImageRequest.Builder(context)
                 .data("${CommonConstants.BASE_IMAGE_PATH}${imageUrl}")
-                .placeholder(R.drawable.poster_placeholder).error(R.drawable.poster_placeholder)
+                .placeholder(R.drawable.poster_placeholder).error(R.drawable.poster_error)
                 .build(),
             contentDescription = movieTitle,
             contentScale = ContentScale.Crop,
@@ -95,5 +96,5 @@ fun SimilarMoviesItem(
 @Preview
 @Composable
 fun SimilarMoviesComponentPreview() {
-    SimilarMoviesComponent(similarMovies = similarMoviesResponse, onSimilarMovieClick = { _, _ -> })
+    SimilarMoviesComponent(headerTitle = "SIMILAR MOVIES", similarMovies = similarMoviesResponse) { _, _ -> }
 }

@@ -158,3 +158,7 @@ fun Double.roundUp(decimalPlaces: Int = 1): Double {
     }
     return (this * safeMultiplier).roundToLong() / safeMultiplier.toDouble()
 }
+
+enum class Type {
+    Movie, TvShow
+}

@@ -7,7 +7,19 @@ import com.segunfrancis.muvies.feature.movie_details.dto.MovieCreditsResponse
 import com.segunfrancis.muvies.feature.movie_details.dto.MovieDetailsResponse
 import com.segunfrancis.muvies.feature.movie_details.dto.ProductionCompany
 import com.segunfrancis.muvies.feature.movie_details.dto.ProductionCountry
+import com.segunfrancis.muvies.feature.movie_details.dto.Season
 import com.segunfrancis.muvies.feature.movie_details.dto.SimilarMoviesResult
+
+val seasons = listOf(
+    Season(airDate = "", name = "", overview = "", posterPath = ""),
+    Season(airDate = "", name = "", overview = "", posterPath = ""),
+    Season(airDate = "", name = "", overview = "", posterPath = ""),
+    Season(airDate = "", name = "", overview = "", posterPath = ""),
+    Season(airDate = "", name = "", overview = "", posterPath = ""),
+    Season(airDate = "", name = "", overview = "", posterPath = ""),
+    Season(airDate = "", name = "", overview = "", posterPath = ""),
+    Season(airDate = "", name = "", overview = "", posterPath = "")
+)
 
 val movieDetailsResponse = MovieDetailsResponse(
     adult = false,
@@ -39,7 +51,8 @@ val movieDetailsResponse = MovieDetailsResponse(
     title = "Godzilla x Kong: The New Empire",
     video = true,
     voteAverage = 6.627,
-    voteCount = 898
+    voteCount = 898,
+    seasons = seasons
 )
 
 val creditsResponse = MovieCreditsResponse(
@@ -78,19 +91,20 @@ val creditsResponse = MovieCreditsResponse(
 )
 
 val similarMoviesResponse = listOf(
-    SimilarMoviesResult(),
-    SimilarMoviesResult(),
-    SimilarMoviesResult(),
-    SimilarMoviesResult(),
-    SimilarMoviesResult(),
-    SimilarMoviesResult(),
-    SimilarMoviesResult(),
-    SimilarMoviesResult(),
-    SimilarMoviesResult(),
-    SimilarMoviesResult(),
-    SimilarMoviesResult(),
-    SimilarMoviesResult(),
-    SimilarMoviesResult(),
-    SimilarMoviesResult(),
-    SimilarMoviesResult()
+    SimilarMoviesResult(id = 1),
+    SimilarMoviesResult(id = 2),
+    SimilarMoviesResult(id = 3),
+    SimilarMoviesResult(id = 4),
+    SimilarMoviesResult(id = 5),
+    SimilarMoviesResult(id = 6),
+    SimilarMoviesResult(id = 7),
+    SimilarMoviesResult(id = 8),
+    SimilarMoviesResult(id = 9),
+    SimilarMoviesResult(id = 10),
+    SimilarMoviesResult(id = 11),
+    SimilarMoviesResult(id = 12),
+    SimilarMoviesResult(id = 13),
+    SimilarMoviesResult(id = 14),
+    SimilarMoviesResult(id = 15),
+    SimilarMoviesResult(id = 16),
 )

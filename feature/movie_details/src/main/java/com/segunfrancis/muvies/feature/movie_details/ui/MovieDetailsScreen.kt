@@ -11,10 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.segunfrancis.muvies.feature.movie_details.components.MoviePosterSection
 import com.segunfrancis.muvies.common.theme.MuviesTheme
 import com.segunfrancis.muvies.feature.movie_details.components.AboutComponent
 import com.segunfrancis.muvies.feature.movie_details.components.CastsComponent
+import com.segunfrancis.muvies.feature.movie_details.components.MoviePosterSection
+import com.segunfrancis.muvies.feature.movie_details.components.SeasonsComponent
 import com.segunfrancis.muvies.feature.movie_details.components.SimilarMoviesComponent
 import com.segunfrancis.muvies.feature.movie_details.utils.creditsResponse
 import com.segunfrancis.muvies.feature.movie_details.utils.movieDetailsResponse
@@ -37,44 +38,66 @@ fun MovieDetailsContent(response: MovieDetailsUiResponse, onIntent: (MovieDetail
         Column(modifier = Modifier.fillMaxSize()) {
             response.details?.let {
                 MoviePosterSection(
-                    title = it.title.orEmpty(),
-                    rating = it.voteAverage ?: 0.0,
+                    title = it.title.orEmpty().ifEmpty { it.name.orEmpty() },
+                    rating = it.voteAverage,
                     language = it.originalLanguage.orEmpty(),
                     posterPath = it.backdropPath.orEmpty(),
-                    releaseDate = it.releaseDate.orEmpty(),
-                    genres = it.genres?.map { genre -> genre?.name.orEmpty() }.orEmpty(),
+                    voteCount = it.voteCount,
+                    releaseDate = it.releaseDate.orEmpty().ifEmpty { it.firstAirDate.orEmpty() },
+                    genres = it.genres.map { genre -> genre.name },
                     synopsis = it.overview.orEmpty()
                 )
             }
             Spacer(Modifier.height(24.dp))
             response.credits?.cast?.let { casts ->
-                CastsComponent(casts)
+                if (casts.isNotEmpty()) {
+                    CastsComponent(casts)
+                }
             }
             Spacer(Modifier.height(24.dp))
             response.details?.let {
                 AboutComponent(
-                    originalTitle = it.originalTitle,
-                    runtime = String.format("${it.runtime} %s", "minutes"),
+                    originalTitle = it.originalTitle.orEmpty().ifEmpty { it.originalName.orEmpty() },
+                    runtime = if (it.runtime != null) {
+                        String.format("${it.runtime} %s", "minutes")
+                    } else {
+                        val episodeRunTime = it.episodeRunTime.firstOrNull()
+                        if (episodeRunTime != null) {
+                            String.format("$episodeRunTime %s", "minutes")
+                        } else {
+                            null
+                        }
+                    },
                     status = it.status,
-                    voteCount = String.format("${it.voteCount} %s", "votes"),
                     releaseDate = it.releaseDate,
                     tagLine = it.tagline,
                     homePage = it.homepage
                 )
             }
             Spacer(Modifier.height(24.dp))
+            response.details?.seasons?.let {
+                if (it.isNotEmpty()) {
+                    SeasonsComponent(it)
+                }
+            }
+            Spacer(Modifier.height(24.dp))
             response.similarMovies?.let { movies ->
                 if (movies.isNotEmpty()) {
                     SimilarMoviesComponent(
-                        movies,
-                        onSimilarMovieClick = { id, title ->
-                            onIntent(
-                                MovieDetailsIntents.ViewMovieDetails(
-                                    id,
-                                    title
-                                )
+                        headerTitle = if (response.details?.title?.isNotEmpty() == true) {
+                            "SIMILAR MOVIES"
+                        } else {
+                            "SIMILAR TV SHOWS"
+                        },
+                        similarMovies = movies
+                    ) { id, title ->
+                        onIntent(
+                            MovieDetailsIntents.ViewMovieDetails(
+                                id,
+                                title
                             )
-                        })
+                        )
+                    }
                     Spacer(Modifier.height(16.dp))
                 }
             }
@@ -83,7 +106,7 @@ fun MovieDetailsContent(response: MovieDetailsUiResponse, onIntent: (MovieDetail
 }
 
 sealed interface MovieDetailsIntents {
-    data class ViewMovieDetails(val id: Int, val movieTitle: String) : MovieDetailsIntents
+    data class ViewMovieDetails(val id: Long, val movieTitle: String) : MovieDetailsIntents
     data class ViewCastDetails(val id: Int) : MovieDetailsIntents
 }
 

@@ -1,5 +1,6 @@
 package com.segunfrancis.muvies.feature.movie_details.repo
 
+import com.segunfrancis.muvies.common.Type
 import com.segunfrancis.muvies.feature.movie_details.api.MovieDetailsService
 import com.segunfrancis.muvies.feature.movie_details.dto.MovieCreditsResponse
 import com.segunfrancis.muvies.feature.movie_details.dto.MovieDetailsResponse
@@ -14,21 +15,37 @@ class MovieDetailsRepository(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
-    suspend fun getMovieDetails(movieId: Int): MovieDetailsResult {
-        return withContext(dispatcher) {
-            val details = async { safeCall { service.getMovieDetails(movieId) } }
-            val similarMovies = async { safeCall { service.getSimilarMovies(movieId).results } }
-            val credits = async { safeCall { service.getMovieCredits(movieId) } }
-            MovieDetailsResult(
-                details = details.await(),
-                similarMovies = similarMovies.await(),
-                credits = credits.await()
-            )
+    suspend fun getDetails(id: Long, type: Type): DetailsResult {
+        return when (type) {
+            Type.Movie -> {
+                withContext(dispatcher) {
+                    val details = async { safeCall { service.getMovieDetails(id) } }
+                    val similarMovies = async { safeCall { service.getSimilarMovies(id).results } }
+                    val credits = async { safeCall { service.getMovieCredits(id) } }
+                    DetailsResult(
+                        details = details.await(),
+                        similarMovies = similarMovies.await(),
+                        credits = credits.await()
+                    )
+                }
+            }
+            Type.TvShow -> {
+                withContext(dispatcher) {
+                    val details = async { safeCall { service.getTvShowDetails(id) } }
+                    val similarMovies = async { safeCall { service.getSimilarSeries(id).results } }
+                    val credits = async { safeCall { service.getSeriesCredits(id) } }
+                    DetailsResult(
+                        details = details.await(),
+                        similarMovies = similarMovies.await(),
+                        credits = credits.await()
+                    )
+                }
+            }
         }
     }
 }
 
-data class MovieDetailsResult(
+data class DetailsResult(
     val details: Result<MovieDetailsResponse>? = null,
     val similarMovies: Result<List<SimilarMoviesResult>?>? = null,
     val credits: Result<MovieCreditsResponse>? = null

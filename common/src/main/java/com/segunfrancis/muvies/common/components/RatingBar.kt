@@ -3,11 +3,13 @@ package com.segunfrancis.muvies.common.components
 import androidx.annotation.FloatRange
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import com.segunfrancis.muvies.common.R
 import com.segunfrancis.muvies.common.theme.MuviesTheme
 import kotlin.math.round
@@ -20,29 +22,37 @@ fun RatingBar(@FloatRange(from = 0.0, to = 10.0) rating: Double, modifier: Modif
         val firstDivOther = 5 - firstDiv
         val numbersToColor = firstDiv.toInt()
         repeat(numbersToColor) {
-            Image(painter = painterResource(R.drawable.ic_full_star), contentDescription = null)
+            Image(
+                painter = painterResource(R.drawable.ic_full_star),
+                contentDescription = null,
+                modifier = Modifier.size(18.dp)
+            )
         }
         if (firstReminder > 0.0) {
             when (firstReminder) {
                 in 0.1..0.3 -> Image(
                     painter = painterResource(R.drawable.ic_30_star),
-                    contentDescription = null
+                    contentDescription = null, modifier = Modifier.size(18.dp)
                 )
 
                 in 0.4..0.6 -> Image(
                     painter = painterResource(R.drawable.ic_50_star),
-                    contentDescription = null
+                    contentDescription = null, modifier = Modifier.size(18.dp)
                 )
 
                 else -> Image(
                     painter = painterResource(R.drawable.ic_70_star),
-                    contentDescription = null
+                    contentDescription = null, modifier = Modifier.size(18.dp)
                 )
             }
         }
         if (firstDivOther >= 1) {
             repeat(firstDivOther.toInt()) {
-                Image(painter = painterResource(R.drawable.ic_empty_star), contentDescription = null)
+                Image(
+                    painter = painterResource(R.drawable.ic_empty_star),
+                    contentDescription = null,
+                    modifier = Modifier.size(18.dp)
+                )
             }
         }
     }
@@ -52,7 +62,7 @@ fun RatingBar(@FloatRange(from = 0.0, to = 10.0) rating: Double, modifier: Modif
 @Composable
 fun RatingBarPreview() {
     MuviesTheme {
-        RatingBar(rating = 9.9)
+        RatingBar(rating = 8.114)
     }
 }
 

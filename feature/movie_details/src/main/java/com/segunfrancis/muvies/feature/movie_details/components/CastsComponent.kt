@@ -63,7 +63,7 @@ fun CastsItem(
                 model = ImageRequest.Builder(context)
                     .data("${BASE_IMAGE_PATH}${photoUrl}")
                     .placeholder(R.drawable.poster_placeholder)
-                    .error(R.drawable.poster_placeholder).build(),
+                    .error(R.drawable.poster_error).build(),
                 contentScale = ContentScale.Crop,
                 contentDescription = null
             )
@@ -129,6 +129,6 @@ fun CastsComponent(casts: List<Cast?>) {
 @Composable
 fun CastsComponentPreview() {
     MuviesTheme {
-        CastsComponent(casts = creditsResponse.cast.orEmpty())
+        CastsComponent(casts = creditsResponse.cast)
     }
 }

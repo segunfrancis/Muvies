@@ -12,20 +12,20 @@ import retrofit2.http.Query
 interface MovieDetailsService {
 
     @GET("movie/{id}/similar")
-    suspend fun getSimilarMovies(
-        @Path("id") movieId: Int,
-        @Query("api_key") apiKey: String = BuildConfig.API_KEY
-    ): BaseResponse<List<SimilarMoviesResult>>
+    suspend fun getSimilarMovies(@Path("id") movieId: Long): BaseResponse<List<SimilarMoviesResult>>
 
     @GET("movie/{id}/credits")
-    suspend fun getMovieCredits(
-        @Path("id") movieId: Int,
-        @Query("api_key") apiKey: String = BuildConfig.API_KEY
-    ): MovieCreditsResponse
+    suspend fun getMovieCredits(@Path("id") movieId: Long): MovieCreditsResponse
 
     @GET("movie/{id}")
-    suspend fun getMovieDetails(
-        @Path("id") movieId: Int,
-        @Query("api_key") apiKey: String = BuildConfig.API_KEY
-    ): MovieDetailsResponse
+    suspend fun getMovieDetails(@Path("id") movieId: Long): MovieDetailsResponse
+
+    @GET("tv/{id}")
+    suspend fun getTvShowDetails(@Path("id") movieId: Long): MovieDetailsResponse
+
+    @GET("tv/{id}/credits")
+    suspend fun getSeriesCredits(@Path("id") seriesId: Long): MovieCreditsResponse
+
+    @GET("tv/{id}/similar")
+    suspend fun getSimilarSeries(@Path("id") seriesId: Long): BaseResponse<List<SimilarMoviesResult>>
 }

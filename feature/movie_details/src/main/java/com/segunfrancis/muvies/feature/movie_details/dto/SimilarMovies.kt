@@ -8,7 +8,7 @@ data class SimilarMoviesResult(
     val backdropPath: String? = null,
     @SerializedName("genre_ids")
     val genreIds: List<Int?>? = null,
-    val id: Int? = null,
+    val id: Long,
     @SerializedName("original_language")
     val originalLanguage: String? = null,
     @SerializedName("original_title")

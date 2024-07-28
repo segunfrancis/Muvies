@@ -14,6 +14,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -23,14 +24,14 @@ import androidx.compose.ui.unit.dp
 import com.segunfrancis.muvies.common.theme.Grey400
 import com.segunfrancis.muvies.common.theme.Grey700
 import com.segunfrancis.muvies.common.theme.MuviesTheme
+import com.segunfrancis.muvies.feature.movie_details.R
 
 @Composable
 fun AboutComponent(
-    originalTitle: String?,
+    originalTitle: String,
     runtime: String?,
     status: String?,
     releaseDate: String?,
-    voteCount: String?,
     tagLine: String?,
     homePage: String?
 ) {
@@ -38,12 +39,12 @@ fun AboutComponent(
 
     Column(modifier = Modifier.fillMaxWidth()) {
         Text(
-            text = "ABOUT",
+            text = stringResource(R.string.about),
             modifier = Modifier.padding(start = 16.dp),
             style = MaterialTheme.typography.h6.copy(fontWeight = FontWeight.Normal)
         )
         Spacer(modifier = Modifier.height(16.dp))
-        if (!originalTitle.isNullOrBlank()) {
+        if (originalTitle.isNotEmpty()) {
             AboutItem(label = "Original Title:", value = originalTitle)
         }
         if (!runtime.isNullOrEmpty()) {
@@ -55,9 +56,6 @@ fun AboutComponent(
         if (!releaseDate.isNullOrEmpty()) {
             AboutItem(label = "Release Date:", value = releaseDate)
         }
-        if (!voteCount.isNullOrEmpty()) {
-            AboutItem(label = "Vote Count:", value = voteCount)
-        }
         if (!tagLine.isNullOrEmpty()) {
             AboutItem(label = "Tag Line:", value = tagLine)
         }
@@ -68,7 +66,7 @@ fun AboutComponent(
                     .padding(horizontal = 16.dp, vertical = 2.dp)
             ) {
                 Text(
-                    text = "Home Page",
+                    text = "Home Page:",
                     style = MaterialTheme.typography.overline,
                     modifier = Modifier.weight(0.35F),
                     color = Grey700
@@ -124,7 +122,6 @@ fun AboutComponentPreview() {
             runtime = "97 minutes",
             status = "Released",
             releaseDate = "11-06-2024",
-            voteCount = "2021 votes",
             tagLine = "Make room for new emotions.",
             homePage = "https://movies.disney.com/inside-out-2"
         )
